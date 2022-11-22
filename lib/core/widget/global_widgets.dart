@@ -15,7 +15,11 @@ class Desecrption1 extends StatelessWidget {
       child: Text(text,style: TextStyle(
           fontSize: 15.0,
           color: darkGrey
-      ),),
+
+
+      ),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

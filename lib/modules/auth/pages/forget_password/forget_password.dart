@@ -3,15 +3,13 @@ import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
-import 'package:queen_care/modules/auth/pages/forget_password/forget_password.dart';
+import 'package:queen_care/modules/auth/pages/forget_password/confirm_password.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 
-// ignore: must_be_immutable
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
-  TextEditingController emailController = TextEditingController();
+class ForgetPassword extends StatelessWidget {
+  ForgetPassword({Key? key}) : super(key: key);
+
   TextEditingController phoneController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class Login extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const title(text: 'تسجيل الدخول'),
+                const title(text: 'نسيت رمز الدخول'),
                 const Spacer(),
               ],
             ),
@@ -40,16 +38,16 @@ class Login extends StatelessWidget {
               height: 50,
             ),
             const BigTitle(
-              text: 'مرحبا بعودتك',
+              text: 'نسيت رمز الدخول',
             ),
             const SizedBox(
               height: 10,
             ),
             const Desecrption1(
                 text:
-                    'قم بتسجل الدخول باستخدام \n الايميل وكلمة المرور أو رقم الهاتف '),
+                    'أدخل رقم الهاتف أدناه وسنرسل إليك \n رسالة نصية تحوي على رمز التحقق \nلتغيير كلمة المرور الخاصة بك  '),
             SizedBox(
-              height: h * 0.03,
+              height: h * 0.15,
             ),
             customTextField(
                 keyboardType: TextInputType.phone,
@@ -65,75 +63,20 @@ class Login extends StatelessWidget {
                 context: context,
                 onEditingComplete: () {}),
             SizedBox(
-              height: h * 0.03,
-            ),
-            customTextField(
-                keyboardType: TextInputType.emailAddress,
-                validate: (v) {},
-                label: 'الايميل',
-                hintText: 'الايميل',
-                isPassword: false,
-                icon: const Icon(
-                  Icons.email,
-                  color: kPrimaryColor,
-                ),
-                controller: emailController,
-                context: context,
-                onEditingComplete: () {}),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            customTextField(
-                keyboardType: TextInputType.text,
-                validate: (v) {},
-                label: 'كلمة المرور',
-                hintText: 'كلمة المرور',
-                isPassword: false,
-                icon: const Icon(
-                  Icons.lock_outline,
-                  color: kPrimaryColor,
-                ),
-                controller: passwordController,
-                context: context,
-                onEditingComplete: () {}),
-            Row(
-              children: [
-                Checkbox(
-                    value: false,
-                    checkColor: kPrimaryColor,
-                    onChanged: (onChanged) {}),
-                const Text(
-                  'تذكرني ',
-                  style: TextStyle(
-                    color: darkGrey,
-                  ),
-                ),
-                const Spacer(),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => ForgetPassword()));
-                    },
-                    child: const Text(
-                      'نيست رمز الدخول ',
-                      style: TextStyle(
-                          color: darkGrey,
-                          decoration: TextDecoration.underline),
-                    )),
-              ],
-            ),
-            SizedBox(
-              height: h * 0.03,
+              height: h * 0.15,
             ),
             AuthButton(
-              title: 'المتابعة',
-              onTap: () {},
+              title: 'تاكيد',
+              onTap: () {
+                                    Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (_) => ComfirmePassword()));
+              },
               color: kPrimaryColor,
             ),
             SizedBox(
               height: h * 0.05,
             ),
-            Row(
+           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
