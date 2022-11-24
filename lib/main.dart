@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/cubit/locale_cubit.dart';
+import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
 
 void main() {

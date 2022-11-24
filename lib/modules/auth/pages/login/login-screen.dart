@@ -74,7 +74,7 @@ class Login extends StatelessWidget {
                 hintText: 'الايميل',
                 isPassword: false,
                 icon: const Icon(
-                  Icons.email,
+                  Icons.email_outlined,
                   color: kPrimaryColor,
                 ),
                 controller: emailController,

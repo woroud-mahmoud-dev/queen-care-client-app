@@ -12,61 +12,40 @@ Widget customTextField({
   required Widget icon,
   Function()? onEditingComplete,
 }) {
-  return TextFormField(
-    textInputAction: TextInputAction.send,
-    keyboardType: keyboardType,
-    keyboardAppearance: Brightness.light,
-    onEditingComplete: onEditingComplete,
-    controller: controller,
-    validator: validate,
-    obscureText: isPassword!,
-    decoration: InputDecoration(
-      suffix: icon,
-      hintText:hintText ,
-      prefixIconColor: kPrimaryColor,
-      label: Text(
-        label,
-        style: TextStyle(color: kPrimaryColor),
-      ),
+  return SizedBox(
+    height: 55,
 
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: kPrimaryColor),
-      ),
+    child: TextFormField(
+      textInputAction: TextInputAction.send,
+      keyboardType: keyboardType,
+      keyboardAppearance: Brightness.light,
+      onEditingComplete: onEditingComplete,
+      controller: controller,
+      validator: validate,
+      obscureText: isPassword!,
+      decoration: InputDecoration(
+        suffix: icon,
+        hintText:hintText ,
+        prefixIconColor: kPrimaryColor,
+        label: Text(
+          label,
+          style: TextStyle(color: kPrimaryColor),
+        ),
 
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: kPrimaryColor),
-      ),
-    ),
-  );
-}
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: kPrimaryColor),
+        ),
 
-customButton(double hie, double width, String text, double fsixe,
-    void Function()? onTap) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [kPrimaryColor, KGreen],
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: kPrimaryColor),
         ),
       ),
-      width: width,
-      height: hie,
-      child: Center(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white, fontSize: fsixe, fontWeight: FontWeight.bold),
-          )),
     ),
   );
 }
+
 
 textButton(
     {required Function function,

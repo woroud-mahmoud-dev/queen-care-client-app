@@ -158,7 +158,7 @@ class CompletRegisterScreen extends StatelessWidget {
             SizedBox(
               height: h * 0.05,
             ),
-            Desecrption2(
+            const Desecrption2(
               text: 'من خلال الستمرار تأكيد موافقتك مع شروطنا',
             )
           ],
