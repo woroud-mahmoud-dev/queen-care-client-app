@@ -40,9 +40,11 @@ class _SelectLanguageState extends State<SelectLanguage> {
           builder: (context, state) {
             return Column(
               children: [
-                const SizedBox(
-                  height: 50,
-                ),
+
+                Padding(padding: EdgeInsets.all(30),
+                  child:  Center(
+                    child: Image.asset('assets/images/logo.png',height: 200,width: 200,),
+                  ),),         const Spacer(),
                 Container(
                   height: 40,
                   color: lightGrey,
@@ -57,36 +59,42 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     ],
                   ),
                 ),
-                const Divider(
-                  color: kPrimaryColor,
+
+                const SizedBox(
+                  height: 20,
                 ),
-                LangIteam(
-                  name: 'العربية',
-                  value: 'ar',
-                  groupValue: state.locale.languageCode,
-                  onChanged: (va) {
-                    if (va != null) {
-                      context.read<LocaleCubit>().changeLanguage(va.toString());
-                    }
-                  },
-                ),
-                const Divider(
-                  color: kPrimaryColor,
-                ),
-                LangIteam(
-                    name: 'English',
-                    value: 'en',
-                    groupValue: state.locale.languageCode,
-                    onChanged: (va) {
-                      if (va != null) {
-                        context
-                            .read<LocaleCubit>()
-                            .changeLanguage(va.toString());
-                      }
-                    }),
-                const Divider(
-                  color: kPrimaryColor,
-                ),
+                const Spacer(),
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    LangIteam(
+      name: 'العربية',
+      value: 'ar',
+      groupValue: state.locale.languageCode,
+      onChanged: (va) {
+        if (va != null) {
+          context.read<LocaleCubit>().changeLanguage(va.toString());
+        }
+      }, img: 'assets/icons/sy.png',
+    ),
+
+    LangIteam(
+        img: 'assets/icons/uk.png',
+        name: 'English',
+        value: 'en',
+        groupValue: state.locale.languageCode,
+        onChanged: (va) {
+          if (va != null) {
+            context
+                .read<LocaleCubit>()
+                .changeLanguage(va.toString());
+          }
+        }),
+
+  ],
+),
+
+
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

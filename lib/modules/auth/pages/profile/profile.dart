@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
+import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
+import 'package:queen_care/network/local/chach_helper.dart';
 
 
 
@@ -90,7 +92,10 @@ right: -10,
             ProfileItem(
               img: 'assets/icons/logout_icon.svg',
               text: 'تسجيل الخروج',
-              onTap: (){},
+              onTap: (){
+                CacheHelper.removeData(key: 'api_token');
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> SelectLanguage()), (route) => false);
+              },
             ),
 
           ],

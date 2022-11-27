@@ -1,60 +1,87 @@
-
 import 'dart:convert';
-class UserModel {
+class UserModel{
+  dynamic id ;
+
+dynamic name;
+dynamic phone;
+dynamic gender;
+  dynamic api_token;
+  dynamic email;
+
+  // dynamic type;
   UserModel({
-    required this.id,
-    required this.name,
-    required this.phone,
-    required this.email,
-    required this.type,
-    required this.gender,
-    required this.apiToken,
-    required this.fcm,
+    this.id,
+    this.api_token,
+    this.gender,
+    this.email,
+    this.phone,
+    this.name,
+    // this.type,
 
-    required this.fcmToken,
-    required this.starsAverage,
-  });
-  final dynamic id;
-  final dynamic name;
-  final dynamic phone;
-  final dynamic email;
-  final dynamic type;
-  final dynamic gender;
-  final dynamic apiToken;
-  final dynamic fcm;
-
-  final dynamic fcmToken;
-  final dynamic starsAverage;
-
-  factory UserModel.fromJson(String str) => UserModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
-    id: json["id"] == null ? null : json["id"],
+});
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     name: json["name"],
-    phone: json["phone"] == null ? null : json["phone"],
     email: json["email"],
-    type: json["type"] == null ? null : json["type"],
+    phone: json["phone"],
+    // type: json["type"],
     gender: json["gender"],
-    apiToken: json["api_token"] == null ? null : json["api_token"],
-    fcm: json["fcm"],
+    api_token: json["api_token"],
+    id: json["id"],
 
-    fcmToken: json["fcm_token"],
-    starsAverage: json["stars_average"],
   );
 
-  Map<String, dynamic> toMap() => {
-    "id": id == null ? null : id,
-    "name": name,
-    "phone": phone == null ? null : phone,
-    "email": email,
-    "type": type == null ? null : type,
-    "gender": gender,
-    "api_token": apiToken == null ? null : apiToken,
-    "fcm": fcm,
 
-    "fcm_token": fcmToken,
-    "stars_average": starsAverage,
-  };
+
 }
+
+//
+// class ProfileModel {
+//   ProfileModel({
+//     required this.name,
+//     required this.email,
+//     required this.phone,
+//     required this.gender,
+//     required this.apiToken,
+//   });
+//
+//   final String name;
+//   final String email;
+//   final String phone;
+//   final String gender;
+//   final String apiToken;
+//
+//   factory ProfileModel.fromJson(String str) => ProfileModel.fromMap(json.decode(str));
+//
+//   String toJson() => json.encode(toMap());
+//
+//   factory ProfileModel.fromMap(Map<String, dynamic> json) => ProfileModel(
+//     name: json["name"],
+//     email: json["email"],
+//     phone: json["phone"],
+//     gender: json["gender"],
+//     apiToken: json["api_token"],
+//   );
+//
+//   Map<String, dynamic> toMap() => {
+//     "name": name,
+//     "email": email,
+//     "phone": phone,
+//     "gender": gender,
+//     "api_token": apiToken,
+//   };
+// }
+/*
+{
+    "name": "ali2",
+    "email": "ali2@gmail.com",
+    "phone": "0992955242",
+    "type": 0,
+    "gender": "0",
+    "fcm": null,
+    "api_token": "ttt4cxwGahyRUFKf1wYyHRQntenIL7dRGwwe0loRouy70nikq6aPAZKt7YYI",
+    "updated_at": "2022-10-22T17:19:30.000000Z",
+    "created_at": "2022-10-22T17:19:30.000000Z",
+    "id": 2,
+    "stars_average": null
+}
+*/

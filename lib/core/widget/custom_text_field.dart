@@ -12,35 +12,31 @@ Widget customTextField({
   required Widget icon,
   Function()? onEditingComplete,
 }) {
-  return SizedBox(
-    height: 55,
+  return TextFormField(
+    textInputAction: TextInputAction.send,
+    keyboardType: keyboardType,
+    keyboardAppearance: Brightness.light,
+    onEditingComplete: onEditingComplete,
+    controller: controller,
+    validator: validate,
+    obscureText: isPassword!,
+    decoration: InputDecoration(
+      suffix: icon,
+      hintText:hintText ,
+      prefixIconColor: kPrimaryColor,
+      label: Text(
+        label,
+        style: TextStyle(color: kPrimaryColor),
+      ),
 
-    child: TextFormField(
-      textInputAction: TextInputAction.send,
-      keyboardType: keyboardType,
-      keyboardAppearance: Brightness.light,
-      onEditingComplete: onEditingComplete,
-      controller: controller,
-      validator: validate,
-      obscureText: isPassword!,
-      decoration: InputDecoration(
-        suffix: icon,
-        hintText:hintText ,
-        prefixIconColor: kPrimaryColor,
-        label: Text(
-          label,
-          style: TextStyle(color: kPrimaryColor),
-        ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
 
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: kPrimaryColor),
-        ),
-
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: kPrimaryColor),
-        ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: kPrimaryColor),
       ),
     ),
   );

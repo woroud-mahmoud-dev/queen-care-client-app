@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/forget_password/forget_password.dart';
+import 'package:queen_care/modules/auth/pages/login/cubit/login_cubite.dart';
+import 'package:queen_care/modules/auth/pages/login/cubit/login_states.dart';
+import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 
-// ignore: must_be_immutable
+
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    return BlocProvider(
+  create: (context) => LoginCubit(),
+  child: BlocConsumer<LoginCubit, LoginStates>(
+  listener: (context, state) {
+    print(state);
+    if ( state is  LoginSuccessState) {
+      showToast(text: ' تم تسجيل الدخول بنجاح', color: Colors.green);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=>Profile()), (route) => false);
+
+    }
+
+    if (state is LoginErrorState) {
+      showToast(text: 'اسم المستخدم او كلمة المرور خطأ', color: Colors.red);
+    }
+
+  },
+  builder: (context, state) {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -47,65 +69,76 @@ class Login extends StatelessWidget {
             ),
             const Desecrption1(
                 text:
-                    'قم بتسجل الدخول باستخدام \n الايميل وكلمة المرور أو رقم الهاتف '),
+                    'قم بتسجل الدخول باستخدام \n رقم الهاتف وكلمة المرور  '),
             SizedBox(
               height: h * 0.03,
             ),
-            customTextField(
-                keyboardType: TextInputType.phone,
-                validate: (v) {},
-                label: 'رقم الهاتف',
-                hintText: 'ادخل رقم هاتفك',
-                isPassword: false,
-                icon: const Icon(
-                  Icons.phone_android,
-                  color: kPrimaryColor,
-                ),
-                controller: phoneController,
-                context: context,
-                onEditingComplete: () {}),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            customTextField(
-                keyboardType: TextInputType.emailAddress,
-                validate: (v) {},
-                label: 'الايميل',
-                hintText: 'الايميل',
-                isPassword: false,
-                icon: const Icon(
-                  Icons.email_outlined,
-                  color: kPrimaryColor,
-                ),
-                controller: emailController,
-                context: context,
-                onEditingComplete: () {}),
-            SizedBox(
-              height: h * 0.03,
-            ),
-            customTextField(
-                keyboardType: TextInputType.text,
-                validate: (v) {},
-                label: 'كلمة المرور',
-                hintText: 'كلمة المرور',
-                isPassword: false,
-                icon: const Icon(
-                  Icons.lock_outline,
-                  color: kPrimaryColor,
-                ),
-                controller: passwordController,
-                context: context,
-                onEditingComplete: () {}),
+            Form(
+                key:formKey ,
+                child: Column(children: [
+                  customTextField(
+                      keyboardType: TextInputType.phone,
+                      validate: (value) {
+
+                        if (value!.isEmpty) {
+                          return 'Phone is Required ';
+                        }
+                      },
+                      label: 'رقم الهاتف',
+                      hintText: 'ادخل رقم هاتفك',
+                      isPassword: false,
+                      icon: const Icon(
+                        Icons.phone_android,
+                        color: kPrimaryColor,
+                      ),
+                      controller: phoneController,
+                      context: context,
+                      onEditingComplete: () {}),
+
+                  SizedBox(
+                    height: h * 0.03,
+                  ),
+                  customTextField(
+                      keyboardType: TextInputType.text,
+                      validate: (value) {
+
+                        if (value!.isEmpty) {
+                          return 'Password is Required ';
+                        }
+                      },
+                      label: 'كلمة المرور',
+                      hintText: 'كلمة المرور',
+                      isPassword: false,
+                      icon: const Icon(
+                        Icons.lock_outline,
+                        color: kPrimaryColor,
+                      ),
+                      controller: passwordController,
+                      context: context,
+                      onEditingComplete: () {}),
+                ],)),
+
+
             Row(
               children: [
                 Checkbox(
-                    value: false,
+                    value: LoginCubit.get(context).rememberMe,
                     checkColor: kPrimaryColor,
-                    onChanged: (onChanged) {}),
+                    activeColor: Colors.grey,
+                    // overlayColor:MaterialStateProperty.all(Colors.green),
+
+                    fillColor: MaterialStateProperty.all(Colors.black12),
+
+                    onChanged: (onChanged) {
+                      LoginCubit.get(context).remember();
+
+                    }),
                 const Text(
                   'تذكرني ',
                   style: TextStyle(
                     color: darkGrey,
+
+
                   ),
                 ),
                 const Spacer(),
@@ -125,9 +158,24 @@ class Login extends StatelessWidget {
             SizedBox(
               height: h * 0.03,
             ),
-            AuthButton(
+       state is LoginLoadingState?const Center(
+        child: CircularProgressIndicator(
+        color: kPrimaryColor,
+      )):     AuthButton(
               title: 'المتابعة',
-              onTap: () {},
+              onTap: () {
+
+                if (formKey.currentState!
+                    .validate()) {
+                  print(' validate done !!!!');
+                  LoginCubit.get(context).loginWithHttp(
+                      phone: phoneController.text
+                          .trim(),
+                      password: passwordController
+                          .text
+                          .trim());
+                }
+              },
               color: kPrimaryColor,
             ),
             SizedBox(
@@ -144,6 +192,7 @@ class Login extends StatelessWidget {
                 ),
                 TextButton(
                     onPressed: () {
+
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (_) => Register()));
                     },
@@ -159,5 +208,8 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  },
+),
+);
   }
 }

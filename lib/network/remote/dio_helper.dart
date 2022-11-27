@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
 
 import 'package:dio/dio.dart';
-import 'package:queen_care/core/utlis/strings.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -8,9 +8,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        followRedirects: false,
-        validateStatus: (status) => true,
-        baseUrl: baseUrl,
+        baseUrl: "https://sicspider.com/now/shadid/public/api/",
         receiveDataWhenStatusError: true,
         headers: {
           'Content-Type': 'application/json',

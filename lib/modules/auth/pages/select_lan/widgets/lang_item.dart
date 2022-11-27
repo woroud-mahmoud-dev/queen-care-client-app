@@ -4,6 +4,7 @@ import 'package:queen_care/core/utlis/constant.dart';
 class LangIteam extends StatefulWidget {
   String value;
   String name;
+  String img;
 
   var groupValue;
 
@@ -11,6 +12,7 @@ class LangIteam extends StatefulWidget {
   LangIteam(
       {Key? key,
       required this.value,
+      required this.img,
       required this.name,
       required this.groupValue,
       required this.onChanged})
@@ -27,28 +29,35 @@ class _LangIteamState extends State<LangIteam> {
 
     return InkWell(
       onTap: () => widget.onChanged(widget.value),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.05,
-        decoration: const BoxDecoration(
-          color: Colors.white,
+      child:  Card(
+        elevation: 6,
 
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10),
-              child: Text(
-                '${widget.name}',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                    fontSize: selected ? 18 : 15,
-                    color: selected ? kPrimaryColor : darkGrey),
+
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(widget.img
+              ,fit: BoxFit.cover,
+
+                height: 50,
+                width: 70,
               ),
-            ),
-          ],
+
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10,top: 7),
+                child: Text(
+                  '${widget.name}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                      fontSize:  18 ,
+                      color: selected ? kPrimaryColor : darkGrey),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

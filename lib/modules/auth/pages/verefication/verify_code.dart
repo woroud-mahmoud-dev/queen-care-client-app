@@ -5,6 +5,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 
 // ignore: must_be_immutable
 class VerifyCode extends StatelessWidget {
@@ -114,7 +115,10 @@ class VerifyCode extends StatelessWidget {
             ),
             AuthButton(
               title: 'تأكيد',
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));
+
+              },
               color: kPrimaryColor,
             ),
             SizedBox(
