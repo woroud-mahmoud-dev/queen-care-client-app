@@ -5,6 +5,10 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/cubit/locale_cubit.dart';
 import 'package:queen_care/models/bloc_observer.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
+import 'package:queen_care/modules/home/home_screen.dart';
+import 'package:queen_care/modules/product/prouct_screen.dart';
+
+import 'package:queen_care/modules/qr/qr_scanner_screen.dart';
 import 'package:queen_care/network/local/chach_helper.dart';
 import 'package:queen_care/network/remote/dio_helper.dart';
 

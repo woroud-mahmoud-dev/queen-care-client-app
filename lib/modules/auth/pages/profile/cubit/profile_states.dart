@@ -22,11 +22,12 @@ class GetProfileError extends ProfileCubitState {
 
 
 class EditeProfileLoading extends ProfileCubitState {}
+class SelectGenderState extends ProfileCubitState {}
 
-class  EditeProfileLoaded extends ProfileCubitState {
+class  EditeProfileSuccess extends ProfileCubitState {
   final UserModel user;
 
-  EditeProfileLoaded(this.user);
+  EditeProfileSuccess(this.user);
 }
 
 class  EditeProfileError extends ProfileCubitState {

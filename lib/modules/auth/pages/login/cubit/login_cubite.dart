@@ -88,6 +88,5 @@ emit(ChangeRememberMeState());
     } else if (response.statusCode == 404) {
       emit(LoginErrorState(error: 'Error'));
     }
-
   }
 }

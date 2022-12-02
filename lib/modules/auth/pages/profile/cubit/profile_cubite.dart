@@ -59,10 +59,11 @@ import 'package:http/http.dart' as http;
 //
 //   }
 // }
+
 class ProfileCubit extends Cubit<ProfileCubitState> {
   ProfileCubit() : super(ProfileCubitInitial());
   static ProfileCubit get(context) => BlocProvider.of(context);
-
+  int? genderGroupValue;
   UserModel? user;
   //
   // void getUser() {
@@ -100,7 +101,8 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
 
       print(response.statusCode);
       user = UserModel.fromJson(data);
-      print('data : ${data["api_token"]}');
+      genderGroupValue =int.parse(user!.gender);
+          print('data : ${data["api_token"]}');
 
       emit(GetProfileLoaded(user! ));
     } else if (response.statusCode == 404) {
@@ -109,17 +111,25 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
 
   }
 
+
+  void selectgender(int index) {
+    genderGroupValue = index;
+
+
+    emit((SelectGenderState()));
+  }
   editeProfileWithHttp(
   {
     required String name,
     required String phone,
     required String email,
     required String password,
+    required String gender,
 
 }
       ) async {
     emit(EditeProfileLoading());
-    var myUrl = Uri.parse("https://karam-app.com/celo/queencare/public/api/profile");
+    var myUrl = Uri.parse("https://karam-app.com/celo/queencare/public/api/update_profile");
 
 
     final response = await http.post(myUrl, body: {
@@ -127,6 +137,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
       'name':name.isEmpty?user!.name:name,
       'phone':phone.isEmpty?user!.phone:phone,
       'email':email.isEmpty?user!.email:email,
+      'gender':gender.isEmpty?user!.gender:gender,
 
 
 
@@ -143,8 +154,9 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
       print(response.statusCode);
       user = UserModel.fromJson(data);
       print('data : ${data["api_token"]}');
+      print('update user done !!!');
 
-      emit(GetProfileLoaded(user! ));
+      emit(EditeProfileSuccess(user! ));
     } else if (response.statusCode == 404) {
       emit(GetProfileError(error: 'Error'));
     }

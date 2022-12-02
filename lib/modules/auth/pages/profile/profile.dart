@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
+import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
 import 'package:queen_care/network/local/chach_helper.dart';
 
 
@@ -23,83 +24,81 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        width: w,
-        height: h,
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const BackButton(),
-                SizedBox(
-                  width: w * 0.2,
-                ),
-                const title(text: 'الحساب الشخصي'),
-                const Spacer(),
-              ],
-            ),
-            const SizedBox(
-              height: 50,
-            ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      width: w,
+      height: h,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const BackButton(),
+              SizedBox(
+                width: w * 0.2,
+              ),
+              const title(text: 'الحساب الشخصي'),
+              const Spacer(),
+            ],
+          ),
+          const SizedBox(
+            height: 50,
+          ),
 
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-
+          Align(
+            alignment: Alignment.center,
+            child: Container(
 
 
 
-                height: h* 0.2,
-                width: h*0.2,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
 
-                        decoration: BoxDecoration(
+              height: h* 0.2,
+              width: h*0.2,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
 
-                            color: Color(0xffCCCCCC),
+                      decoration: BoxDecoration(
 
-                            borderRadius: BorderRadius.circular(5))),
-                    Positioned(
-right: -10,
-                        bottom: -10,
-                        child: GestureDetector(
-                          onTap: (){
+                          color: Color(0xffCCCCCC),
+
+                          borderRadius: BorderRadius.circular(5))),
+                  Positioned(
+                      right: -10,
+                      bottom: -10,
+                      child: GestureDetector(
+                        onTap: (){
 
 
-                          },
-                          child: SvgPicture.asset('assets/icons/camera_icon.svg'),
-                        )),
+                        },
+                        child: SvgPicture.asset('assets/icons/camera_icon.svg'),
+                      )),
 
-                  ],
-                ),
+                ],
               ),
             ),
-            SizedBox(height: h*0.2,),
-            ProfileItem(
-              img: 'assets/icons/profile_icon.svg',
-              text: 'حسابي',
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>EditeProfile()));
-              },
-            ),
-            SizedBox(height: h*0.05,),
-            ProfileItem(
-              img: 'assets/icons/logout_icon.svg',
-              text: 'تسجيل الخروج',
-              onTap: (){
-                CacheHelper.removeData(key: 'api_token');
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> SelectLanguage()), (route) => false);
-              },
-            ),
+          ),
+          SizedBox(height: h*0.2,),
+          ProfileItem(
+            img: 'assets/icons/profile_icon.svg',
+            text: 'حسابي',
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>EditeProfile()));
+            },
+          ),
+          SizedBox(height: h*0.05,),
+          ProfileItem(
+            img: 'assets/icons/logout_icon.svg',
+            text: 'تسجيل الخروج',
+            onTap: (){
+              CacheHelper.removeData(key: 'api_token');
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> Splach()), (route) => false);
+            },
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
   }

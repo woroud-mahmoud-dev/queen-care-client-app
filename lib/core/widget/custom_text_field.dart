@@ -8,6 +8,7 @@ Widget customTextField({
   required TextEditingController controller,
   context,
   bool? isPassword,
+
   required TextInputType keyboardType,
   required Widget icon,
   Function()? onEditingComplete,

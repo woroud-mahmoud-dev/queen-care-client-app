@@ -10,6 +10,7 @@ import 'package:queen_care/modules/auth/pages/login/cubit/login_cubite.dart';
 import 'package:queen_care/modules/auth/pages/login/cubit/login_states.dart';
 import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
+import 'package:queen_care/modules/home/home_screen.dart';
 
 
 class Login extends StatelessWidget {
@@ -29,7 +30,7 @@ class Login extends StatelessWidget {
     print(state);
     if ( state is  LoginSuccessState) {
       showToast(text: ' تم تسجيل الدخول بنجاح', color: Colors.green);
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=>Profile()), (route) => false);
+      Navigator.of(context).pushAndRemoveUntil( MaterialPageRoute(builder: (_)=>const HomeScreen()), (route) => false);
 
     }
 
