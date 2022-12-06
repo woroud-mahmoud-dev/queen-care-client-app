@@ -9,6 +9,7 @@ class HomeInitial extends HomeState {
 }
 class NewsBottomNavState extends HomeState{}
 class GetCategoriesLoading extends HomeState{}
+class GoToQuestionTap extends HomeState{}
 class GetCategoriesSuccess extends HomeState{
   final List<Category> categoriesList;
 

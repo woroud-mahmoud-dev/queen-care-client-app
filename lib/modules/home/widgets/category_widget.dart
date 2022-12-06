@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/utlis/strings.dart';
+import 'package:queen_care/modules/product/category_all_products.dart';
 import 'package:queen_care/modules/product/prouct_screen.dart';
 class CategoryWidget extends StatelessWidget {
   final String catName;
   final String catImg;
-   CategoryWidget({Key? key, required this.catName, required this.catImg}) : super(key: key);
+  final  TabController tabController;
+   CategoryWidget({Key? key, required this.catName, required this.catImg, required this.tabController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class CategoryWidget extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ProductScreen()));
+      tabController.animateTo(4);
 
       },
       child: Container(
@@ -22,7 +24,7 @@ class CategoryWidget extends StatelessWidget {
         width: w,
         height: h*0.14,
         decoration: BoxDecoration(
-          color: kPrimaryColor.withAlpha(90),
+          color: kPrimaryColor2.withAlpha(90),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: kPrimaryColor),
         ),

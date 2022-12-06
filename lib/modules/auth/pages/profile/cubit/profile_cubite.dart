@@ -8,57 +8,6 @@ import 'package:queen_care/network/local/chach_helper.dart';
 import 'package:queen_care/network/remote/dio_helper.dart';
 
 import 'package:http/http.dart' as http;
-// class ProfileCubit extends Cubit<ProfileStates> {
-//   ProfileCubit() : super(ProfileInitialState());
-//
-//   static ProfileCubit get(context) => BlocProvider.of(context);
-//    UserModel ?profile ;
-//
-//   void getProfileWithDio({
-//     required String token,
-//   }){
-//     emit(ProfileLoadingState());
-//     DioHelper.postData(url: 'profile', data: {
-//       'token':token,
-//     }).then((value)     {
-//
-//
-//
-//       emit(ProfileSuccessState( profile!));
-//     }).catchError((error){
-//       print(error.toString());
-//       emit(ProfileErrorState(error: ''));
-//     });
-//   }
-//   getProfileWithHttp(
-//      ) async {
-//     emit(ProfileLoadingState());
-//     var myUrl = Uri.parse("https://karam-app.com/celo/queencare/public/api/profile");
-//
-//
-//     final response = await http.post(myUrl, body: {
-//       'token':CacheHelper.getData(key: 'api_token'),
-//
-//
-//
-//     });
-//
-//
-//     var data = json.decode(response.body);
-//
-//     if (response.statusCode == 200) {
-//
-//       print(response.statusCode);
-//       UserModel user = UserModel.fromJson(data);
-//       print('data : ${data["api_token"]}');
-//
-//       emit(ProfileSuccessState( user));
-//     } else if (response.statusCode == 404) {
-//       emit(ProfileErrorState(error: 'Error'));
-//     }
-//
-//   }
-// }
 
 class ProfileCubit extends Cubit<ProfileCubitState> {
   ProfileCubit() : super(ProfileCubitInitial());

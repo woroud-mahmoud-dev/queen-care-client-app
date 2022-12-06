@@ -9,7 +9,9 @@ import 'package:queen_care/modules/home/widgets/copon_widget.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 
 class HomeTap extends StatelessWidget {
-  const HomeTap({Key? key}) : super(key: key);
+
+  const HomeTap({Key? key, required this.tabController}) : super(key: key);
+  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ if(state is GetCategoriesSuccess){
             color: kPrimaryColor,
 
           )),
-        ):    CategoriesPart(categoriesList: categoriesList,),
+        ):    CategoriesPart(categoriesList: categoriesList,tabController: tabController),
 
           ],
         ),

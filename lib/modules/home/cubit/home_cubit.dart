@@ -10,12 +10,17 @@ import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/home/favorite_tap.dart';
 import 'package:queen_care/modules/home/home_tap.dart';
 import 'package:queen_care/modules/home/offers_tap.dart';
+import 'package:queen_care/modules/period_calculator/period_calculator.dart';
+import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
+import 'package:queen_care/network/local/chach_helper.dart';
 import 'package:queen_care/network/remote/dio_helper.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
+  int _currentIndexBottomNavigationBarItem = 3;
+
 
   static HomeCubit get(context) => BlocProvider.of(context);
   int current_index = 0;
@@ -35,19 +40,20 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   ];
-
+late int prpfileTapIndex;
   void change_nav_index(int index) {
     current_index = index;
+
     emit(NewsBottomNavState());
   }
 
-  List<Widget> screens = [
-    HomeTap(),
-    Offer(),
-    Favorite(),
-    Profile(),
-  ];
 
+
+ void goToQuestionTap(int index){
+   CacheHelper.replaceData(key: 'tap_index', value: index);
+   emit(GoToQuestionTap());
+
+ }
 
   List<Category> categories_list = [];
 

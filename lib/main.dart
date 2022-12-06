@@ -5,7 +5,9 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/cubit/locale_cubit.dart';
 import 'package:queen_care/models/bloc_observer.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
-import 'package:queen_care/modules/home/home_screen.dart';
+import 'package:queen_care/modules/home/home.dart';
+import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
+import 'package:queen_care/modules/product/category_all_products.dart';
 import 'package:queen_care/modules/product/prouct_screen.dart';
 
 import 'package:queen_care/modules/qr/qr_scanner_screen.dart';
@@ -61,7 +63,7 @@ class MyApp extends StatelessWidget {
 
             ),
             debugShowCheckedModeBanner: false,
-            home:  Splach(),
+            home:  Home(),
           );
         },
       ),

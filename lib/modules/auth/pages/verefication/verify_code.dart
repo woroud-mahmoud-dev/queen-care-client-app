@@ -116,7 +116,7 @@ class VerifyCode extends StatelessWidget {
             AuthButton(
               title: 'تأكيد',
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));
+
 
               },
               color: kPrimaryColor,

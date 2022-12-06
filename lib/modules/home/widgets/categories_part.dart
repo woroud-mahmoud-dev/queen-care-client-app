@@ -6,11 +6,11 @@ import 'package:queen_care/modules/home/widgets/category_widget.dart';
 class CategoriesPart extends StatelessWidget {
   const CategoriesPart({
     Key? key,
-    required this.categoriesList,
+    required this.categoriesList, required this.tabController,
   }) : super(key: key);
 
   final List<Category> categoriesList;
-
+final TabController tabController;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,7 +23,7 @@ class CategoriesPart extends StatelessWidget {
 
 
             return CategoryWidget(
-              catImg: categoriesList[int].image, catName: categoriesList[int].type,
+              catImg: categoriesList[int].image, catName: categoriesList[int].type, tabController:tabController ,
 
 
             );
