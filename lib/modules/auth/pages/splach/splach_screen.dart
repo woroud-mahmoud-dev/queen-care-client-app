@@ -11,8 +11,8 @@ class Splach extends StatefulWidget {
 class _SplachState extends State<Splach> {
   @override
   void initState() {
-Future.delayed(Duration(seconds: 2)).then((value) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>SelectLanguage()));
+Future.delayed(const Duration(seconds: 2)).then((value) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SelectLanguage()));
 });
 super.initState();
   }
@@ -20,7 +20,7 @@ super.initState();
   Widget build(BuildContext context) {
     return Scaffold(
    
-      body:Padding(padding: EdgeInsets.all(70),
+      body:Padding(padding: const EdgeInsets.all(70),
         child:  Center(
         child: Image.asset('assets/images/logo.png',),
     ),)

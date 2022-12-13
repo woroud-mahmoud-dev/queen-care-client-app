@@ -1,19 +1,32 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utlis/strings.dart';
+import 'package:queen_care/models/product.dart';
+import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/prouct_screen.dart';
 
 class CategoryAllProducts extends StatelessWidget {
-  const CategoryAllProducts({Key? key, required this.tabController})
+   CategoryAllProducts({Key? key, required this.tabController})
       : super(key: key);
 
   final TabController tabController;
-
+  MyService  myService=MyService();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
+    return BlocProvider(
+  create: (context) => ProductCubit()..getAllProductsByTypeWithHttp(),
+  child: BlocConsumer<ProductCubit, ProductState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    List<ProductModel> allProductsByType= ProductCubit.get(context).productsListByType;
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
@@ -27,27 +40,27 @@ class CategoryAllProducts extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  children: [
+                  children: [                 Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: SvgPicture.asset(
+                      'assets/icons/list.svg',
+                      height: 20,
+                    ),
+                  ),      const Icon(
+                    Icons.shopping_bag_sharp,
+                    color: black,
+                  ),       const Spacer(),
+
                     IconButton(
                         onPressed: () {
                         tabController.animateTo(0);
                         },
                         icon: Icon(
-                          Icons.arrow_back_ios,
+                          Icons.arrow_forward_ios_sharp,
                           color: black,
                         )),
-                    const Spacer(),
-                    const Icon(
-                      Icons.shopping_bag_sharp,
-                      color: black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: SvgPicture.asset(
-                        'assets/icons/list.svg',
-                        height: 20,
-                      ),
-                    ),
+
+
                   ],
                 ),
               ),
@@ -65,22 +78,22 @@ class CategoryAllProducts extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  children: [         Text(
+                    myService.getSelectedCategory!.type,
+                    style: TextStyle(fontSize: 20),
+                  ),    Spacer(),      Text('4.5'),
+
                     Icon(
                       Icons.star,
                       color: Colors.amber,
                     ),
-                    Text('4.5'),
-                    Spacer(),
-                    Text(
-                      'فوط صحية شهرية',
-                      style: TextStyle(fontSize: 20),
-                    ),
+
+
                   ],
                 ),
               ),
             ),
-            Expanded(
+                   Expanded(
               flex: 7,
               child: Container(
                 width: double.infinity,
@@ -90,20 +103,23 @@ class CategoryAllProducts extends StatelessWidget {
                     top: Radius.elliptical(50, 30),
                   ),
                 ),
-                child: Column(
-                  children: [
-                    ProductItem(
+                child: state is GetAllProductByTypeLoading?const Center(
+                  child: CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
+                ):ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  itemCount: allProductsByType.length,
+                  itemBuilder: (context ,int index){
+                    return   ProductItem(
                       w: w,
                       h: h,
                       tabController: tabController,
-                    ),
-                    ProductItem(
-                      w: w,
-                      h: h,
-                      tabController: tabController,
-                    ),
+                      productModel: allProductsByType[index],
+                    );
 
-                  ],
+                  },
+
                 ),
               ),
             ),
@@ -111,28 +127,34 @@ class CategoryAllProducts extends StatelessWidget {
         ),
       ),
     );
+  },
+),
+);
   }
 }
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({
+
+   ProductItem({
     Key? key,
     required this.w,
     required this.h,
-    required this.tabController,
+    required this.tabController, required this.productModel,
   }) : super(key: key);
   final TabController tabController;
   final double w;
   final double h;
-
+  final ProductModel productModel;
+  MyService  myService=MyService();
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.symmetric(vertical: 10),
       width: w * 0.8,
       height: h * 0.14,
       child: GestureDetector(
         onTap: () {
+          myService.setSelectedProduct= productModel;
           tabController.animateTo(5);
         },
         child: Card(
@@ -144,11 +166,17 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
+                  flex: 2,
+                  child: Text(
+                    productModel.name,
+                    style: TextStyle(color: Colors.black54, fontSize: 16),
+                  ),
+                ),
+                Expanded(
                   flex: 1,
                   child: CachedNetworkImage(
                     key: UniqueKey(),
-                    imageUrl:
-                        'https://karam-app.com/celo/queencare/public/storage/company_types/uploads/image638731908ef13_175203.png',
+                    imageUrl:imgUrlOLa+productModel.image,
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
                       backgroundColor: Colors.transparent,
@@ -161,13 +189,7 @@ class ProductItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    'فوط كوين النهارية بالأجنحة ',
-                    style: TextStyle(color: Colors.black54, fontSize: 16),
-                  ),
-                ),
+
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
@@ -35,13 +36,11 @@ class _ProfileState extends State<Profile> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const BackButton(),
-              SizedBox(
-                width: w * 0.2,
-              ),
-              const title(text: 'الحساب الشخصي'),
-              const Spacer(),
+            children:const [
+               Spacer(),
+
+               title(text: 'الحساب الشخصي'),
+               Spacer(),
             ],
           ),
           const SizedBox(
@@ -92,7 +91,9 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(height: h*0.05,),
           ProfileItem(
-img: 'assets/icons/profile_icon.svg',
+            iconNotImage: true,
+iconData: Icons.calendar_month_sharp,
+
             text: 'حاسبة الدورة الشهرية',
             onTap: (){
 
@@ -117,11 +118,14 @@ img: 'assets/icons/profile_icon.svg',
 
 class ProfileItem extends StatelessWidget {
   final String? img;
+  final IconData? iconData;
   final String text;
+  bool? iconNotImage;
+
   void Function()? onTap;
    ProfileItem({
 
-    Key? key,  this.img, required this.text,required this.onTap
+    Key? key,  this.img, required this.text,required this.onTap,this.iconNotImage, this.iconData
   }) : super(key: key);
 
   @override
@@ -143,8 +147,8 @@ class ProfileItem extends StatelessWidget {
 
 
 
-            Icon(Icons.arrow_left),         Spacer(),
-            Text(text),SizedBox(width: 20,),        SvgPicture.asset(img!),
+            Icon(Icons.arrow_left),         const Spacer(),
+            Text(text),SizedBox(width: 20,),      iconNotImage==true?  Icon(iconData!,size: 30,color: kPrimaryColor,) :  SvgPicture.asset(img!),
           ],
         ),
       ),

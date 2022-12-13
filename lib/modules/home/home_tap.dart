@@ -7,6 +7,7 @@ import 'package:queen_care/modules/home/cubit/home_cubit.dart';
 import 'package:queen_care/modules/home/widgets/categories_part.dart';
 import 'package:queen_care/modules/home/widgets/copon_widget.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 
 class HomeTap extends StatelessWidget {
 
@@ -17,9 +18,16 @@ class HomeTap extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    List<Category> categoriesList=[];
-    return BlocProvider(
+    List<CategoryModel> categoriesList=[];
+    return MultiBlocProvider(
+  providers: [
+    BlocProvider(
   create: (context) => HomeCubit()..getCategoryWithHttp(),
+),
+    BlocProvider(
+      create: (context) => ProductCubit(),
+    ),
+  ],
   child: BlocConsumer<HomeCubit, HomeState>(
   listener: (context, state) {
 if(state is GetCategoriesSuccess){

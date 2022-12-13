@@ -70,7 +70,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ProductScreen(tabController: tabController),
           ProductDetails(tabController: tabController),
           PeriodQuestions(tabController: tabController,),
-          PeriodCalculator(),
+          PeriodCalculator(tabController: tabController,),
 
 
         ],

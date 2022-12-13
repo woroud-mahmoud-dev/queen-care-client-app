@@ -1,14 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/utlis/strings.dart';
-import 'package:queen_care/modules/product/category_all_products.dart';
-import 'package:queen_care/modules/product/prouct_screen.dart';
+import 'package:queen_care/models/category.dart';
+
 class CategoryWidget extends StatelessWidget {
   final String catName;
   final String catImg;
+  final int catId;
+  final CategoryModel categorym;
   final  TabController tabController;
-   CategoryWidget({Key? key, required this.catName, required this.catImg, required this.tabController}) : super(key: key);
+   CategoryWidget({Key? key, required this.catName, required this.catImg, required this.tabController, required this.catId, required this.categorym}) : super(key: key);
+  MyService myService = MyService();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class CategoryWidget extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: (){
+        myService.setSelectedCategory=categorym;
       tabController.animateTo(4);
 
       },

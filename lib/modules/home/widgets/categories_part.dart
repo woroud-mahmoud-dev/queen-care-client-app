@@ -9,7 +9,7 @@ class CategoriesPart extends StatelessWidget {
     required this.categoriesList, required this.tabController,
   }) : super(key: key);
 
-  final List<Category> categoriesList;
+  final List<CategoryModel> categoriesList;
 final TabController tabController;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,10 @@ final TabController tabController;
 
 
             return CategoryWidget(
-              catImg: categoriesList[int].image, catName: categoriesList[int].type, tabController:tabController ,
+              catImg: categoriesList[int].image, catName: categoriesList[int].type,
+              catId:categoriesList[int].id ,
+              tabController:tabController ,
+              categorym:categoriesList[int] ,
 
 
             );

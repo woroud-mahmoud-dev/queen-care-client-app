@@ -11,7 +11,7 @@ class NewsBottomNavState extends HomeState{}
 class GetCategoriesLoading extends HomeState{}
 class GoToQuestionTap extends HomeState{}
 class GetCategoriesSuccess extends HomeState{
-  final List<Category> categoriesList;
+  final List<CategoryModel> categoriesList;
 
   GetCategoriesSuccess({required this.categoriesList});
 

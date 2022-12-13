@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utlis/strings.dart';
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({Key? key, required this.tabController}) : super(key: key);
+   ProductDetails({Key? key, required this.tabController}) : super(key: key);
   final TabController tabController;
+  MyService  myService=MyService();
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -18,25 +22,25 @@ class ProductDetails extends StatelessWidget {
           child: Row(
 
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: SvgPicture.asset('assets/icons/list.svg',height: 20,),
+              ),              const Icon(
+                Icons.shopping_bag_sharp,
+                color: black,
+              ),              const Spacer(),
+
               IconButton(
                   onPressed: () {
                     tabController.animateTo(5);
 
                   },
                   icon: const Icon(
-                    Icons.arrow_back_ios,
+                    Icons.arrow_forward_ios_sharp,
                     color: black,
                   )),
-              const Spacer(),
-              const Icon(
-                Icons.shopping_bag_sharp,
-                color: black,
-              ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: SvgPicture.asset('assets/icons/list.svg',height: 20,),
-              ),
+
             ],
           ),
         ),
@@ -44,11 +48,13 @@ class ProductDetails extends StatelessWidget {
           height: h*0.3,
           margin: const EdgeInsets.all(5),
 
-          decoration:const BoxDecoration(
-              image: DecorationImage(image: NetworkImage('https://karam-app.com/celo/queencare/public/storage/company_types/uploads/image638731908ef13_175203.png',),fit: BoxFit.contain)
+          decoration: BoxDecoration(
+              image: DecorationImage(image:
+              NetworkImage(imgUrlOLa+myService.getSelectedProduct!.image),fit: BoxFit.contain)
           ),
         ),
         Container(
+          height: h*0.6,
           padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
 
           decoration: const BoxDecoration(
@@ -66,21 +72,18 @@ class ProductDetails extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const[
+                children: [
 
-                   Text('فوط كوين النهارية بالأجنحة',style:  TextStyle(fontSize: 18),),
+                   Text(myService.getSelectedProduct!.name,style:  TextStyle(fontSize: 18),),
 
                 ],
               ),
               SizedBox(height: h*0.03,),
-              const Directionality(
-                textDirection: TextDirection.rtl,
-                child:   Text(  " فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة   فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  فوط كوين النهارية بالأجنحة  ... فوط كوين النهارية بالأجنحة  ",
-                  style:  TextStyle(fontSize: 16,color: darkGrey),),
-              ),
-              SizedBox(height: h*0.03,),
-              const Text(      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                style:  TextStyle(fontSize: 16,color: darkGrey),),
+               Text(    myService.getSelectedProduct!.description,
+                 style:  TextStyle(fontSize: 16,color: darkGrey),),
+              // SizedBox(height: h*0.03,),
+              // const Text(      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+              //   style:  TextStyle(fontSize: 16,color: darkGrey),),
 
 
             ],

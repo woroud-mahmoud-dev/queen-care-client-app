@@ -1,185 +1,264 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/widget/toast.dart';
+import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
 
 class PeriodQuestions extends StatelessWidget {
-   PeriodQuestions({Key? key, required this.tabController}) : super(key: key);
-   final TabController tabController;
-  TextEditingController lastPeriod = TextEditingController();
-  TextEditingController howLongPeriod = TextEditingController();
-  TextEditingController periodDaysNumber = TextEditingController();
+  PeriodQuestions({Key? key, required this.tabController}) : super(key: key);
+  final TabController tabController;
+MyService myService =MyService();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return  Container(
 
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      color: kPrimaryColor2,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
+    return BlocProvider(
+      create: (context) => CalculatorCubit(),
+      child: BlocConsumer<CalculatorCubit, CalculatorState>(
+        listener: (context, state) {
+          if(state is CalculateDatesSuccess){
+            tabController.animateTo(8);
+          }
+          if(state is CalculateDatesError){
+            showToast(text: 'تأكدي من إدخال جميع\n المعلومات وبشكل صحيح', color: Colors.red);
+          }
+        },
+        builder: (context, state) {
 
-        children: [
-          SizedBox(
-            height: h*0.02,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: black,
-                    )),
-                const Spacer(),
-                const Icon(
-                  Icons.shopping_bag_sharp,
-                  color: black,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: SvgPicture.asset(
-                    'assets/icons/list.svg',
-                    height: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: h*0.02,
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'حاسبة الدورة الشهرية',
-                style: TextStyle(fontSize: 16),
-
-              ),
-            ),
-          ),      SizedBox(
-            height: h*0.02,
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
-            width: double.infinity,
-            height: h*0.75,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.elliptical(50, 30),
-              ),
-            ),
-            child: Directionality(
-              textDirection: TextDirection.rtl,
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              color: kPrimaryColor2,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
-                  const Text(
-                    'أجيبي عن الأسئلة التالية :',
-                    style: TextStyle(fontSize: 16),
+                children: [
+                  SizedBox(
+                    height: h * 0.02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              tabController.animateTo(3);
+
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: black,
+                            )),
+                        const Spacer(),
+                        const Icon(
+                          Icons.shopping_bag_sharp,
+                          color: black,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: SvgPicture.asset(
+                            'assets/icons/list.svg',
+                            height: 20,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
-                    height: h*0.03,
+                    height: h * 0.02,
                   ),
-                  QuestionTextField(controller: lastPeriod,
-                      label: '1  متى بدأ آخر حيض عدك؟'
-                  ),
-                  SizedBox(
-                    height: h*0.05,
-                  ),
-                  QuestionTextField(controller: howLongPeriod,
-                      label: '2  ما مدة الحيض لديك؟'
-
-
-                  ),
-                  SizedBox(
-                    height: h*0.05,
-                  ),
-                  QuestionTextField(controller: periodDaysNumber,
-                      label: '3  كم يوم تدوم دورتك الشهرية؟'
-
-
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'حاسبة الدورة الشهرية',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    height: h*0.05,
+                    height: h * 0.02,
                   ),
-                  Center(
-                    child: GestureDetector(
- onTap: (){
-   tabController.animateTo(8);
- },
-                      child: SizedBox(
-                        width: w*0.72,
-                        height: h*0.1,
-                        child: Card(
-                          color: kPrimaryColor2,
-                          elevation: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    height: h * 0.75,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.elliptical(50, 30),
+                      ),
+                    ),
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'أجيبي عن الأسئلة التالية :',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(
+                            height: h * 0.03,
+                          ),
+                          const Text(
+                            '1  متى بدأ آخر حيض عدك؟',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  child: Text(
+                                    CalculatorCubit.get(context)
+                                                .selectLastDateIs ==
+                                            null
+                                        ? 'select'
+                                        : CalculatorCubit.get(context)
+                                            .selectLastDateIs
+                                            .toString(),
+                                    style: const TextStyle(
+                                        color: kPrimaryColor, fontSize: 16),
+                                  ),
+                                  onTap: () {
+                                    DatePicker.showDatePicker(context,
+                                        theme: const DatePickerTheme(
+                                          containerHeight: 210.0,
+                                        ),
+                                        maxTime: DateTime.now(),
+                                        showTitleActions: true,
+                                        onChanged: (time) {
+                                          myService.setLastDate =time;
+                                      CalculatorCubit.get(context)
+                                          .selectLastDate(time);
 
-                                  Text('تتبع الدورة الشهرية',style: TextStyle(color: Colors.white,fontSize: 16),),
-                                ],
+                                    }, onConfirm: (time) {
+                                      CalculatorCubit.get(context)
+                                          .selectLastDate(time);
+                                    },
+                                        currentTime: DateTime.now(),
+                                        locale: LocaleType.en);
+                                  },
+                                ),
+                              ),
+                              const Divider(
+                                thickness: 0.8,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: h * 0.05,
+                          ),
+                          const Text(
+                            '2 ما مد الحيض لديك؟',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          DropdownButton
+
+                            (
+                            icon: const SizedBox(),
+                            isExpanded: true,
+                            elevation: 20,
+                            alignment: Alignment.topCenter,
+
+                            menuMaxHeight: 200,
+
+
+                            items: [
+                            1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+
+                          // ignore: sort_child_properties_last
+                          ].map((e) => DropdownMenuItem(child: Text('$eيوم',style:  const TextStyle(color: kPrimaryColor),),
+                          value: e,)).toList(), onChanged: (value){
+                            debugPrint('onChange $value');
+                            myService.setDaysNumber=value as int;
+                            CalculatorCubit.get(context).selectDurationOfTheMenstrualCycl(value  );
+
+                          },value: CalculatorCubit.get(context).selectedIndexOfDays,),   SizedBox(
+                            height: h * 0.05,
+                          ),
+                          const Text(
+                            '3 كم يوم تدوم دورتك الشهرية؟',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          DropdownButton
+
+                            (
+                            icon: const SizedBox(),
+                            isExpanded: true,
+                            elevation: 20,
+                            alignment: Alignment.topCenter,
+
+                            menuMaxHeight: 200,
+
+
+                            items: [
+                              15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+                              41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,50,
+                              51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,
+
+                            ].map((e) => DropdownMenuItem(child: Text('$eيوم  ',style:const TextStyle(color: kPrimaryColor),),
+                              value: e,)).toList(), onChanged: (value){
+                            myService.setHowLongPeriod=value as int;
+
+                            debugPrint('onChange $value');
+                            CalculatorCubit.get(context).selectDurationBetweenOfTowMenstrualCycle(value);
+
+                          },value: CalculatorCubit.get(context).howLongPeriod,),
+
+                          SizedBox(
+                            height: h * 0.05,
+                          ),
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                CalculatorCubit.get(context).calculator();
+
+
+                              },
+                              child: SizedBox(
+                                width: w * 0.72,
+                                height: h * 0.1,
+                                child: Card(
+                                  color: kPrimaryColor2,
+                                  elevation: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: const [
+                                          Text(
+                                            'تتبع الدورة الشهرية',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class QuestionTextField extends StatelessWidget {
-  const QuestionTextField({
-    Key? key,
-    required this.controller,
-    required this.label,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        style: TextStyle(color: Colors.black),
-        decoration: InputDecoration(
-          labelText:label,
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: darkGrey),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor2),
-          ),
-          labelStyle: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              ),
-        ),
-        obscureText: true,
-        controller: controller,
+          );
+        },
       ),
     );
   }

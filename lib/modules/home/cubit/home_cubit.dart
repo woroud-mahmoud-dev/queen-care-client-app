@@ -6,14 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/utlis/strings.dart';
 import 'package:queen_care/models/category.dart';
-import 'package:queen_care/modules/auth/pages/profile/profile.dart';
-import 'package:queen_care/modules/home/favorite_tap.dart';
-import 'package:queen_care/modules/home/home_tap.dart';
-import 'package:queen_care/modules/home/offers_tap.dart';
-import 'package:queen_care/modules/period_calculator/period_calculator.dart';
-import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
-import 'package:queen_care/network/local/chach_helper.dart';
-import 'package:queen_care/network/remote/dio_helper.dart';
+
 
 part 'home_state.dart';
 
@@ -23,39 +16,11 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   static HomeCubit get(context) => BlocProvider.of(context);
-  int current_index = 0;
-
-  List<BottomNavigationBarItem> bottom_nav_items = [
-
-    BottomNavigationBarItem(icon: Icon(Icons.home_outlined),
-        label: 'الرئيسية'),
-
-
-    BottomNavigationBarItem(icon: Icon(Icons.local_offer_outlined),
-        label: 'العروض'),
-    BottomNavigationBarItem(icon: Icon(Icons.favorite_border),
-        label: 'المفضلة'),
-    BottomNavigationBarItem(icon: Icon(Icons.person_outline_outlined),
-        label: 'الحساب '),
-
-
-  ];
-late int prpfileTapIndex;
-  void change_nav_index(int index) {
-    current_index = index;
-
-    emit(NewsBottomNavState());
-  }
 
 
 
- void goToQuestionTap(int index){
-   CacheHelper.replaceData(key: 'tap_index', value: index);
-   emit(GoToQuestionTap());
 
- }
-
-  List<Category> categories_list = [];
+  List<CategoryModel> categories_list = [];
 
 getCategoryWithHttp(
      ) async {
@@ -73,7 +38,7 @@ getCategoryWithHttp(
       print(response.statusCode);
        categories_list = data
           .map(
-            (dynamic item) => Category.fromJson(item),
+            (dynamic item) => CategoryModel.fromJson(item),
       )
           .toList();
 

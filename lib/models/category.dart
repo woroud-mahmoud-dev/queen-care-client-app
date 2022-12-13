@@ -2,12 +2,12 @@
 
 import 'dart:convert';
 
-List<Category> categoryFromJson(String str) => List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
+List<CategoryModel> categoryFromJson(String str) => List<CategoryModel>.from(json.decode(str).map((x) => CategoryModel.fromJson(x)));
 
-String categoryToJson(List<Category> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String categoryToJson(List<CategoryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Category {
-  Category({
+class CategoryModel {
+  CategoryModel({
   required  this.id,
     required this.type,
     required  this.image,
@@ -18,7 +18,7 @@ class Category {
   final String type;
   final  String image;
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     id: json["id"],
     type: json["type"],
     image: json["image"],
@@ -31,8 +31,8 @@ class Category {
     "image": image,
 
   };
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
       id: map['id'] as int,
       type: map['type'] as String,
       image: map['image'] as String,
