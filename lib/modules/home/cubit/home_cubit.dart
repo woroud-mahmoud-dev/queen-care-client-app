@@ -12,7 +12,6 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
-  int _currentIndexBottomNavigationBarItem = 3;
 
 
   static HomeCubit get(context) => BlocProvider.of(context);

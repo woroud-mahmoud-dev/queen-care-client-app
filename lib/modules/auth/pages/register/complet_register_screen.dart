@@ -9,6 +9,7 @@ import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/modules/home/home.dart';
+import 'package:queen_care/modules/home/main_screen.dart';
 
 
 class CompletRegisterScreen extends StatelessWidget {
@@ -32,7 +33,7 @@ class CompletRegisterScreen extends StatelessWidget {
     print(state);
     if (state is RegisterSuccessState) {
       showToast(text: ' تم انشاء الحساب بنجاح', color: Colors.green);
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=>const Home()), (route) => false);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> MainScreen()), (route) => false);
 
     }
 

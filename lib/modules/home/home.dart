@@ -11,7 +11,9 @@ import 'package:queen_care/modules/product/product_detailes.dart';
 
 import '../product/prouct_screen.dart';
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+
+  const Home({Key? key, required this.tapId}) : super(key: key);
+  final int tapId;
 
   @override
   State<Home> createState() => _HomeState();
@@ -34,7 +36,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     tabController = TabController(
         length: 9,
         vsync: this,
-        initialIndex: 0,
+        initialIndex: widget.tapId,
         animationDuration: const Duration(seconds: 0));
     tabController.addListener(handleTabSelection);
   }
