@@ -38,9 +38,9 @@ emit(ChangeRememberMeState());
 
       user =UserModel.fromJson(value.data) ;
 
-      CacheHelper.saveData(key: 'name', value: user.name);
+      CacheHelper.saveData(key: 'name', value: user.firstName);
       CacheHelper.saveData(key: 'email', value: user.email);
-      CacheHelper.saveData(key: 'api_token', value: user.api_token);
+      CacheHelper.saveData(key: 'api_token', value: user.apiToken);
 
       print(value.statusCode);
 
@@ -76,14 +76,14 @@ emit(ChangeRememberMeState());
       print(response.statusCode);
       UserModel user = UserModel.fromJson(data);
       print('data : ${data["api_token"]}');
-      print(user.name);
+
       print(user.email);
-      print(user.phone);    print(user.name);
+      print(user.phone);    print(user.lastName);
       print(user.toString());
-      print(user.api_token);
-      CacheHelper.saveData(key: 'name', value: user.name);
+      print(user.apiToken);
+      CacheHelper.saveData(key: 'name', value: user.firstName);
       CacheHelper.saveData(key: 'email', value: user.email);
-      CacheHelper.saveData(key: 'api_token', value: user.api_token);
+      CacheHelper.saveData(key: 'api_token', value: user.apiToken);
       emit(LoginSuccessState(user: user));
     } else if (response.statusCode == 404) {
       emit(LoginErrorState(error: 'Error'));

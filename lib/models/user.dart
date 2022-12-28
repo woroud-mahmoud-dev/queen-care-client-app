@@ -1,87 +1,80 @@
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
-class UserModel{
-  dynamic id ;
 
-dynamic name;
-dynamic phone;
-dynamic gender;
-  dynamic api_token;
-  dynamic email;
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-  // dynamic type;
+String userModelToJson(UserModel data) => json.encode(data.toJson());
+
+class UserModel {
   UserModel({
-    this.id,
-    this.api_token,
-    this.gender,
-    this.email,
-    this.phone,
-    this.name,
-    // this.type,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.gender,
+    required this.city,
+    required this.area,
+    required this.country,
+    required this.address,
+    required this.phone,
+    required this.roleId,
+    required this.birthday,
+    required this.apiToken,
+   
+    required this.id,
+  });
 
-});
+  String firstName;
+  String lastName;
+  String email;
+  String gender;
+  String city;
+  String area;
+  String country;
+  String address;
+  String phone;
+  String roleId;
+  DateTime birthday;
+
+  String apiToken;
+
+  int id;
+
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    name: json["name"],
+    firstName: json["firstName"],
+    lastName: json["lastName"],
     email: json["email"],
-    phone: json["phone"],
-    // type: json["type"],
     gender: json["gender"],
-    api_token: json["api_token"],
-    id: json["id"],
+    city: json["city"],
+    area: json["area"],
+    country: json["country"],
+    address: json["address"],
+    phone: json["phone"],
+    roleId: json["role_id"],
+    birthday: DateTime.parse(json["birthday"]),
+    apiToken: json["api_token"],
 
+    id: json["id"],
   );
 
+  Map<String, dynamic> toJson() => {
+    "firstName": firstName,
+    "lastName": lastName,
+    "email": email,
+    "gender": gender,
+    "city": city,
+    "area": area,
+    "country": country,
+    "address": address,
+    "phone": phone,
+    "role_id": roleId,
+    "birthday": "${birthday.year.toString().padLeft(4, '0')}-${birthday.month.toString().padLeft(2, '0')}-${birthday.day.toString().padLeft(2, '0')}",
 
+    "api_token": apiToken,
 
+    "id": id,
+  };
 }
-
-//
-// class ProfileModel {
-//   ProfileModel({
-//     required this.name,
-//     required this.email,
-//     required this.phone,
-//     required this.gender,
-//     required this.apiToken,
-//   });
-//
-//   final String name;
-//   final String email;
-//   final String phone;
-//   final String gender;
-//   final String apiToken;
-//
-//   factory ProfileModel.fromJson(String str) => ProfileModel.fromMap(json.decode(str));
-//
-//   String toJson() => json.encode(toMap());
-//
-//   factory ProfileModel.fromMap(Map<String, dynamic> json) => ProfileModel(
-//     name: json["name"],
-//     email: json["email"],
-//     phone: json["phone"],
-//     gender: json["gender"],
-//     apiToken: json["api_token"],
-//   );
-//
-//   Map<String, dynamic> toMap() => {
-//     "name": name,
-//     "email": email,
-//     "phone": phone,
-//     "gender": gender,
-//     "api_token": apiToken,
-//   };
-// }
-/*
-{
-    "name": "ali2",
-    "email": "ali2@gmail.com",
-    "phone": "0992955242",
-    "type": 0,
-    "gender": "0",
-    "fcm": null,
-    "api_token": "ttt4cxwGahyRUFKf1wYyHRQntenIL7dRGwwe0loRouy70nikq6aPAZKt7YYI",
-    "updated_at": "2022-10-22T17:19:30.000000Z",
-    "created_at": "2022-10-22T17:19:30.000000Z",
-    "id": 2,
-    "stars_average": null
-}
-*/

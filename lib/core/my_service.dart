@@ -1,5 +1,8 @@
 
+import 'package:flutter/material.dart';
+import 'package:queen_care/models/blog_model.dart';
 import 'package:queen_care/models/category.dart';
+import 'package:queen_care/models/competion.dart';
 import 'package:queen_care/models/product.dart';
 
 class MyService {
@@ -9,7 +12,11 @@ class MyService {
   static DateTime? lastDateTime;
   static int?daysNumber;
   static int?howLongPeriod;
-
+  static bool? showNotToAdd;
+  static Comptition? selectedComp;
+  static BlogModel? selectedBlog;
+  static Color? productColor;
+  static List<int>? numberOfItems;
 
   set setSelectedCategory(CategoryModel category) {
     selectedCategory = category;
@@ -49,5 +56,40 @@ class MyService {
   int ? get getHowLongPeriod{
     return howLongPeriod;
 
+  }
+  set setShowNotToAdd(bool number){
+    showNotToAdd = number;
+  }
+  bool ? get getShowNotToAdd{
+    return showNotToAdd;
+
+  }
+  //
+  set setSelectedComp(Comptition comptition){
+    selectedComp = comptition;
+  }
+  Comptition ? get getSelectedComp{
+    return selectedComp;
+
+  }
+  //
+  set setSelectedBlog(BlogModel blogModel){
+    selectedBlog = blogModel;
+  }
+  BlogModel ? get getSelectedBlog{
+    return selectedBlog;
+
+  }
+ set  setColor(Color color){
+   productColor =color;
+ }
+ Color? get getColor{
+    return productColor;
+ }
+  set  setNumberOfItems(List<int> list){
+    numberOfItems =list;
+  }
+  List<int>? get getNumberOfItems{
+    return numberOfItems;
   }
 }

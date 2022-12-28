@@ -98,7 +98,7 @@ class EditeProfile extends StatelessWidget {
                 keyboardType: TextInputType.name,
                 validate: (v) {},
                 label: 'الاسم الأول',
-                hintText: user!.name
+                hintText: user!.firstName
                 ,
                 isPassword: false,
                 icon: const Icon(

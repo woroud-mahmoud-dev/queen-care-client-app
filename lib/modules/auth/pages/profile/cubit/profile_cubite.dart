@@ -14,22 +14,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
   static ProfileCubit get(context) => BlocProvider.of(context);
   int? genderGroupValue;
   UserModel? user;
-  //
-  // void getUser() {
-  //   emit(GetProfileLoading());
-  //   DioHelper.postData(url: profile, data: {
-  //     'token': CacheHelper.getData(key: 'apiToken'),
-  //   }).then((value) {
-  //     print(value!.data);
-  //     print(value.statusCode);
-  //
-  //     user = UserModel.fromMap(value.data);
-  //
-  //     emit(GetProfileLoaded(user!));
-  //   }).catchError((error) {
-  //     emit(GetProfileError(error: error.toString()));
-  //   });
-  // }
+
   getProfileWithHttp(
       ) async {
     emit(GetProfileLoading());
@@ -48,10 +33,12 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
 
     if (response.statusCode == 200) {
 
+
       print(response.statusCode);
       user = UserModel.fromJson(data);
       genderGroupValue =int.parse(user!.gender);
           print('data : ${data["api_token"]}');
+      print(user!.birthday.toString());
 
       emit(GetProfileLoaded(user! ));
     } else if (response.statusCode == 404) {
@@ -83,7 +70,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
 
     final response = await http.post(myUrl, body: {
       'token':CacheHelper.getData(key: 'api_token'),
-      'name':name.isEmpty?user!.name:name,
+      'name':name.isEmpty?user!.firstName:name,
       'phone':phone.isEmpty?user!.phone:phone,
       'email':email.isEmpty?user!.email:email,
       'gender':gender.isEmpty?user!.gender:gender,

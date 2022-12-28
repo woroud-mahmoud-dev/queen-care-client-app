@@ -9,33 +9,35 @@ String categoryToJson(List<CategoryModel> data) => json.encode(List<dynamic>.fro
 class CategoryModel {
   CategoryModel({
   required  this.id,
-    required this.type,
-    required  this.image,
+   // required this.type,
+    required this.name,
+    // required  this.image,
 
   });
 
  final int id;
-  final String type;
-  final  String image;
+  // final String type;
+  final String name;
+  // final  String image;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     id: json["id"],
-    type: json["type"],
-    image: json["image"],
+    name: json["name"],
+    // image: json["image"],
 
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "type": type,
-    "image": image,
+    "name": name,
+    // "image": image,
 
   };
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'] as int,
-      type: map['type'] as String,
-      image: map['image'] as String,
+      name: map['name'] as String,
+      // image: map['image'] as String,
 
     );
   }

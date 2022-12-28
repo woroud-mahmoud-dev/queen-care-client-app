@@ -79,7 +79,7 @@ class CategoryAllProducts extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [         Text(
-                    myService.getSelectedCategory!.type,
+                    myService.getSelectedCategory!.name,
                     style: TextStyle(fontSize: 20),
                   ),    Spacer(),      Text('4.5'),
 

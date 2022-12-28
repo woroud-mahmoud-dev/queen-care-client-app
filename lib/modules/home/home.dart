@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/modules/advices/advice_detalies_screen.dart';
+import 'package:queen_care/modules/advices/show_all_advices_screen.dart';
 import 'package:queen_care/modules/auth/pages/profile/profile.dart';
-import 'package:queen_care/modules/home/favorite_tap.dart';
+import 'package:queen_care/modules/home/favorite/favorite_tap.dart';
 import 'package:queen_care/modules/home/home_tap.dart';
-import 'package:queen_care/modules/home/offers_tap.dart';
-import 'package:queen_care/modules/period_calculator/period_calculator.dart';
+import 'package:queen_care/modules/home/offers/awords/awords.dart';
+import 'package:queen_care/modules/home/offers/competition/display_all_competitions.dart';
+import 'package:queen_care/modules/home/offers/competition/general_competitions.dart';
+import 'package:queen_care/modules/home/offers/offers_tap.dart';
+import 'package:queen_care/modules/home/offers/points/how_to_get_points.dart';
+import 'package:queen_care/modules/home/offers/points/my_points_balance.dart';
+import 'package:queen_care/modules/home/offers/points/my_points_screen.dart';
+import 'package:queen_care/modules/home/offers/points/replace_my_points.dart';
+ import 'package:queen_care/modules/period_calculator/period_calculator.dart';
 import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
 import 'package:queen_care/modules/product/category_all_products.dart';
 import 'package:queen_care/modules/product/product_detailes.dart';
@@ -34,10 +43,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(
-        length: 9,
+        length: 18,
         vsync: this,
         initialIndex: widget.tapId,
-        animationDuration: const Duration(seconds: 0));
+        animationDuration: const Duration(milliseconds: 10));
     tabController.addListener(handleTabSelection);
   }
 
@@ -62,17 +71,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children: <Widget>[
-          HomeTap(tabController: tabController,),
-          Offer(),
-          Favorite(),
+          HomeTap(tabController: tabController,),//0
+          Offer(tabController: tabController,),//1
+          Favorite(),//2
 
 
-          Profile(tabController: tabController),
-          CategoryAllProducts(tabController: tabController),
-          ProductScreen(tabController: tabController),
-          ProductDetails(tabController: tabController),
-          PeriodQuestions(tabController: tabController,),
-          PeriodCalculator(tabController: tabController,),
+          Profile(tabController: tabController),//3
+          CategoryAllProducts(tabController: tabController),//4
+          ProductScreen(tabController: tabController),//5
+          ProductDetails(tabController: tabController),//6
+          PeriodQuestions(tabController: tabController,),//7
+          PeriodCalculator(tabController: tabController,),//8
+          GeneralCompetitions(
+            tabController: tabController,
+          ), //9
+          MyPoints(
+            tabController: tabController,
+          ), //10
+          MyPointsBalance(tabController:tabController),//11
+          ReplaceMyPoints(tabController:tabController),//12
+          Awards(tabController:tabController),//13
+          HowToGetPoints(tabController:tabController),//14
+          DisplayAllCompetitions(tabController:tabController),//15
+          ShowAdvicesScreen(tabController:tabController),//16
+          AdviceScreen(tabController:tabController),//17
 
 
         ],
@@ -97,6 +119,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: BottomNavigationBar(
             unselectedFontSize: 11,
             selectedFontSize: 12,
+            currentIndex: _currentIndexBottomNavigationBarItem,
 
             items: const [
 

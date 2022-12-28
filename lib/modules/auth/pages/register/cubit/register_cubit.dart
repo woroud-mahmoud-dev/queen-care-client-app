@@ -14,6 +14,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
   static RegisterCubit get(context) => BlocProvider.of(context);
 var status;
   int? genderGroupValue;
+  DateTime  birthdayDateTime =DateTime.now() ;
+  void selectBirthdayDateTime(DateTime time) {
+    birthdayDateTime =time;
+    emit(SelectBirthDayState());
+  }
   void selectgender(int index) {
     genderGroupValue = index;
     visible = false;
@@ -28,83 +33,120 @@ var status;
   }
 
  late  UserModel user;
-  void userRegister({
-    required String name,
-    required String phone,
-    required String email,
-    required String password,
-    required String gender,
-  }){
-    emit(RegisterLoadinglState());
-    DioHelper.postData(url: register, data: {
-      'name':name,
-      'phone':phone,
-      'email':email,
-      'password':password,
-      'gender':gender,
-    }).then((value)     {
-      print(value?.data.toString());
-      print(jsonEncode(value?.data));
-      user =UserModel.fromJson(value?.data) ;
-      print(user.name);
-      print(user.email);
-      print(user.phone);
-      print(value?.data);
-      CacheHelper.saveData(key: 'name', value: user.name);
-      CacheHelper.saveData(key: 'email', value: user.email);
-      CacheHelper.saveData(key: 'api_token', value: user.api_token);
-            emit(RegisterSuccessState(user:user ));
-    }).catchError((error){
-      print(error.toString());
-      emit(RegisterErrorState(error: error.toString()));
-    });
-  }
+  // void userRegister({
+  //   required String firstName,
+  //   required String lastName,
+  //
+  //   required String email,
+  //   required String password,
+  //   required String gender,
+  //   required String city,
+  //   required String area,
+  //   required String country,
+  //   required String address,
+  //   // required String role_id,
+  //   // required String fcm,
+  //   required String phone,
+  //   required DateTime birthday,
+  //
+  //
+  //
+  // }){
+  //   emit(RegisterLoadinglState());
+  //   DioHelper.postData(url: register, data: {
+  //     'firstName':firstName,
+  //     'lastName':lastName,
+  //     'email':email,
+  //
+  //     'password':password,
+  //     'gender':gender,
+  //     'city':city,
+  //     'area':area,
+  //     'country':country,
+  //     'address':address,
+  //     'birthday':birthday,
+  //     'role_id':'2',
+  //     'fcm,':'qwertyuio',
+  //   }).then((value)     {
+  //     print(value?.data.toString());
+  //     print(jsonEncode(value?.data));
+  //     user =UserModel.fromJson(value?.data) ;
+  //     print(user.firstName);
+  //     print(user.email);
+  //     print(user.phone);
+  //     print(value?.data);
+  //     CacheHelper.saveData(key: 'name', value: user.firstName);
+  //     CacheHelper.saveData(key: 'email', value: user.email);
+  //     CacheHelper.saveData(key: 'api_token', value: user.apiToken);
+  //           emit(RegisterSuccessState(user:user ));
+  //   }).catchError((error){
+  //     print(error.toString());
+  //     emit(RegisterErrorState(error: error.toString()));
+  //   });
+//  }
 
 
 
 
 
   registerUser(
-      {required String name,
+      {    required String firstName,
+        required String lastName,
+
         required String email,
         required String password,
-        required String phone,
         required String gender,
+        required String city,
+        required String area,
+        required String country,
+        required String address,
+        // required String role_id,
+        // required String fcm,
+        required String phone,
+        // required DateTime birthday,
      }) async {
     emit(RegisterLoadinglState());
-    var myUrl = Uri.parse("https://karam-app.com/celo/queencare/public/api/register");
+    var myUrl = Uri.parse("https://karam-app.com/celo/queencare/public/api/Register");
 
 
     final response = await http.post(myUrl, body: {
-      "name": name,
-      "email": email,
-      "password": password,
-      'phone': phone,
-      'gender': gender,
+      'firstName':firstName,
+      'lastName':lastName,
+      'email':email,
+      'phone':phone,
+
+      'password':password,
+      'gender':gender,
+      'city':city,
+      'area':area,
+      'country':country,
+      'address':address,
+      'birthday':DateTime.now().toString(),
+      'role_id':'2',
+      'fcm,':'qwertyuio',
 
     });
 
+    print(response.statusCode);
 
-    var data = jsonDecode(response.body);
+    // var data = userModelFromJson(response.body);
 
     if (response.statusCode == 200) {
 
       print(response.statusCode);
-      UserModel user = UserModel.fromJson(data);
-      print('data : ${data["api_token"]}');
-      print(user.name);
+      UserModel user = userModelFromJson(response.body);
+      print('data : ${user.apiToken}');
+      print(user.firstName);
       print(user.email);
-      print(user.phone);    print(user.name);
+      print(user.phone);    print(user.lastName);
       print(user.toString());
-      print(user.api_token);
-      CacheHelper.saveData(key: 'name', value: user.name);
+      print(user.apiToken);
+      CacheHelper.saveData(key: 'name', value: user.firstName);
       CacheHelper.saveData(key: 'email', value: user.email);
-      CacheHelper.saveData(key: 'api_token', value: user.api_token);
+      CacheHelper.saveData(key: 'api_token', value: user.apiToken);
       status = true;
       emit(RegisterSuccessState(user: user));
     } else if (response.statusCode == 404) {
       emit(RegisterErrorState(error: response.toString()));
-      status = false;
     }
-    return status;
   }}

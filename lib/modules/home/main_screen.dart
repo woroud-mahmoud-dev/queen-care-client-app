@@ -8,8 +8,9 @@ class MainScreen extends StatelessWidget {
 List <MyModel> myList=[
   MyModel(title: 'المنتجات', id: 1, IconName: Icons.card_giftcard, tapId: 0),
   MyModel(title: 'الحاسبة', id: 2, IconName: Icons.calendar_month_sharp, tapId: 7),
-  MyModel(title: 'QR', id: 3, IconName: Icons.qr_code, tapId: 0),
+  MyModel(title: 'QR', id: 3, IconName: Icons.qr_code, tapId: 3),
   MyModel(title: 'العروض والمسابقات', id: 4, IconName: Icons.local_offer_outlined, tapId: 1),
+  MyModel(title: 'نصائح', id: 5, IconName: Icons.corporate_fare_rounded, tapId: 16),
 ];
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,7 @@ class mainCategoryWidget extends StatelessWidget {
                   children: [
 
                     myWidget,
-                    Text(text,style: TextStyle(
+                    Text(text,style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
