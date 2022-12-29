@@ -26,6 +26,10 @@ class CartScreen extends StatelessWidget {
       create: (context) => CartCubit()..getAllCartsProduct(),
       child: BlocConsumer<CartCubit, CartState>(
           listener: (context, state) {
+
+            if(state is DeleteFromCartSuccessState){
+              CartCubit.get(context).getAllCartsProduct();
+            }
    if(state is DecreaseProductNumberState|| state is IncreaseProductNumberState){
      CartCubit.get(context).countAllMoney();
    }

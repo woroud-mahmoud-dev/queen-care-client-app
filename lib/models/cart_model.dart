@@ -10,24 +10,20 @@ class CartModel {
     required this.id,
     required this.missionId,
     required this.userId,
-    required this.createdAt,
-    required this.updatedAt,
+
     required this.mission,
   });
 
   int id;
   String missionId;
   String userId;
-  DateTime createdAt;
-  DateTime updatedAt;
   Mission mission;
 
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
     id: json["id"],
     missionId: json["mission_id"],
     userId: json["user_id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+
     mission: Mission.fromJson(json["mission"]),
   );
 
@@ -35,8 +31,7 @@ class CartModel {
     "id": id,
     "mission_id": missionId,
     "user_id": userId,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+
     "mission": mission.toJson(),
   };
 }
@@ -52,8 +47,7 @@ class Mission {
     required this.description,
     required this.cases,
     required this.state,
-    required this.createdAt,
-    required this.updatedAt,
+
   });
 
   int id;
@@ -65,8 +59,7 @@ class Mission {
   String description;
   String cases;
   String state;
-  dynamic createdAt;
-  dynamic updatedAt;
+
 
   factory Mission.fromJson(Map<String, dynamic> json) => Mission(
     id: json["id"],
@@ -78,8 +71,7 @@ class Mission {
     description: json["description"],
     cases: json["cases"],
     state: json["state"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -92,7 +84,6 @@ class Mission {
     "description": description,
     "cases": cases,
     "state": state,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
+
   };
 }

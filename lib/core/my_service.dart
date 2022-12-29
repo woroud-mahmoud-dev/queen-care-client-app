@@ -9,7 +9,8 @@ class MyService {
   static CategoryModel? selectedCategory;
 
   static ProductModel? selectedProduct;
-  static DateTime? lastDateTime;
+  static DateTime lastDateTime = DateTime.now();
+  static DateTime? birthDateTime;
   static int?daysNumber;
   static int?howLongPeriod;
   static bool? showNotToAdd;
@@ -41,6 +42,15 @@ class MyService {
     return lastDateTime;
 
   }
+  /////////
+  set setBirthDate(DateTime dateTime){
+    birthDateTime = dateTime;
+  }
+  DateTime ? get getBirthDate{
+    return birthDateTime;
+
+  }
+
   ////////
   set setDaysNumber(int number){
     daysNumber = number;

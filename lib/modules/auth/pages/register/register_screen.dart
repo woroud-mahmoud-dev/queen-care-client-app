@@ -4,7 +4,7 @@ import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
-import 'package:queen_care/modules/auth/pages/register/complet_register_screen.dart';
+import 'package:queen_care/modules/auth/pages/register/complete_register_screen.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 
@@ -54,6 +54,7 @@ class Register extends StatelessWidget {
                         .hasMatch(value)) {
                       return 'Please enter a valid Email';
                     }
+                    return null;
                   },
                   label: 'الايميل',
                   hintText: 'الايميل',
@@ -68,7 +69,7 @@ class Register extends StatelessWidget {
                     if(formKey.currentState!.validate()){
 
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => CompletRegisterScreen(
+                          MaterialPageRoute(builder: (_) => CompleteRegisterScreen(
                             email: emailController.text.trim(),
 
                           )));
@@ -85,7 +86,7 @@ class Register extends StatelessWidget {
                 if(formKey.currentState!.validate()){
 
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => CompletRegisterScreen(
+                      MaterialPageRoute(builder: (_) => CompleteRegisterScreen(
                         email: emailController.text.trim(),
 
                       )));
@@ -97,7 +98,7 @@ class Register extends StatelessWidget {
             SizedBox(
               height: h * 0.05,
             ),
-            Desecrption2(
+            const Desecrption2(
               text: 'من خلال الستمرار تأكيد موافقتك مع شروطنا',
             )
           ],

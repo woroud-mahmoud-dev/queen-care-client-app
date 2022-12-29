@@ -11,9 +11,11 @@ import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 class CartWidget2 extends StatelessWidget {
 
   final CartModel cartModel;
+  final List<int> numberOfItems;
+  final  int productId;
 
 
-  CartWidget2({Key? key, required this.cartModel,
+  CartWidget2({Key? key, required this.cartModel, required  this.productId, required this.numberOfItems,
   });
 
   @override
@@ -74,7 +76,7 @@ class CartWidget2 extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 5),
 
-                        child: Text('${cartModel.mission.price} ليرة'
+                        child: Text('${cartModel.mission.price} '+'x'+numberOfItems[productId].toString()
 
                           ,textAlign: TextAlign.center,style: const TextStyle(fontSize:12,
                               color: kPrimaryColor),
@@ -87,41 +89,41 @@ class CartWidget2 extends StatelessWidget {
                   ),
                   // SizedBox(width: w*0.1,),
                   Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    height: 35,
-                    width: 25,
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(5),
-
-                    ),
-                    child: Center(
-                      child: Text(
-                        '1',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Column(children: [
-
-                    halfCircleButton1(onTap: () {
-                      //OrderCubit.get(context).increaseProductNumber();
-                      //OrderCubit.get(context).calculatePrice(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
-                      // OrderCubit.get(context).calculateAllMoney(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
-
-                    },
-                      myicon: const Icon(Icons.add,color: Colors.white,size: 10,),),
-                    const SizedBox(height: 3),
-                    halfCircleButton(onTap: (){
-                      //  OrderCubit.get(context).decreaseProductNumber();
-                      //    OrderCubit.get(context).calculatePrice(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
-                      // OrderCubit.get(context).calculateAllMoney(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
-
-                    },
-                      myicon: const Icon(Icons.minimize,color: Colors.white,size: 10,),)
-
-                  ],),
+                  // Container(
+                  //   margin: EdgeInsets.all(10),
+                  //   height: 35,
+                  //   width: 25,
+                  //   decoration: BoxDecoration(
+                  //     color: kPrimaryColor,
+                  //     borderRadius: BorderRadius.circular(5),
+                  //
+                  //   ),
+                  //   child: Center(
+                  //     child: Text(
+                  //       '1',
+                  //       style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
+                  //     ),
+                  //   ),
+                  // ),
+                  // Column(children: [
+                  //
+                  //   halfCircleButton1(onTap: () {
+                  //     //OrderCubit.get(context).increaseProductNumber();
+                  //     //OrderCubit.get(context).calculatePrice(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
+                  //     // OrderCubit.get(context).calculateAllMoney(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
+                  //
+                  //   },
+                  //     myicon: const Icon(Icons.add,color: Colors.white,size: 10,),),
+                  //   const SizedBox(height: 3),
+                  //   halfCircleButton(onTap: (){
+                  //     //  OrderCubit.get(context).decreaseProductNumber();
+                  //     //    OrderCubit.get(context).calculatePrice(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
+                  //     // OrderCubit.get(context).calculateAllMoney(OrderCubit.get(context).productNumber,int.parse( orderModel.price));
+                  //
+                  //   },
+                  //     myicon: const Icon(Icons.minimize,color: Colors.white,size: 10,),)
+                  //
+                  // ],),
                   const SizedBox(width: 5,),
                   CircleButton(onTap: () {
                     CartCubit.get(context).deleteFromCart(cartModel.id);

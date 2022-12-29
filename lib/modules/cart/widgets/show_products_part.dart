@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 import 'package:queen_care/modules/cart/widgets/cart_widget.dart';
+import 'package:queen_care/modules/cart/widgets/cart_widget2.dart';
 
 class ShowCartProducts extends StatelessWidget {
   const ShowCartProducts({
@@ -26,7 +27,7 @@ class ShowCartProducts extends StatelessWidget {
           itemBuilder: (BuildContext context, int int) {
 
 
-            return CartWidget(
+            return CartWidget2(
               productId: int,
 
               cartModel: allOrders[int], numberOfItems: numberOfItems,

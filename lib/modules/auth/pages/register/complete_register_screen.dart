@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
@@ -8,24 +10,23 @@ import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
-import 'package:queen_care/modules/home/home.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
 
-class CompletRegisterScreen extends StatelessWidget {
-  CompletRegisterScreen({Key? key, required this.email}) : super(key: key);
+class CompleteRegisterScreen extends StatelessWidget {
+  CompleteRegisterScreen({Key? key, required this.email}) : super(key: key);
   final String email;
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmePassowrdController = TextEditingController();
-  TextEditingController adressController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController areaController = TextEditingController();
+  MyService myService = MyService();
   var formKey = GlobalKey<FormState>();
-  DateTime dateTime = DateTime(2022, 12, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,6 @@ class CompletRegisterScreen extends StatelessWidget {
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
-          print(state);
           if (state is RegisterSuccessState) {
             showToast(text: ' تم انشاء الحساب بنجاح', color: Colors.green);
             Navigator.of(context).pushAndRemoveUntil(
@@ -48,8 +48,10 @@ class CompletRegisterScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          DateTime birthDayDateTime =
-              RegisterCubit.get(context).birthdayDateTime;
+// String birthDate= RegisterCubit.get(context)
+//     .birthdayDateTime!.year.toString()+'-'+RegisterCubit.get(context)
+//     .birthdayDateTime!.month.toString()+'-'+RegisterCubit.get(context)
+//     .birthdayDateTime!.day.toString();
 
           return Scaffold(
             body: Container(
@@ -82,6 +84,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'First Name is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'الاسم الأول',
@@ -102,6 +107,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Last Name is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'الاسم الأخير',
@@ -122,6 +130,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Phone is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'رقم الهاتف',
@@ -142,6 +153,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Country is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'البلد',
@@ -162,6 +176,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'City is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'المدينة',
@@ -182,6 +199,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Area is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'المنطقة',
@@ -201,7 +221,10 @@ class CompletRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Adress is Required ';
+                                  return 'Address is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'العنوان',
@@ -211,7 +234,7 @@ class CompletRegisterScreen extends StatelessWidget {
                                 Icons.location_on,
                                 color: kPrimaryColor,
                               ),
-                              controller: adressController,
+                              controller: addressController,
                               context: context,
                               onEditingComplete: () {}),
                           SizedBox(
@@ -222,6 +245,9 @@ class CompletRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Password is Required ';
+                                }else{
+
+                                  return null;
                                 }
                               },
                               label: 'كلمة المرور',
@@ -241,11 +267,14 @@ class CompletRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Password is Required ';
+                                  return 'Confirm Password is Required ';
                                 } else {
                                   if (passwordController.text.trim() !=
-                                      confirmePassowrdController.text.trim()) {
+                                      confirmPasswordController.text.trim()) {
                                     return 'Password  and confirm password do not match ';
+                                  }else{
+
+                                    return null;
                                   }
                                 }
                               },
@@ -256,54 +285,83 @@ class CompletRegisterScreen extends StatelessWidget {
                                 Icons.lock_outline,
                                 color: kPrimaryColor,
                               ),
-                              controller: confirmePassowrdController,
+                              controller: confirmPasswordController,
                               context: context,
                               onEditingComplete: () {}),
                           SizedBox(
                             height: h * 0.05,
                           ),
-                          Container(
-                            child: TextFormField(
-                              enabled: true,
-                              style: const TextStyle(color: Colors.black),
-                              validator: (input) {},
-                              decoration: InputDecoration(
-                                hintText: 'اختر تاريخ ميلادك',
-                                hintStyle: const TextStyle(color: Colors.black),
-                                labelText: 'تاريخ الميلاد',
-                                enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.amber),
-                                ),
-                                labelStyle: const TextStyle(
-                                    color: Colors.white, fontSize: 17),
-                                suffix: GestureDetector(
-                                  onTap: () async {
-                                    birthDayDateTime = (await showDatePicker(
-                                        context: context,
-                                        initialDate: dateTime,
-                                        firstDate: DateTime(1950),
-                                        lastDate: DateTime(2100)))!;
+                          TextFormField(
+                            enabled: true,
+                            style: const TextStyle(color: Colors.black),
+                            readOnly: true,
+                            validator: (input) {
+                              if (RegisterCubit.get(context)
+                                  .birthdayDateTime ==
+                                  null) {
+                                return 'BirthDate is  Required ';
+                              }else{
 
-                                    // if 'cancle'=> null
-                                    if (birthDayDateTime == null) {
-                                      RegisterCubit.get(context)
-                                          .selectBirthdayDateTime(
-                                              birthDayDateTime);
-                                    }
-                                    return;
+                                return null;
+                              }
+                            },
+                            decoration: InputDecoration(
+
+                              enabled: false,
+                              hintText:       RegisterCubit.get(context)
+                                  .birthdayDateTime ==
+                                  null
+                                  ?  'اختر تاريخ ميلادك':'${RegisterCubit.get(context)
+                                  .birthdayDateTime!.year}-${RegisterCubit.get(context)
+                                  .birthdayDateTime!.month}-${RegisterCubit.get(context)
+                                  .birthdayDateTime!.day}',
+                              hintStyle: const TextStyle(color: Colors.black),
+
+                              prefixIconColor: kPrimaryColor,
+                              label: const Text(
+                                'تاريخ الميلاد',
+                                style: TextStyle(color: kPrimaryColor),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: kPrimaryColor),
+                              ),
+
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: kPrimaryColor),
+                              ),
+                              labelStyle: const TextStyle(
+                                  color: Colors.white, fontSize: 17),
+                              suffix: GestureDetector(
+                                onTap: () async {
+                                  DatePicker.showDatePicker(context,
+                                      theme: const DatePickerTheme(
+                                        containerHeight: 210.0,
+                                      ),
+                                      maxTime: DateTime.now(),
+                                      showTitleActions: true,
+                                      onChanged: (time) {
+                                    myService.setLastDate = time;
+                                    RegisterCubit.get(context)
+                                        .selectBirthdayDateTime(time);
+                                  }, onConfirm: (time) {
+                                    RegisterCubit.get(context)
+                                        .selectBirthdayDateTime(time);
                                   },
-                                  child: const Icon(
-                                    Icons.calendar_today_rounded,
-                                    color: Colors.white,
-                                  ),
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.en);
+                                },
+                                child: const Icon(
+                                  Icons.calendar_today_rounded,
+                                  color: kPrimaryColor,
                                 ),
+
                               ),
                             ),
+                          ),
+                          SizedBox(
+                            height: h * 0.05,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -315,7 +373,7 @@ class CompletRegisterScreen extends StatelessWidget {
                                 name: 'Male',
                                 value: 1,
                                 onChanged: (val) {
-                                  RegisterCubit.get(context).selectgender(val);
+                                  RegisterCubit.get(context).selectGender(val);
                                 },
                               ),
                               GenderWidget(
@@ -325,7 +383,7 @@ class CompletRegisterScreen extends StatelessWidget {
                                 name: 'Female',
                                 value: 0,
                                 onChanged: (val) {
-                                  RegisterCubit.get(context).selectgender(val);
+                                  RegisterCubit.get(context).selectGender(val);
                                 },
                               ),
                             ],
@@ -354,18 +412,17 @@ class CompletRegisterScreen extends StatelessWidget {
                           onTap: () {
                             if (RegisterCubit.get(context).genderGroupValue ==
                                 null) {
-                              RegisterCubit.get(context).Check();
+                              RegisterCubit.get(context).check();
                             }
                             if (formKey.currentState!.validate() &&
                                 RegisterCubit.get(context).genderGroupValue !=
                                     null) {
-                              print(email);
+                              debugPrint(email);
                               RegisterCubit.get(context).registerUser(
                                 firstName: firstNameController.text.trim(),
                                 lastName: lastNameController.text.trim(),
-                                address: adressController.text.trim(),
+                                address: addressController.text.trim(),
                                 area: areaController.text.trim(),
-
                                 country: countryController.text.trim(),
                                 city: cityController.text.trim(),
                                 phone: phoneController.text.trim(),
@@ -376,7 +433,7 @@ class CompletRegisterScreen extends StatelessWidget {
                                     .toString(),
                               );
                             }
-                            ;
+
                           },
                           color: kPrimaryColor,
                         )

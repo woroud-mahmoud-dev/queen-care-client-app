@@ -4,7 +4,7 @@ import 'package:queen_care/core/utlis/constant.dart';
 Widget customTextField({
   required String label,
   required String hintText,
-  required String? Function(String?)? validate,
+   String? Function(String?)? validate,
   required TextEditingController controller,
   context,
   bool? isPassword,

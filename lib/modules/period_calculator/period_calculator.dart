@@ -403,16 +403,16 @@ class PeriodCalculator extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "فرصة حدوث حمل مرتفع هو يوم:17",
-                          style: TextStyle(fontSize: 12, color: darkGrey2),
-                        ),
-                      ),
-                    ),
+                    // const Align(
+                    //   alignment: Alignment.topRight,
+                    //   child: Padding(
+                    //     padding: EdgeInsets.all(8.0),
+                    //     child: Text(
+                    //       "فرصة حدوث حمل مرتفع هو يوم:17",
+                    //       style: TextStyle(fontSize: 12, color: darkGrey2),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: h * 0.05,
                     ),

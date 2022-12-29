@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
 
             ),
             debugShowCheckedModeBanner: false,
-           home: CacheHelper.getData(key: 'api_token')!=null?MainScreen():  Splach(),
+        home:   MainScreen(),
+     //   home: CacheHelper.getData(key: 'api_token')!=null?MainScreen():  Splach(),
+
 
           );
         },
