@@ -115,7 +115,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(AddToFavoriteErrorState(error: response.body.toString()));
     }
   }
-   addToCart(int productId) async {
+   addToCart({required int productId,required int amount}) async {
     emit(AddToCartLoadingState());
 
     var myUrl = Uri.parse(
@@ -123,7 +123,8 @@ class ProductCubit extends Cubit<ProductState> {
 
     final response = await http.post(myUrl, body: {
       'token': CacheHelper.getData(key: 'api_token'),
-      'mission_id': productId.toString()
+      'mission_id': productId.toString(),
+      'amount': amount.toString(),
     });
     print(response.statusCode);
     print(response.body.toString());

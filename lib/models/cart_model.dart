@@ -10,6 +10,7 @@ class CartModel {
     required this.id,
     required this.missionId,
     required this.userId,
+    required this.amount,
 
     required this.mission,
   });
@@ -17,12 +18,14 @@ class CartModel {
   int id;
   String missionId;
   String userId;
+  String amount;
   Mission mission;
 
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
     id: json["id"],
     missionId: json["mission_id"],
     userId: json["user_id"],
+    amount: json["amount"],
 
     mission: Mission.fromJson(json["mission"]),
   );

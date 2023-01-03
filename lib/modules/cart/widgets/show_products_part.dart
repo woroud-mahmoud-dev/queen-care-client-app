@@ -9,16 +9,53 @@ class ShowCartProducts extends StatelessWidget {
   const ShowCartProducts({
     Key? key,
     required this.allOrders,
-    required this.amountsList, required this.numberOfItems,
+   required this.numberOfItems,
   }) : super(key: key);
 
   final List<CartModel> allOrders;
-  final List<AmountModel> amountsList;
+
   final List<int> numberOfItems;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height* 0.7,
+      child: ListView.builder(clipBehavior: Clip.hardEdge,
+          physics:const BouncingScrollPhysics(),
+          padding: EdgeInsets.all(15),
+
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int int) {
+
+
+            return CartWidget(
+              productId: int,
+
+              cartModel: allOrders[int], numberOfItems: numberOfItems,
+
+
+
+            );
+          },
+
+          itemCount:allOrders.length// clientList.length//
+      ),
+    );
+  }
+}
+class ShowCartProducts2 extends StatelessWidget {
+  const ShowCartProducts2({
+    Key? key,
+    required this.allOrders,
+ required this.numberOfItems,
+  }) : super(key: key);
+
+  final List<CartModel> allOrders;
+
+  final List<int> numberOfItems;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      // height: MediaQuery.of(context).size.height* 0.7,
       child: ListView.builder(clipBehavior: Clip.hardEdge,
           physics:const BouncingScrollPhysics(),
           padding: EdgeInsets.all(15),

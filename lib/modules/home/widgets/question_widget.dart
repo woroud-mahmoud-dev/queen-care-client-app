@@ -56,14 +56,16 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: Text(
-                      '${widget.name}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: selected ? 20 : 18,
-                          fontWeight:
-                          !selected ? FontWeight.bold : FontWeight.bold,
-                          color:  selected ?kPrimaryColor :darkGrey2),
+                    child: FittedBox(
+                      child: Text(
+                        '${widget.name}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: selected ? 18 : 16,
+                            fontWeight:
+                            !selected ? FontWeight.bold : FontWeight.bold,
+                            color:  selected ?kPrimaryColor :darkGrey2),
+                      ),
                     ),
                   ),
                   Spacer(),

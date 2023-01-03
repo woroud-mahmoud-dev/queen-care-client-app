@@ -31,7 +31,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
 
 
-  int _currentIndexBottomNavigationBarItem = 3;
+  int _currentIndexBottomNavigationBarItem = 0;
 
 
 
@@ -119,6 +119,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: BottomNavigationBar(
             unselectedFontSize: 11,
             selectedFontSize: 12,
+
             currentIndex: _currentIndexBottomNavigationBarItem,
 
             items: const [
@@ -139,6 +140,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             unselectedItemColor: darkGrey,
             selectedItemColor: kPrimaryColor,
             type: BottomNavigationBarType.fixed,
+
 
         ),
       )),

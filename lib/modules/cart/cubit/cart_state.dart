@@ -28,3 +28,6 @@ class DecreaseProductNumberState extends CartState {
 class CalculateNumberState extends CartState {}
 class DeleteFromCartSuccessState extends CartState {}
 class DeleteFromCartErrorsState extends CartState {}
+class AddOrderLoadingState extends CartState{}
+class AddOrderSuccessState extends CartState{}
+class AddOrderErrorState extends CartState{}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/utlis/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/models/competion.dart';
 import 'package:queen_care/modules/home/offers/cubit/offers_cubit.dart';
 import 'package:queen_care/modules/home/offers/widgets/competitios_part.dart';

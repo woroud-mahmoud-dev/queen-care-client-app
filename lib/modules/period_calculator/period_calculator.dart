@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
 import 'package:queen_care/modules/period_calculator/widgets/calendar_widget.dart';
 import 'package:queen_care/modules/period_calculator/widgets/setect_item.dart';
@@ -43,10 +44,7 @@ class PeriodCalculator extends StatelessWidget {
                           color: black,
                         )),
                     const Spacer(),
-                    const Icon(
-                      Icons.shopping_bag_sharp,
-                      color: black,
-                    ),
+                    const GoCart(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: SvgPicture.asset(
@@ -64,9 +62,9 @@ class PeriodCalculator extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: const Text(
+                  child:  Text(
                     "تتبع الدورة الشهرية",
-                    style: const TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 16),
                   ),
                 ),
               ),
@@ -80,7 +78,7 @@ class PeriodCalculator extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(color: Colors.black12),
                   borderRadius: const BorderRadius.vertical(
-                    top: const Radius.elliptical(50, 30),
+                    top:  Radius.elliptical(50, 30),
                   ),
                 ),
                 child: Column(
@@ -89,27 +87,27 @@ class PeriodCalculator extends StatelessWidget {
                     SizedBox(
                       height: h * 0.03,
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Color(0xff852727),
                       name: 'فترة الدورة',
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Colors.deepOrange,
                       name: 'الدورة التالية',
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Colors.black,
                       name: 'يوم الامان',
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Colors.pinkAccent,
                       name: 'يوم الامان',
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Color(0xff0312E5),
                       name: 'فترة الخصوبة',
                     ),
-                    const periodItem(
+                    const PeriodItem(
                       color: Colors.yellow,
                       name: 'يوم التبويض',
                     ),
@@ -427,8 +425,8 @@ class PeriodCalculator extends StatelessWidget {
   }
 }
 
-class periodItem extends StatelessWidget {
-  const periodItem({
+class PeriodItem extends StatelessWidget {
+  const PeriodItem({
     Key? key,
     required this.name,
     required this.color,

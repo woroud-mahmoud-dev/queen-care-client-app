@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/models/category.dart';
 import 'package:queen_care/modules/home/cubit/home_cubit.dart';
 import 'package:queen_care/modules/home/widgets/categories_part.dart';
@@ -41,7 +42,14 @@ if(state is GetCategoriesSuccess){
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            searchBar(w: w),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const GoCart(),
+
+                searchBar(w: w*0.8),
+              ],
+            ),
             const  SizedBox(height: 15,),
 
             coponWidget(h: h, w: w, onTap: (){},),

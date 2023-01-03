@@ -29,14 +29,14 @@ class GeneralCompetitions extends StatelessWidget {
           if (state is FinishStateWithWin) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => AwardAfterFinish()),
+              MaterialPageRoute(builder: (_) => AwardAfterFinish(prizeModel: state.prizeModel,)),
 
             );
           }
           if (state is FinishStateWithLoss) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => LossScreen()),
+              MaterialPageRoute(builder: (_) => LossScreen(points: state.points,)),
 
             );
           }
@@ -51,206 +51,204 @@ class GeneralCompetitions extends StatelessWidget {
                     color: kPrimaryColor,
                   ),
                 )
-              : ListView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(20),
-                  children: [
-                    searchBar(w: w),
+              : (state is SendResultStateLoading ||state is FinishStateWithWin ||state is FinishStateWithLoss )? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              const   Text(
+                   'يتم الآن حساب النتيجة',
+                   style: TextStyle(
+                       color: kPrimaryColor,
+                       fontSize: 22,
+                       fontWeight: FontWeight.bold),
+                 ),
+                SizedBox(height: h*0.3,),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        'مسابقات عامة',
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        'أجب عن الأسئلة للحصول على جائزة',
-                        style: TextStyle(
-                            color: darkGrey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    // const  Align(
-                    //   alignment: Alignment.topLeft,
-                    //   child: Text('22:33',
-                    //     style: TextStyle(
-                    //         color: Colors.black,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.bold
-                    //     ),),
-                    // ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                const CircularProgressIndicator(
+                  color: kPrimaryColor,
+                ),
+              ],
+            ),
+          ):ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(20),
+            children: [
+              searchBar(w: w),
 
-                    NumberStepper(
-                      totalSteps: stepLength,
-                      width: MediaQuery.of(context).size.width,
-                      curStep: OffersCubit.get(context).currentStep,
-                      stepCompleteColor: Colors.green,
-                      currentStepColor: Colors.white,
-                      inactiveColor: darkGrey2,
-                      lineWidth: 1,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'مسابقات عامة',
+                  style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'أجب عن الأسئلة للحصول على جائزة',
+                  style: TextStyle(
+                      color: darkGrey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
 
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                        questionsList[OffersCubit.get(context).indexQ].ques,
-                        style: TextStyle(
-                            color: darkGrey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    QuestionWidget(
-                      groupValue: OffersCubit.get(context).answerGroupValue,
-                      name: questionsList[OffersCubit.get(context).indexQ].a,
-                      onChanged: (value) {
-                        print(
-                            'grop value ${OffersCubit.get(context).answerGroupValue}');
-                        print(
-                            'a: ${questionsList[OffersCubit.get(context).indexQ].a}');
-                        print(
-                            'answer : ${questionsList[OffersCubit.get(context).indexQ].answer}');
-                        OffersCubit.get(context).selectAnswer(
-                            answer:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .a,
-                            result:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .answer);
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].a);
-                        print(questionsList[OffersCubit.get(context).indexQ].a);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                      },
-                      value: questionsList[OffersCubit.get(context).indexQ].a,
-                    ),
-                    QuestionWidget(
-                      groupValue: OffersCubit.get(context).answerGroupValue,
-                      name: questionsList[OffersCubit.get(context).indexQ].b,
-                      onChanged: (value) {
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].b);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                        OffersCubit.get(context).selectAnswer(
-                            answer:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .b,
-                            result:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .answer);
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].b);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                      },
-                      value: questionsList[OffersCubit.get(context).indexQ].b,
-                    ),
-                    QuestionWidget(
-                      groupValue: OffersCubit.get(context).answerGroupValue,
-                      name: questionsList[OffersCubit.get(context).indexQ].c,
-                      onChanged: (value) {
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].c);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                        OffersCubit.get(context).selectAnswer(
-                            answer:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .c,
-                            result:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .answer);
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].c);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                      },
-                      value: questionsList[OffersCubit.get(context).indexQ].c,
-                    ),
-                    QuestionWidget(
-                      groupValue: OffersCubit.get(context).answerGroupValue,
-                      name: questionsList[OffersCubit.get(context).indexQ].d,
-                      onChanged: (value) {
-                        print(
-                          OffersCubit.get(context).answerGroupValue,
-                        );
-                        print(questionsList[OffersCubit.get(context).indexQ].d);
-                        print(questionsList[OffersCubit.get(context).indexQ]
-                            .answer);
-                        OffersCubit.get(context).selectAnswer(
-                            answer:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .d,
-                            result:
-                                questionsList[OffersCubit.get(context).indexQ]
-                                    .answer);
-                      },
-                      value: questionsList[OffersCubit.get(context).indexQ].d,
-                    ),
-                    // SizedBox(
-                    //
-                    //   child: ListView.builder(
-                    //       physics: const BouncingScrollPhysics(),
-                    //
-                    //       shrinkWrap: true,
-                    //       itemBuilder: (BuildContext context, int index) {
-                    //         return QuestionWidget(
-                    //
-                    //           groupValue:
-                    //           OffersCubit.get(context).answerGroupValue,
-                    //           name: questionsList[index].answer,
-                    //           onChanged: (value) {
-                    //             OffersCubit.get(context).selectAnswer(value);
-                    //           },
-                    //           value: index,
-                    //         );
-                    //       },
-                    //       itemCount: 1),
-                    // ),
-                    // const   SizedBox(height: 20,),
+              SizedBox(
+                height: h*0.05,
+              ),
 
-                    AuthButton(
-                        onTap: () {
-                          OffersCubit.get(context).onPressNext();
-                        },
-                        title: "التالي",
-                        color: kPrimaryColor),
-                  ],
-                );
+              NumberStepper(
+                totalSteps: stepLength,
+                width: MediaQuery.of(context).size.width,
+                curStep: OffersCubit.get(context).currentStep,
+                stepCompleteColor: Colors.green,
+                currentStepColor: Colors.white,
+                inactiveColor: darkGrey2,
+                lineWidth: 1,
+              ),
+              SizedBox(
+                height: h*0.05,
+              ),
+
+              Align(
+                alignment: Alignment.topRight,
+                 child: Text(
+                  questionsList[OffersCubit.get(context).indexQ].ques,
+                  style:const TextStyle(
+
+                      color: darkGrey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(
+                height: h*0.03,
+              ),
+
+              QuestionWidget(
+                groupValue: OffersCubit.get(context).answerGroupValue,
+                name: questionsList[OffersCubit.get(context).indexQ].a,
+                onChanged: (value) {
+                  debugPrint(
+                      'grop value ${OffersCubit.get(context).answerGroupValue}');
+                  debugPrint(
+                      'a: ${questionsList[OffersCubit.get(context).indexQ].a}');
+                  debugPrint(
+                      'answer : ${questionsList[OffersCubit.get(context).indexQ].answer}');
+                  OffersCubit.get(context).selectAnswer(
+                      answer:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .a,
+                      result:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .answer);
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].a);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].a);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                },
+                value: questionsList[OffersCubit.get(context).indexQ].a,
+              ),
+              QuestionWidget(
+                groupValue: OffersCubit.get(context).answerGroupValue,
+                name: questionsList[OffersCubit.get(context).indexQ].b,
+                onChanged: (value) {
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].b);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                  OffersCubit.get(context).selectAnswer(
+                      answer:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .b,
+                      result:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .answer);
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].b);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                },
+                value: questionsList[OffersCubit.get(context).indexQ].b,
+              ),
+              QuestionWidget(
+                groupValue: OffersCubit.get(context).answerGroupValue,
+                name: questionsList[OffersCubit.get(context).indexQ].c,
+                onChanged: (value) {
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].c);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                  OffersCubit.get(context).selectAnswer(
+                      answer:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .c,
+                      result:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .answer);
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].c);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                },
+                value: questionsList[OffersCubit.get(context).indexQ].c,
+              ),
+              QuestionWidget(
+                groupValue: OffersCubit.get(context).answerGroupValue,
+                name: questionsList[OffersCubit.get(context).indexQ].d,
+                onChanged: (value) {
+                  debugPrint(
+                    OffersCubit.get(context).answerGroupValue,
+                  );
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ].d);
+                  debugPrint(questionsList[OffersCubit.get(context).indexQ]
+                      .answer);
+                  OffersCubit.get(context).selectAnswer(
+                      answer:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .d,
+                      result:
+                      questionsList[OffersCubit.get(context).indexQ]
+                          .answer);
+                },
+                value: questionsList[OffersCubit.get(context).indexQ].d,
+              ),
+
+              SizedBox(
+                height: h*0.03,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AuthButton(
+                    onTap: () {
+                      OffersCubit.get(context).onPressNext();
+                    },
+                    title: "التالي",
+                    color: kPrimaryColor),
+              ),
+            ],
+          );
         },
       ),
     );

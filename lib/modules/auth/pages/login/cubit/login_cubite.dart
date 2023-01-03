@@ -39,6 +39,7 @@ emit(ChangeRememberMeState());
       user =UserModel.fromJson(value.data) ;
 
       CacheHelper.saveData(key: 'name', value: user.firstName);
+      CacheHelper.saveData(key: 'address', value: user.address);
       CacheHelper.saveData(key: 'email', value: user.email);
       CacheHelper.saveData(key: 'api_token', value: user.apiToken);
 
@@ -73,14 +74,9 @@ emit(ChangeRememberMeState());
 
     if (response.statusCode == 200) {
 
-      print(response.statusCode);
       UserModel user = UserModel.fromJson(data);
-      print('data : ${data["api_token"]}');
+      CacheHelper.saveData(key: 'address', value: user.address);
 
-      print(user.email);
-      print(user.phone);    print(user.lastName);
-      print(user.toString());
-      print(user.apiToken);
       CacheHelper.saveData(key: 'name', value: user.firstName);
       CacheHelper.saveData(key: 'email', value: user.email);
       CacheHelper.saveData(key: 'api_token', value: user.apiToken);

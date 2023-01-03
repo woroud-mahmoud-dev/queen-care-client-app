@@ -48,10 +48,7 @@ class CompleteRegisterScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-// String birthDate= RegisterCubit.get(context)
-//     .birthdayDateTime!.year.toString()+'-'+RegisterCubit.get(context)
-//     .birthdayDateTime!.month.toString()+'-'+RegisterCubit.get(context)
-//     .birthdayDateTime!.day.toString();
+
 
           return Scaffold(
             body: Container(

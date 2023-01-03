@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+
 class HowToGetPoints extends StatelessWidget {
   final TabController tabController;
   const HowToGetPoints({Key? key, required this.tabController}) : super(key: key);
@@ -10,7 +10,7 @@ class HowToGetPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
+
     return  Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(

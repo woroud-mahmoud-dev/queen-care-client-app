@@ -9,14 +9,12 @@ String categoryToJson(List<CategoryModel> data) => json.encode(List<dynamic>.fro
 class CategoryModel {
   CategoryModel({
   required  this.id,
-   // required this.type,
     required this.name,
     required  this.image,
 
   });
 
  final int id;
-  // final String type;
   final String name;
   final  String image;
 

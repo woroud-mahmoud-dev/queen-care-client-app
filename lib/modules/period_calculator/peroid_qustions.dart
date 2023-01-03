@@ -1,9 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
 
@@ -54,10 +57,7 @@ MyService myService =MyService();
                               color: black,
                             )),
                         const Spacer(),
-                        const Icon(
-                          Icons.shopping_bag_sharp,
-                          color: black,
-                        ),
+                        const GoCart(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: SvgPicture.asset(
@@ -202,8 +202,7 @@ MyService myService =MyService();
                             items: [
                             21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,
 
-                            ].map((e) => DropdownMenuItem(child: Text('$eيوم  ',style:const TextStyle(color: kPrimaryColor),),
-                              value: e,)).toList(), onChanged: (value){
+                            ].map((e) => DropdownMenuItem(value: e,child: Text('$eيوم  ',style:const TextStyle(color: kPrimaryColor),),)).toList(), onChanged: (value){
                             myService.setHowLongPeriod=value as int;
 
                             debugPrint('onChange $value');

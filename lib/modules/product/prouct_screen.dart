@@ -5,12 +5,14 @@ import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/utlis/strings.dart';
+import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/cart/cart_screen.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
-
 import 'package:queen_care/modules/product/widgets/counter_widget.dart';
 
+
+// ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
   ProductScreen({
     Key? key,
@@ -40,7 +42,7 @@ class ProductScreen extends StatelessWidget {
             showToast(text: 'المنتج تمت اضافته إلى السلة بنجاح', color: Colors.green);
           }
           if (state is AddToCartErrorState) {
-            showToast(text: 'حدث خطأ حاول مرة أخرى', color: Colors.red);
+            showToast(text: 'المنتج موجود مسبقاً في السلة', color:  Colors.amber);
           }
 
 
@@ -62,22 +64,14 @@ class ProductScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: SvgPicture.asset(
-                              'assets/icons/list.svg',
-                              height: 20,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CartScreen()));
-                            },
-                            child: const Icon(
-                              Icons.shopping_bag_sharp,
-                              color: black,
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.symmetric(horizontal: 5),
+                          //   child: SvgPicture.asset(
+                          //     'assets/icons/list.svg',
+                          //     height: 20,
+                          //   ),
+                          // ),
+                          const GoCart(),
                           const Spacer(),
                           IconButton(
                               onPressed: () {
@@ -112,7 +106,7 @@ class ProductScreen extends StatelessWidget {
                     flex: 5,
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -136,20 +130,20 @@ class ProductScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   myService.getSelectedCategory!.name,
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 IconButton(
                                   onPressed: () {
                                     if(btColor ==Colors.red
                                     ){
-                                      print('delet');
+                                      debugPrint('delet');
 
                                       ProductCubit.get(context).deleteFromFavorite(
                                           myService.getSelectedProduct!.id);
                                     }else if(btColor ==Colors.grey
                                     ){
-                                      print('Add');
+                                      debugPrint('Add');
                                       ProductCubit.get(context).addToFavorite(
                                           myService.getSelectedProduct!.id);
                                     }
@@ -158,7 +152,7 @@ class ProductScreen extends StatelessWidget {
                                   icon: Icon(
                                     Icons.favorite,
                                     color: btColor,
-                                    size: 35,
+                                    size: 25,
                                   ),
                                 )
                               ],
@@ -181,8 +175,8 @@ class ProductScreen extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       myService.getSelectedProduct!.name,
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 16),
+                                      style: const TextStyle(
+                                          color: Colors.black54, fontSize: 15),
                                     ),
                                   ),
                                 ),
@@ -209,11 +203,10 @@ class ProductScreen extends StatelessWidget {
                                     //       color: kPrimaryColor, fontSize: 12),
                                     // ),
                                     Text(
-                                        myService.getSelectedProduct!.price +
-                                            'ليرة  ',
-                                        style: TextStyle(
+                                        '${myService.getSelectedProduct!.price}ليرة  ',
+                                        style: const TextStyle(
                                             color: kPrimaryColor,
-                                            fontSize: 16)),
+                                            fontSize: 15)),
                                   ],
                                 ),
                               ),
@@ -229,11 +222,11 @@ class ProductScreen extends StatelessWidget {
                                 flex: 3,
                                 child: InkWell(
                                   onTap: (){
-                                    ProductCubit.get(context).addToCart( myService.getSelectedProduct!.id);
+                                    ProductCubit.get(context).addToCart( productId: myService.getSelectedProduct!.id,amount: ProductCubit.get(context).productNumber);
                                   },
                                   child:
 
-                                  state is AddToCartLoadingState?Center(
+                                  state is AddToCartLoadingState?const Center(
                                     child: CircularProgressIndicator(
                                     color: kPrimaryColor,
                                 ),
@@ -269,22 +262,21 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // Expanded(
-                              //   flex: 1,
-                              //   child: SelecInfotItem(
-                              //     number:
-                              //         ProductCubit.get(context).productNumber,
-                              //     col: kPrimaryColor,
-                              //     onPressAdd: () {
-                              //       ProductCubit.get(context)
-                              //           .increaseProductNumber();
-                              //     },
-                              //     onPressMin: () {
-                              //       ProductCubit.get(context)
-                              //           .decreaseProductNumber();
-                              //     },
-                              //   ),
-                              // ),
+                              Expanded(
+                                flex: 1,
+                                child: SelecInfotItem(
+                                  number: ProductCubit.get(context).productNumber,
+                                  col: kPrimaryColor,
+                                  onPressAdd: (){
+                                    ProductCubit.get(context).increaseProductNumber();
+                                  },
+                                  onPressMin: (){
+                                    ProductCubit.get(context).decreaseProductNumber();
+                                  },
+
+                                ),
+                              ),
+
                             ],
                           )
                         ],
@@ -300,3 +292,4 @@ class ProductScreen extends StatelessWidget {
     );
   }
 }
+

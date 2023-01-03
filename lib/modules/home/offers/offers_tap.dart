@@ -54,8 +54,10 @@ final TabController tabController;
               children: List.generate(myList.length, (index) {
                 return GestureDetector(
                   onTap: () {
-                      tabController.animateTo(myList[index].tapId);
 
+                      myList[index].id !=3?
+                      tabController.animateTo(myList[index].tapId)
+                          :                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=> QRViewScreen()), );
                },
                   child: mainCategoryWidget(
                     text: myList[index].title,

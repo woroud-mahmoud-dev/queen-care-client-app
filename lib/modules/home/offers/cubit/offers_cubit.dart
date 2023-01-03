@@ -7,7 +7,10 @@ import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/competion.dart';
 import 'package:http/http.dart' as http;
+import 'package:queen_care/models/prize_model.dart';
+import 'package:queen_care/models/profile.dart';
 import 'package:queen_care/models/question.dart';
+import 'package:queen_care/network/local/chach_helper.dart';
 
 part 'offers_state.dart';
 
@@ -24,7 +27,7 @@ class OffersCubit extends Cubit<OffersState> {
     final response = await http.get(myUrl);
 
     if (response.statusCode == 200) {
-      print(response.statusCode);
+
       allCompetitionsList = competitionFromJson(response.body);
       debugPrint(allCompetitionsList.toString());
       debugPrint(allCompetitionsList.length.toString());
@@ -60,10 +63,61 @@ class OffersCubit extends Cubit<OffersState> {
     }
     return questionsList;
   }
+  PrizeModel? prizeModel;
+  ProfileModel? profileModel;
+  Future<PrizeModel?> getCompetionPrize(var result) async {
+    emit(SendResultStateLoading());
+    var myUrl =
+    Uri.parse("https://karam-app.com/celo/queencare/public/api/prize");
+
+    final response = await http.post(myUrl, body: {
+      "quiz": myService.getSelectedComp!.id.toString(),
+      "prize": myService.getSelectedComp!.prize,
+      "result": result.toString(),
+
+    });
+    debugPrint(response.body.toString());
+
+
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      prizeModel = prizeModelFromJson(response.body);
+      debugPrint(prizeModel.toString());
+      debugPrint(questionsList.length.toString());
+
+      emit(FinishStateWithWin( prizeModel!));
+    } else if (response.statusCode == 404) {
+      emit(GetResultErrorState(error: 'error'));
+    }
+    return prizeModel;
+  }
+  Future<ProfileModel?> getCompetitionPoints(var result) async {
+    print(result);
+    emit(SendResultStateLoading());
+    var myUrl =
+    Uri.parse("https://karam-app.com/celo/queencare/public/api/prize");
+
+    final response = await http.post(myUrl, body: {
+      "quiz": myService.getSelectedComp!.id.toString(),
+      "prize": myService.getSelectedComp!.prize,
+      "result": result.toString(),
+
+    });
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+
+      profileModel = profileFromJson(response.body);
+      debugPrint('the points has :${profileModel!.point}');
+
+      emit(FinishStateWithLoss( double.parse(profileModel!.point)));
+    } else if (response.statusCode == 404) {
+      emit(GetResultErrorState(error: 'error'));
+    }
+    return profileModel;
+  }
 
   int currentStep = 1;
   int correct = 0;
-  // int stepLength = questionsList.length;
   bool? complete;
   void next() {
     if (currentStep <= questionsList.length) {
@@ -80,66 +134,14 @@ class OffersCubit extends Cubit<OffersState> {
     }
   }
 
-  List toggleButtons = List.generate(3, (index) => false);
 
-  bool isStarted = false;
-  bool isReady = false;
+
+
+
 
   int indexQ = 0;
 
-  void onPressedToggleButton(int index) {
-    for (int i = 0; i < 3; i++) {
-      if (i == index) {
-        toggleButtons[i] = true;
-      } else {
-        toggleButtons[i] = false;
-      }
-    }
 
-    emit(GoNextStep());
-  }
-
-  void onPressedContinueButton() {
-    bool isSelected = false;
-
-    for (int i = 0; i < 3; i++) {
-      if (toggleButtons[i]) {
-        isSelected = true;
-      }
-    }
-
-    if (!isSelected) {
-      showToast(text: ' الرجاء اختيار إجابة اولا', color: Colors.green);
-      return;
-    }
-
-    if (indexQ == 9) {
-      return;
-    }
-
-    if (isStarted == false) {
-      isStarted = true;
-      emit(GoNextStep());
-
-      return;
-    }
-
-    if (isReady == false) {
-      isReady = true;
-      toggleButtons = List.generate(3, (index) => false);
-      emit(GoNextStep());
-      return;
-    }
-
-    if (isReady) {
-      indexQ++;
-      toggleButtons = List.generate(3, (index) => false);
-
-      emit(GoNextStep());
-
-      return;
-    }
-  }
 
   String? answerGroupValue;
   void selectAnswer({required String answer, required String result}) {
@@ -162,10 +164,14 @@ class OffersCubit extends Cubit<OffersState> {
         print('correct is ${correct}');
         print('questionsList 80% is ${questionsList.length * (80 / 100)}');
         print('IS winner ${correct >= questionsList.length * (80 / 100)}');
+        var res=(correct/questionsList.length)* 100;
+
         if (correct >= questionsList.length * (80 / 100)) {
-          emit(FinishStateWithWin());
+          print(res.toString());
+          getCompetionPrize(res);
+
         } else {
-         emit( FinishStateWithLoss());
+          getCompetitionPoints(res);
         }
       } else {
         indexQ = indexQ + 1;
@@ -176,5 +182,37 @@ class OffersCubit extends Cubit<OffersState> {
     } else {
       showToast(text: 'عليك الاختيار اولا', color: darkGrey2);
     }
+  }
+
+
+
+
+
+  /////Get My Prizes
+List<PrizeModel> myPrizes=[];
+  Future<List<PrizeModel>> getMyPrizes() async {
+    emit(GetMyPrizesLoadingState());
+    var myUrl =
+    Uri.parse("https://karam-app.com/celo/queencare/public/api/my_prize");
+
+    final response = await http.post(myUrl,
+    body: {
+      'token': CacheHelper.getData(key: 'api_token'),
+    });
+    debugPrint(response.statusCode.toString());
+
+    if (response.statusCode == 200) {
+
+      myPrizes = prizeModelListFromJson(response.body);
+      debugPrint(myPrizes.toString());
+      debugPrint(myPrizes.length.toString());
+
+      emit(GetMyPrizesSuccessState(
+        myPrizes: myPrizes,
+      ));
+    } else if (response.statusCode == 404) {
+      emit(GetResultErrorState(error: 'error'));
+    }
+    return myPrizes;
   }
 }

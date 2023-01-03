@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/modules/home/offers/points/cubit/points_cubit.dart';
 
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 class MyPointsBalance extends StatelessWidget {
@@ -11,7 +13,12 @@ class MyPointsBalance extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return  Padding(
+    return  BlocProvider(
+  create: (context) => PointsCubit()..getMyPoints(),
+  child: BlocBuilder<PointsCubit, PointsState>(
+  builder: (context, state) {
+
+    return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
@@ -44,9 +51,13 @@ class MyPointsBalance extends StatelessWidget {
 
           SizedBox(height: h*0.14,),
 
-const Align(
+ state is GetMyPointsLoading?const Center(
+   child: CircularProgressIndicator(
+     color: kPrimaryColor,
+   ),
+ ): Align(
   alignment: Alignment.topRight,
-  child:               Text('رصيدي الحالي : 222 نقطة ',
+  child:               Text('رصيدي الحالي : ${PointsCubit.get(context).myPoints==''?'0':PointsCubit.get(context).myPoints} نقطة ',
     style: TextStyle(
         color: darkGrey2,
         fontSize: 16,
@@ -74,6 +85,9 @@ const Align(
         ],
       ),
     );
+  },
+),
+);
   }
 }
 
