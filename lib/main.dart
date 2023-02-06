@@ -5,9 +5,8 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/cubit/locale_cubit.dart';
 import 'package:queen_care/models/bloc_observer.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
-import 'package:queen_care/modules/cart/complet_buy_screen.dart';
-import 'package:queen_care/modules/home/main_screen.dart';
-import 'package:queen_care/network/local/chach_helper.dart';
+
+import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:queen_care/network/remote/dio_helper.dart';
 
 
@@ -60,7 +59,9 @@ class MyApp extends StatelessWidget {
 
             ),
             debugShowCheckedModeBanner: false,
-             home: CacheHelper.getData(key: 'api_token')!=null?MainScreen():  Splach(),
+           home:   const Splach(),
+          //   home:AddConsultation(),
+
 
 
           );

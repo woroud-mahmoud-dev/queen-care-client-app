@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Category extends InheritedWidget {
   final int id;
   final String categoryName;
-  Category({ required this.id,required super.child,required this.categoryName}) : super();
+  const Category({super.key,  required this.id,required super.child,required this.categoryName});
   static Category of(BuildContext context) {
     final Category? result = context.dependOnInheritedWidgetOfExactType<Category>();
     assert(result != null, 'No FrogColor found in context');

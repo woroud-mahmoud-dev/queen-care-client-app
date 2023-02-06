@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:queen_care/network/local/chach_helper.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -70,32 +70,25 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void addOrder({
-    required  List<Map<String, dynamic>> list,
-
+    required List<Map<String, dynamic>> list,
     required String address,
     required String note,
   }) async {
     var myUrl =
         Uri.parse("https://karam-app.com/celo/queencare/public/api/addorder");
     emit(AddOrderLoadingState());
-    debugPrint(list.toString());
-
-
-var body=json.encode({
-  'token': CacheHelper.getData(key: 'api_token'),
-  'id':list,
-
-  'address':
-  address.isEmpty ? CacheHelper.getData(key: 'address') : address,
-  'note': note,
-  'client_id': '1',
-});
-
+    var body = json.encode({
+      'token': CacheHelper.getData(key: 'api_token'),
+      'id': list,
+      'address':  address.isEmpty ? CacheHelper.getData(key: 'address') : address,
+      'note': note,
+      'client_id': '1',
+    });
     final response = await http.post(myUrl,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body:body);
+        body: body);
     debugPrint(response.statusCode.toString());
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
@@ -127,9 +120,3 @@ var body=json.encode({
     return allMoney = items.reduce((a, b) => a + b);
   }
 }
-
-
-
-
-
-

@@ -14,7 +14,7 @@ Future<bool?> showToast(
 
     timeInSecForIosWeb: 1,
     backgroundColor: color,
-    textColor: textColor != null ? textColor : Colors.white,
+    textColor: textColor ?? Colors.white,
 
     fontSize: 15.0,
   );

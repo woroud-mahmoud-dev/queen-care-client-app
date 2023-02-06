@@ -31,24 +31,24 @@ class ProfileModel {
 
   });
 
-  int id;
-  String firstName;
-  String lastName;
-  String email;
-  String gender;
-  String city;
-  String area;
-  String country;
-  String phone;
-  String address;
+ final int id;
+  final String firstName;
+  final  String lastName;
+  final String email;
+  final String gender;
+  final String city;
+  final  String area;
+  final  String country;
+  final String phone;
+  final String address;
 
-  String fcm;
-  String apiToken;
+  final String fcm;
+  final String apiToken;
   dynamic emailVerifiedAt;
-  String blocked;
-  String state;
-  String roleId;
-  dynamic point;
+  final  String blocked;
+  final  String state;
+  final  String roleId;
+  final  dynamic point;
 
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
 import 'package:queen_care/modules/period_calculator/widgets/calendar_widget.dart';
@@ -64,7 +64,7 @@ class PeriodCalculator extends StatelessWidget {
                   padding: EdgeInsets.all(8.0),
                   child:  Text(
                     "تتبع الدورة الشهرية",
-                    style:  TextStyle(fontSize: 16),
+                    style:  TextStyle(fontSize: 14),
                   ),
                 ),
               ),
@@ -147,7 +147,7 @@ class PeriodCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "أعراضك",
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 14),
                         ),
                       ),
                     ),
@@ -157,7 +157,7 @@ class PeriodCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "تدفق الحيض",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ),
                     ),
@@ -254,7 +254,7 @@ class PeriodCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "الأعراض",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ),
                     ),
@@ -308,7 +308,7 @@ class PeriodCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "المزاج",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ),
                     ),
@@ -397,7 +397,7 @@ class PeriodCalculator extends StatelessWidget {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                           "تتبع الإباضة",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ),
                     ),
@@ -440,7 +440,7 @@ class PeriodItem extends StatelessWidget {
       child: Row(
         children: [
           const Spacer(),
-          Text(name),
+          Text(name,style: const TextStyle(fontSize: 12),),
           Icon(
             Icons.circle,
             color: color,

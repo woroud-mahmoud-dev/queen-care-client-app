@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
@@ -9,7 +9,7 @@ import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 class ForgetPassword extends StatelessWidget {
   ForgetPassword({Key? key}) : super(key: key);
 
-  TextEditingController phoneController = TextEditingController();
+  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ForgetPassword extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const title(text: 'نسيت رمز الدخول'),
+                const CustomTitleWidget(text: 'نسيت رمز الدخول'),
                 const Spacer(),
               ],
             ),
@@ -43,7 +43,7 @@ class ForgetPassword extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Desecrption1(
+            const Description1(
                 text:
                     'أدخل رقم الهاتف أدناه وسنرسل إليك \n رسالة نصية تحوي على رمز التحقق \nلتغيير كلمة المرور الخاصة بك  '),
             SizedBox(
@@ -51,7 +51,13 @@ class ForgetPassword extends StatelessWidget {
             ),
             customTextField(
                 keyboardType: TextInputType.phone,
-                validate: (v) {},
+                validate: (value) {
+                  if (value!.isEmpty) {
+                    return 'Phone number is required';
+                  } else {
+                    return null;
+                  }
+                },
                 label: 'رقم الهاتف',
                 hintText: 'ادخل رقم هاتفك',
                 isPassword: false,
@@ -68,15 +74,15 @@ class ForgetPassword extends StatelessWidget {
             AuthButton(
               title: 'تاكيد',
               onTap: () {
-                                    Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (_) => ComfirmePassword()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => ComfirmePassword()));
               },
               color: kPrimaryColor,
             ),
             SizedBox(
               height: h * 0.05,
             ),
-           Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(

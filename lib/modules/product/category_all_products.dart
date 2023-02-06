@@ -1,22 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:queen_care/core/my_service.dart';
-import 'package:queen_care/core/utlis/constant.dart';
-import 'package:queen_care/core/utlis/strings.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/models/product.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
+import 'package:queen_care/modules/product/widgets/product_item.dart';
 
 
-// ignore: must_be_immutable
 class CategoryAllProducts extends StatelessWidget {
   CategoryAllProducts({Key? key, required this.tabController})
       : super(key: key);
 
   final TabController tabController;
-  MyService myService = MyService();
+  final myService = MyService();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -44,7 +43,6 @@ class CategoryAllProducts extends StatelessWidget {
                       child: Row(
                         children: [
                           const GoCart(),
-
                           const Spacer(),
                           IconButton(
                               onPressed: () {
@@ -75,7 +73,7 @@ class CategoryAllProducts extends StatelessWidget {
                         children: [
                           Text(
                             myService.getSelectedCategory!.name,
-                            style: const TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 18),
                           ),
                           const Spacer(),
                           const Text('4.5'),
@@ -104,7 +102,8 @@ class CategoryAllProducts extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               itemCount: allProductsByType.length,
                               itemBuilder: (context, int index) {
                                 return ProductItem(
@@ -127,69 +126,4 @@ class CategoryAllProducts extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
-class ProductItem extends StatelessWidget {
-  ProductItem({
-    Key? key,
-    required this.w,
-    required this.h,
-    required this.tabController,
-    required this.productModel,
-  }) : super(key: key);
-  final TabController tabController;
-  final double w;
-  final double h;
-  final ProductModel productModel;
-  MyService myService = MyService();
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      width: w * 0.7,
-      height: h * 0.13,
-      child: GestureDetector(
-        onTap: () {
-          myService.setSelectedProduct = productModel;
-          tabController.animateTo(5);
-        },
-        child: Card(
-          color: Colors.white,
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    productModel.name,
-                    style: const TextStyle(color: Colors.black54, fontSize: 14),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: CachedNetworkImage(
-                    key: UniqueKey(),
-                    imageUrl: imgUrlOLa + productModel.image,
-                    placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(
-                      backgroundColor: Colors.transparent,
-                      color: kPrimaryColor,
-                      strokeWidth: 0.2,
-                    )),
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+

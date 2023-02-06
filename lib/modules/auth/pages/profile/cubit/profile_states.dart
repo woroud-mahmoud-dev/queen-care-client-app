@@ -36,3 +36,6 @@ class  EditeProfileError extends ProfileCubitState {
   EditeProfileError({required this.error});
 }
 class SelectBirthDayState extends ProfileCubitState {}
+class ConvertToCompanyState extends ProfileCubitState{}
+class ConvertToCompanySuccessState extends ProfileCubitState{}
+class ConvertToCompanyErrorState extends ProfileCubitState{}

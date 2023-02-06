@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 class ItemWidgetWithIcon extends StatefulWidget {
   int value;
@@ -40,7 +40,7 @@ class _ItemWidgetWithIconState extends State<ItemWidgetWithIcon> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             widget.widget2!,
-            Text(widget.name,style: TextStyle(color: darkGrey2,fontSize: 16),textAlign: TextAlign.center,maxLines: 2,),
+            Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,),
           ],
         ),
       ),
@@ -84,7 +84,7 @@ class _ItemWidgetState extends State<ItemWidget> {
           color:selected?kPrimaryColor2: darkGrey1,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Center(child: Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 16),textAlign: TextAlign.center,maxLines: 2,)),
+        child: Center(child: Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,)),
       ),
     );
   }

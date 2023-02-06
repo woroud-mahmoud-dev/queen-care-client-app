@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 class NumberStepper extends StatelessWidget {
   final double width;
-  final totalSteps;
+  final int totalSteps;
   final int curStep;
   final Color stepCompleteColor;
   final Color currentStepColor;
   final Color inactiveColor;
   final double lineWidth;
-  NumberStepper({
+  const NumberStepper({
     Key ?key,
     required this.width,
     required this.curStep,
@@ -23,13 +23,9 @@ class NumberStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: EdgeInsets.only(
-      //   top: 5.0,
-      //   left: 5.0,
-      //   right: 5.0,
-      // ),
-      width: this.width,
+    return SizedBox(
+
+      width: width,
       child: Row(
         children: _steps(),
       ),
@@ -37,28 +33,30 @@ class NumberStepper extends StatelessWidget {
   }
 
   getCircleColor(i) {
-    var color;
+    Color color;
     if (i + 1 < curStep) {
       color = stepCompleteColor;
-    } else if (i + 1 == curStep)
+    } else if (i + 1 == curStep) {
       color = currentStepColor;
-    else if (i==totalSteps-1)
+    } else if (i==totalSteps-1) {
       color = kPrimaryColor;
-    else
+    } else {
       color = darkGrey2;
+    }
     return color;
   }
 
   getBorderColor(i) {
-    var color;
+    Color color;
     if (i + 1 < curStep) {
       color = stepCompleteColor;
-    } else if (i + 1 == curStep)
+    } else if (i + 1 == curStep) {
       color = kPrimaryColor;
-    else if (i==totalSteps-1)
+    } else if (i==totalSteps-1) {
       color = kPrimaryColor;
-    else
+    } else {
       color = inactiveColor;
+    }
 
     return color;
   }
@@ -83,15 +81,15 @@ class NumberStepper extends StatelessWidget {
         Container(
           width: 20.0,
           height: 20.0,
-          child: getInnerElementOfStepper(i),
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             color: circleColor,
-            borderRadius: new BorderRadius.all(new Radius.circular(25.0)),
-            border: new Border.all(
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+            border: Border.all(
               color: borderColor,
               width: 1.0,
             ),
           ),
+          child: getInnerElementOfStepper(i),
         ),
       );
 
@@ -113,7 +111,7 @@ class NumberStepper extends StatelessWidget {
 
   Widget getInnerElementOfStepper(index) {
     if (index + 1 < curStep) {
-      return Icon(
+      return const Icon(
         Icons.circle,
         color: Colors.green,
         size: 16.0,
@@ -122,14 +120,15 @@ class NumberStepper extends StatelessWidget {
       return Center(
         child: Text(
           '$curStep',
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.normal,
             fontFamily: 'Roboto',
           ),
         ),
       );
-    } else
+    } else {
       return Container();
+    }
   }
 }

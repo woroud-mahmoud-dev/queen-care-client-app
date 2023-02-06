@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
-
+import 'package:queen_care/core/utils/constant.dart';
 
 class GeneralButton extends StatelessWidget {
   final GestureTapCallback? onTap;
@@ -13,7 +11,11 @@ class GeneralButton extends StatelessWidget {
   const GeneralButton({
     Key? key,
     required this.onTap,
-    required this.title, this.textColor, this.elevation, this.margin, this.padding,
+    required this.title,
+    this.textColor,
+    this.elevation,
+    this.margin,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -21,17 +23,20 @@ class GeneralButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        color: textColor ==null?kPrimaryColor:Colors.white.withAlpha(255),
-        elevation: elevation ??3,
+        color: textColor == null ? kPrimaryColor : Colors.white.withAlpha(255),
+        elevation: elevation ?? 3,
         margin: margin ?? EdgeInsets.zero,
         child: Padding(
-          padding: padding==null? EdgeInsets.all(20.0): EdgeInsets.all(padding!),
+          padding: padding == null
+              ? const EdgeInsets.all(20.0)
+              : EdgeInsets.all(padding!),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 title,
-                style:  TextStyle(color:textColor ?? Colors.white, fontSize: 18),
+                style:
+                    TextStyle(color: textColor ?? Colors.white, fontSize: 16),
               ),
             ],
           ),
@@ -41,7 +46,6 @@ class GeneralButton extends StatelessWidget {
   }
 }
 
-
 class AuthButton extends StatelessWidget {
   final GestureTapCallback onTap;
   final String title;
@@ -49,7 +53,8 @@ class AuthButton extends StatelessWidget {
   const AuthButton({
     Key? key,
     required this.onTap,
-    required this.title, required this.color,
+    required this.title,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -58,8 +63,6 @@ class AuthButton extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       child: GestureDetector(
         onTap: onTap,
-
-
         child: Container(
           height: 55,
           decoration: BoxDecoration(
@@ -75,7 +78,10 @@ class AuthButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.normal),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal),
                 ),
               ],
             ),
@@ -86,148 +92,131 @@ class AuthButton extends StatelessWidget {
   }
 }
 
-class CircleButton extends StatelessWidget{
-  final Icon myicon;
+class CircleButton extends StatelessWidget {
+  final Icon myIcon;
   final GestureTapCallback onTap;
   const CircleButton({
     Key? key,
     required this.onTap,
-    required this.myicon,
-
+    required this.myIcon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
-
 
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: GestureDetector(
         onTap: onTap,
-
-
         child: Container(
-          height:43 ,width: 25,
+          height: 43, width: 25,
           decoration: const BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(100),
-              topRight: Radius.circular(100 ),
+              topRight: Radius.circular(100),
               bottomRight: Radius.circular(100),
-              bottomLeft: Radius.circular(100),),),
-
+              bottomLeft: Radius.circular(100),
+            ),
+          ),
 
           // elevation: 3,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child:
-            Center(child: myicon),
-
-
+            child: Center(child: myIcon),
           ),
         ),
       ),
     );
+  }
+}
 
-  }}
-class halfCircleButton1 extends StatelessWidget{
-  final Icon myicon;
-  void Function()? onTap;
-   halfCircleButton1({
+class HalfCircleButton1 extends StatelessWidget {
+  final Icon myIcon;
+  final void Function()? onTap;
+  const HalfCircleButton1({
     Key? key,
     required this.onTap,
-    required this.myicon,
-
+    required this.myIcon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-
-
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: InkWell(
         onTap: onTap,
-
-
         child: Container(
-          height:20 ,width: 25,
+          height: 20, width: 25,
           decoration: const BoxDecoration(
             color: kPrimaryColor,
-
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(100),
-              topRight: Radius.circular(100),),),
-
+              topRight: Radius.circular(100),
+            ),
+          ),
 
           // elevation: 3,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child:
-            Center(child: myicon),
-
-
+            child: Center(child: myIcon),
           ),
         ),
       ),
     );
+  }
+}
 
-  }}
-class halfCircleButton extends StatelessWidget{
-  final Icon myicon;
-  void Function()? onTap;
-   halfCircleButton({
+class HalfCircleButton extends StatelessWidget {
+  final Icon myIcon;
+  final void Function()? onTap;
+  const HalfCircleButton({
     Key? key,
     required this.onTap,
-    required this.myicon,
-
+    required this.myIcon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
-
-
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: InkWell(
         onTap: onTap,
-
-
         child: Container(
-          height:20 ,width: 25,
+          height: 20, width: 25,
           decoration: const BoxDecoration(
             color: kPrimaryColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(100),
-              bottomRight: Radius.circular(100),),),
-
+              bottomRight: Radius.circular(100),
+            ),
+          ),
 
           // elevation: 3,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child:
-            Center(child: myicon),
-
-
+            child: Center(child: myIcon),
           ),
         ),
       ),
     );
+  }
+}
 
-  }}class AuthButton1 extends StatelessWidget {
+class AuthButton1 extends StatelessWidget {
   final GestureTapCallback onTap;
   final String title;
   final Color color;
   const AuthButton1({
     Key? key,
     required this.onTap,
-    required this.title, required this.color,
+    required this.title,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -236,8 +225,6 @@ class halfCircleButton extends StatelessWidget{
       padding: const EdgeInsets.all(0.0),
       child: GestureDetector(
         onTap: onTap,
-
-
         child: Container(
           height: 40,
           width: 100,
@@ -254,7 +241,10 @@ class halfCircleButton extends StatelessWidget{
               children: [
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 12,fontWeight: FontWeight.normal),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal),
                 ),
               ],
             ),
@@ -264,4 +254,3 @@ class halfCircleButton extends StatelessWidget{
     );
   }
 }
-

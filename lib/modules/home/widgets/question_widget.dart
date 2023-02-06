@@ -1,16 +1,15 @@
 
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
-// ignore: must_be_immutable
 class QuestionWidget extends StatefulWidget {
-  String value;
-  String name;
+  final String value;
+  final  String name;
 
   var groupValue;
 
   final void Function(String) onChanged;
-  QuestionWidget(
+   QuestionWidget(
       {Key? key,
         required this.value,
         required this.name,
@@ -53,25 +52,23 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: FittedBox(
-                      child: Text(
-                        '${widget.name}',
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child:  Text(
+                        widget.name,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: selected ? 18 : 16,
+                            fontSize: selected ? 14 : 12,
                             fontWeight:
                             !selected ? FontWeight.bold : FontWeight.bold,
                             color:  selected ?kPrimaryColor :darkGrey2),
                       ),
                     ),
                   ),
-                  Spacer(),
 
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(5),
                     width: 20,
                     height: 20,
                     decoration: BoxDecoration(

@@ -2,29 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/cubit/locale_cubit.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/auth/pages/login/login-screen.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 import 'package:queen_care/modules/auth/pages/select_lan/widgets/lang_item.dart';
 import 'package:queen_care/network/local/language_cache_helper.dart';
 
-class SelectLanguage extends StatefulWidget {
-  const SelectLanguage({Key? key}) : super(key: key);
+class SelectLanguage extends StatelessWidget {
+   SelectLanguage({Key? key}) : super(key: key);
 
-  @override
-  State<SelectLanguage> createState() => _SelectLanguageState();
-}
-
-class _SelectLanguageState extends State<SelectLanguage> {
-  LanguageCacheHelper languageCacheHelper = LanguageCacheHelper();
-
-  @override
-  void initState() {
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      // Navigator.of(context).push(MaterialPageRoute(builder: (_)=>WelcomeScreen()));
-    });
-    super.initState();
-  }
+  final languageCacheHelper = LanguageCacheHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +19,25 @@ class _SelectLanguageState extends State<SelectLanguage> {
         backgroundColor: Colors.white,
         body: BlocConsumer<LocaleCubit, ChangeLocaleState>(
           listener: (context, state) {
-            if (state is ChangeLocaleState) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => Login()));
-            }
+            // if (state is ChangeLocaleState) {
+            //   // Navigator.of(context)
+            //   //     .push(MaterialPageRoute(builder: (_) => Login()));
+            // }
           },
           builder: (context, state) {
             return Column(
               children: [
-
-                Padding(padding: EdgeInsets.all(30),
-                  child:  Center(
-                    child: Image.asset('assets/images/logo.png',height: 200,width: 200,),
-                  ),),         const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: 200,
+                      width: 200,
+                    ),
+                  ),
+                ),
+                const Spacer(),
                 Container(
                   height: 40,
                   color: lightGrey,
@@ -59,42 +52,36 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 20,
                 ),
                 const Spacer(),
-Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  children: [
-    LangIteam(
-      name: 'العربية',
-      value: 'ar',
-      groupValue: state.locale.languageCode,
-      onChanged: (va) {
-        if (va != null) {
-          context.read<LocaleCubit>().changeLanguage(va.toString());
-        }
-      }, img: 'assets/icons/sy.png',
-    ),
-
-    LangIteam(
-        img: 'assets/icons/uk.png',
-        name: 'English',
-        value: 'en',
-        groupValue: state.locale.languageCode,
-        onChanged: (va) {
-          if (va != null) {
-            context
-                .read<LocaleCubit>()
-                .changeLanguage(va.toString());
-          }
-        }),
-
-  ],
-),
-
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    LanguageWidget(
+                      name: 'العربية',
+                      value: 'ar',
+                      groupValue: state.locale.languageCode,
+                      onChanged: (va) {
+                        context
+                            .read<LocaleCubit>()
+                            .changeLanguage(va.toString());
+                      },
+                      img: 'assets/icons/sy.png',
+                    ),
+                    LanguageWidget(
+                        img: 'assets/icons/uk.png',
+                        name: 'English',
+                        value: 'en',
+                        groupValue: state.locale.languageCode,
+                        onChanged: (va) {
+                          context
+                              .read<LocaleCubit>()
+                              .changeLanguage(va.toString());
+                        }),
+                  ],
+                ),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +97,7 @@ Row(
                         )),
                     const SizedBox(
                       height: 40,
-                      child:  RotatedBox(
+                      child: RotatedBox(
                         quarterTurns: 1,
                         child: Divider(
                           color: kPrimaryColor,

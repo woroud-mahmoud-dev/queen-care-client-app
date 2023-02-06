@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:queen_care/core/my_service.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/cart_model.dart';
-import 'package:queen_care/modules/cart/complet_buy_screen.dart';
+import 'package:queen_care/modules/cart/complete_buy_screen.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 import 'package:queen_care/modules/cart/widgets/show_products_part.dart';
 
@@ -48,7 +48,7 @@ class CartScreen extends StatelessWidget {
 
                           const Align(
                             alignment: Alignment.topCenter,
-                            child: Text('السلة',style: TextStyle(color: kPrimaryColor,fontSize: 18),),
+                            child: Text('السلة',style: TextStyle(color: kPrimaryColor,fontSize: 17),),
                           ),
                           SizedBox(width: w*0.2,)
                         ],
@@ -96,7 +96,7 @@ class CartScreen extends StatelessWidget {
                                 const Text('المجموع',
                                   style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold
 
 

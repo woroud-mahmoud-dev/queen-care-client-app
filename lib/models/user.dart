@@ -21,6 +21,7 @@ class UserModel {
     required this.address,
     required this.phone,
     required this.roleId,
+    required this.type,
     required this.birthday,
     required this.apiToken,
    
@@ -37,6 +38,7 @@ class UserModel {
   String address;
   String phone;
   String roleId;
+  String type;
   DateTime birthday;
 
   String apiToken;
@@ -54,6 +56,7 @@ class UserModel {
     address: json["address"],
     phone: json["phone"],
     roleId: json["role_id"],
+    type: json["type"]??"0",
     birthday: DateTime.parse(json["birthday"]),
     apiToken: json["api_token"],
 
@@ -71,6 +74,7 @@ class UserModel {
     "address": address,
     "phone": phone,
     "role_id": roleId,
+    "type": type,
     "birthday": "${birthday.year.toString().padLeft(4, '0')}-${birthday.month.toString().padLeft(2, '0')}-${birthday.day.toString().padLeft(2, '0')}",
 
     "api_token": apiToken,

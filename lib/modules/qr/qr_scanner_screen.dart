@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 
 
@@ -45,7 +45,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
             const   SizedBox(height: 100,),
             const     Text('امسح للحصول على هدية',style: TextStyle(
             color: darkGrey,
-            fontSize: 18
+            fontSize: 17
         )),
             const  SizedBox(height: 70,),
 

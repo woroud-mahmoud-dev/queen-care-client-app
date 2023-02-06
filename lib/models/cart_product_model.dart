@@ -13,16 +13,16 @@ class CartProductModel {
     required this.clientId,
   });
 
-  List<Id> id;
-  String note;
-  String address;
-  int clientId;
+  final List<Id> id;
+  final String note;
+  final String address;
+  final int clientId;
 
   factory CartProductModel.fromJson(Map<String, dynamic> json) => CartProductModel(
     id: List<Id>.from(json["id"].map((x) => Id.fromJson(x))),
     note: json["note"],
     address: json["address"],
-    clientId: json["client_id"],
+    clientId: json["client_id"]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -40,14 +40,14 @@ class Id {
     required this.price,
   });
 
-  int id;
-  int amount;
-  int price;
+final  int id;
+  final int amount;
+  final  int price;
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
     id: json["id"],
-    amount: json["amount"],
-    price: json["price"],
+    amount: json["amount"]??0,
+    price: json["price"]??0,
   );
 
   Map<String, dynamic> toJson() => {

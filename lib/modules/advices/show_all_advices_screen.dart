@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/models/cat_blog_model.dart';
 import 'package:queen_care/modules/advices/cubit/advice_cubit.dart';
 import 'package:queen_care/modules/advices/widgets/blogs_part.dart';
@@ -48,13 +48,13 @@ class ShowAdvicesScreen extends StatelessWidget {
 
                 Padding(
                        padding: const EdgeInsets.all(20.0),
-                       child: searchBar(w: w),
+                       child: SearchBar(w: w),
                      ),
                 const Align(
                   alignment: Alignment.center,
                   child: Text('النصائح', style: TextStyle(
                       color: kPrimaryColor,
-                    fontSize: 18
+                    fontSize: 17
                   ),),
                 ),
                 SizedBox(height: h*0.02,),
@@ -68,7 +68,7 @@ onTap: (int index){
   debugPrint(index.toString());
 },
                     labelColor: kPrimaryColor,
-                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 14),
                     unselectedLabelColor: darkGrey2,
                     tabs: tabList,
                     indicatorColor: kPrimaryColor,

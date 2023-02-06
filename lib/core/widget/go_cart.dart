@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 import '../../modules/cart/cart_screen.dart';
 

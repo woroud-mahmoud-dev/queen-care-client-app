@@ -1,15 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:queen_care/core/utlis/constant.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
-import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
+import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
-import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
-import 'package:queen_care/network/local/chach_helper.dart';
-
-
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key, required this.tabController}) : super(key: key);
@@ -20,7 +15,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   TextEditingController phoneController = TextEditingController();
 
   @override
@@ -36,122 +30,87 @@ class _ProfileState extends State<Profile> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:const [
-               Spacer(),
-
-               title(text: 'الحساب الشخصي'),
-               Spacer(),
+            children: const [
+              Spacer(),
+              CustomTitleWidget(text: 'الحساب الشخصي'),
+              Spacer(),
             ],
           ),
-          const SizedBox(
-            height: 50,
+           SizedBox(
+            height: h*0.1,
           ),
-
           Align(
             alignment: Alignment.center,
-            child: Container(
-
-
-
-
-              height: h* 0.2,
-              width: h*0.2,
+            child: SizedBox(
+              height: h * 0.2,
+              width: h * 0.2,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-
                       decoration: BoxDecoration(
-
-                          color: Color(0xffCCCCCC),
-
+                          color: const Color(0xffCCCCCC),
                           borderRadius: BorderRadius.circular(5))),
                   Positioned(
                       right: -10,
                       bottom: -10,
                       child: GestureDetector(
-                        onTap: (){
-
-
-                        },
+                        onTap: () {},
                         child: SvgPicture.asset('assets/icons/camera_icon.svg'),
                       )),
-
                 ],
               ),
             ),
           ),
-          SizedBox(height: h*0.2,),
+          SizedBox(
+            height: h * 0.15,
+          ),
           ProfileItem(
             img: 'assets/icons/profile_icon.svg',
             text: 'حسابي',
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>EditeProfile()));
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => EditeProfile()));
             },
           ),
-          SizedBox(height: h*0.05,),
+          SizedBox(
+            height: h * 0.05,
+          ),
+          ProfileItem(
+            iconData:Icons.compare_arrows,
+            iconNotImage: true,
+            text: 'التحويل إلى شركة',
+            onTap: () {
+              widget.tabController.animateTo(18);
+            },
+          ),
+          SizedBox(
+            height: h * 0.05,
+          ),
           ProfileItem(
             iconNotImage: true,
-iconData: Icons.calendar_month_sharp,
-
+            iconData: Icons.calendar_month_sharp,
             text: 'حاسبة الدورة الشهرية',
-            onTap: (){
-
+            onTap: () {
               widget.tabController.animateTo(7);
             },
           ),
-          SizedBox(height: h*0.05,),
+          SizedBox(
+            height: h * 0.05,
+          ),
           ProfileItem(
             img: 'assets/icons/logout_icon.svg',
             text: 'تسجيل الخروج',
-            onTap: (){
+            onTap: () {
               CacheHelper.removeData(key: 'api_token');
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> Splach()), (route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (_) => const Splach()),
+                  (route) => false);
             },
           ),
-
         ],
       ),
     );
   }
 }
 
-class ProfileItem extends StatelessWidget {
-  final String? img;
-  final IconData? iconData;
-  final String text;
-  bool? iconNotImage;
-
-  void Function()? onTap;
-   ProfileItem({
-
-    Key? key,  this.img, required this.text,required this.onTap,this.iconNotImage, this.iconData
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-
-          color: Color(0xffF5F6F9),
-          borderRadius: BorderRadius.circular(15),
-
-
-        ),
-        padding: EdgeInsets.all(10),
-        child: Row(
-          children: [
-
-
-
-            Icon(Icons.arrow_left),         const Spacer(),
-            Text(text),SizedBox(width: 20,),      iconNotImage==true?  Icon(iconData!,size: 30,color: kPrimaryColor,) :  SvgPicture.asset(img!),
-          ],
-        ),
-      ),
-    );
-  }
-}

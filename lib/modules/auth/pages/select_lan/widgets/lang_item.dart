@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
-class LangIteam extends StatefulWidget {
-  String value;
-  String name;
-  String img;
+class LanguageWidget extends StatefulWidget {
+ final String value;
+ final String name;
+ final  String img;
 
   var groupValue;
 
   final void Function(String) onChanged;
-  LangIteam(
+  LanguageWidget(
       {Key? key,
       required this.value,
       required this.img,
@@ -19,10 +19,10 @@ class LangIteam extends StatefulWidget {
       : super(key: key);
 
   @override
-  _LangIteamState createState() => _LangIteamState();
+  _LanguageWidgetState createState() => _LanguageWidgetState();
 }
 
-class _LangIteamState extends State<LangIteam> {
+class _LanguageWidgetState extends State<LanguageWidget> {
   @override
   Widget build(BuildContext context) {
     bool selected = (widget.value == widget.groupValue);
@@ -48,11 +48,11 @@ class _LangIteamState extends State<LangIteam> {
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10,top: 7),
                 child: Text(
-                  '${widget.name}',
+                  widget.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontWeight: selected ? FontWeight.bold : FontWeight.normal,
-                      fontSize:  18 ,
+                      fontSize:  16 ,
                       color: selected ? kPrimaryColor : darkGrey),
                 ),
               ),

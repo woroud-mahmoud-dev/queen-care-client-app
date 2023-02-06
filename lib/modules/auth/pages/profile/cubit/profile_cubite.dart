@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/models/user.dart';
 import 'package:queen_care/modules/auth/pages/profile/cubit/profile_states.dart';
-import 'package:queen_care/network/local/chach_helper.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -15,7 +15,8 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
   static ProfileCubit get(context) => BlocProvider.of(context);
   int? genderGroupValue;
   UserModel? user;
-
+  DateTime? birthdayDateTime;
+  MyService myService = MyService();
   getProfileWithHttp(
       ) async {
     emit(GetProfileLoading());
@@ -38,6 +39,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
       debugPrint(response.statusCode.toString());
       user = UserModel.fromJson(data);
       genderGroupValue =int.parse(user!.gender);
+      debugPrint(response.body);
       debugPrint('data : ${data["api_token"]}');
       debugPrint(user!.birthday.toString());
 
@@ -56,8 +58,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     emit((SelectGenderState()));
   }
 
-  DateTime? birthdayDateTime;
-  MyService myService = MyService();
+
 
   void selectBirthdayDateTime(DateTime time) {
     birthdayDateTime = time;
@@ -105,11 +106,11 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     });
 
 
-    var data = json.decode(response.body);
+
     debugPrint(response.statusCode.toString());
 
     if (response.statusCode == 200) {
-
+      var data = json.decode(response.body);
       user = UserModel.fromJson(data);
       debugPrint('data : ${data["api_token"]}');
       debugPrint('update user done !!!');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
@@ -8,7 +8,7 @@ import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 class ComfirmePassword extends StatelessWidget {
   ComfirmePassword({Key? key}) : super(key: key);
 
-  TextEditingController phoneController = TextEditingController();
+  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ComfirmePassword extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const title(text: 'تاكيد رمز الدخول '),
+                const CustomTitleWidget(text: 'تاكيد رمز الدخول '),
                 const Spacer(),
               ],
             ),
@@ -42,7 +42,7 @@ class ComfirmePassword extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Desecrption1(
+            const Description1(
                 text: 'الرجاء إدخال كلمة المرور الجديدة الخاصة بك'),
             SizedBox(
               height: h * 0.2,

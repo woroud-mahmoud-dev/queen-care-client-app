@@ -1,19 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/my_service.dart';
-import 'package:queen_care/core/utlis/constant.dart';
-import 'package:queen_care/core/utlis/strings.dart';
+import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/category.dart';
 
 class CategoryWidget extends StatelessWidget {
-  final String catName;
-  final String catImg;
-  final int catId;
-  final CategoryModel categorym;
+
+  final CategoryModel category;
   final  TabController tabController;
-   CategoryWidget({Key? key, required this.catName, required this.catImg, required this.tabController, required this.catId, required this.categorym}) : super(key: key);
-  MyService myService = MyService();
+  CategoryWidget({Key? key, required this.tabController,  required this.category}) : super(key: key);
+  final myService = MyService();
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +18,8 @@ class CategoryWidget extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: (){
-        myService.setSelectedCategory=categorym;
-      tabController.animateTo(4);
+        myService.setSelectedCategory=category;
+        tabController.animateTo(4);
 
       },
       child: Container(
@@ -58,21 +55,21 @@ class CategoryWidget extends StatelessWidget {
                 width: w*0.25,
 
                 child: Center(
-                  child: Text(catName
+                  child: Text(category.name
 
-                ,textAlign: TextAlign.center,style: const TextStyle(color: kPrimaryColor),  ),
+                    ,textAlign: TextAlign.center,style: const TextStyle(color: kPrimaryColor),  ),
                 ),
               ),
             ),
             Positioned(
-                  top: 0,
-                  left: 10,
+              top: 0,
+              left: 10,
               child: SizedBox(
-                        height: h*0.1,
-                        width: w*0.4,
+                height: h*0.1,
+                width: w*0.4,
                 child: CachedNetworkImage(
                   key:UniqueKey(),
-                  imageUrl: imgUrl+catImg,
+                  imageUrl: imgUrl+category.image,
                   placeholder: (context, url) =>const Center(child: CircularProgressIndicator(
                     backgroundColor: Colors.transparent,
 

@@ -1,12 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 // ignore: must_be_immutable
 class GenderWidget extends StatefulWidget {
-  int value;
-  String name;
-  IconData icon;
+  final int value;
+  final String name;
+  final IconData icon;
+  // ignore: prefer_typing_uninitialized_variables
   var groupValue;
 
   final void Function(int) onChanged;
@@ -20,6 +20,7 @@ class GenderWidget extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _GenderWidgetState createState() => _GenderWidgetState();
 }
 
@@ -50,7 +51,7 @@ class _GenderWidgetState extends State<GenderWidget> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Text(
-                    '${widget.name}',
+                    widget.name,
                     style: TextStyle(
                         fontSize: selected ? 16 : 14,
                         fontWeight:

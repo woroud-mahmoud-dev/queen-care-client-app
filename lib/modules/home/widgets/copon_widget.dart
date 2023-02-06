@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 class coponWidget extends StatelessWidget {
   coponWidget({
@@ -18,7 +18,7 @@ class coponWidget extends StatelessWidget {
     return GestureDetector(
       onTap:onTap ,
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         height: h*0.11,
         width: w,
         decoration: BoxDecoration(
@@ -42,9 +42,7 @@ class coponWidget extends StatelessWidget {
                   width: h*0.09,
                   decoration: BoxDecoration(
                     color: kPrimaryColor,
-                    // border: Border.all(
-                    //     color: kPrimaryColor
-                    // ),
+
                     borderRadius: BorderRadius.circular(5),
 
 
@@ -61,12 +59,14 @@ class coponWidget extends StatelessWidget {
                  const   [
                       Text('احصل على كوبون خصم  ',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: kPrimaryColor,                          fontSize: 14
+
 
                         ),),
                       Text('60%  ',
                         style: TextStyle(
-                            color: kPrimaryColor,
+                            color: kPrimaryColor,                          fontSize: 14
+
 
                         ),),
 

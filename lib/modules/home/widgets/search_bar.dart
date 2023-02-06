@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
-class searchBar extends StatelessWidget {
-  const searchBar({
+class SearchBar extends StatelessWidget {
+  const SearchBar({
     Key? key,
     required this.w,
   }) : super(key: key);
@@ -35,15 +35,17 @@ class searchBar extends StatelessWidget {
             contentPadding: const EdgeInsets.symmetric(
                 horizontal: 20.0, vertical: 10.0),
             hintText: "البحث ",
+            hintStyle: const TextStyle(fontSize: 14),
             suffix: Container(
               height: 30,
+
               width: 30,
 
               decoration: const BoxDecoration(color: kPrimaryColor,
                   shape: BoxShape.circle,
-                image: DecorationImage(image: AssetImage('assets/images/filtter.png'))
+                  image: DecorationImage(image: AssetImage('assets/images/filter.png'))
               ),
-           
+
             ),
 
             prefixIcon: IconButton(

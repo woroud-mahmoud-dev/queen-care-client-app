@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
-import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 
 // ignore: must_be_immutable
 class VerifyCode extends StatelessWidget {
@@ -36,7 +35,7 @@ class VerifyCode extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const title(text: 'رمز التفعيل'),
+                const CustomTitleWidget(text: 'رمز التفعيل'),
                 const Spacer(),
               ],
             ),
@@ -49,7 +48,7 @@ class VerifyCode extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            const Desecrption1(
+            const Description1(
                 text: 'أرسلنا رمزك إلى \n ستنتهي صلاحية هذا الرمز في الساعة '),
             const SizedBox(
               height: 15,

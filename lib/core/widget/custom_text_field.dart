@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
 Widget customTextField({
   required String label,
@@ -27,17 +27,17 @@ Widget customTextField({
       prefixIconColor: kPrimaryColor,
       label: Text(
         label,
-        style: TextStyle(color: kPrimaryColor),
+        style: const TextStyle(color: kPrimaryColor),
       ),
 
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: kPrimaryColor),
+        borderSide: const BorderSide(color: kPrimaryColor),
       ),
 
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: kPrimaryColor),
+        borderSide: const BorderSide(color: kPrimaryColor),
       ),
     ),
   );
@@ -60,13 +60,13 @@ textButton(
       ));
 }
 
-class newtextfield_widget extends StatelessWidget {
+class NewTextFieldWidget extends StatelessWidget {
   final String title;
   final TextEditingController controller;
   final Icon icon;
   final String? Function(String?)? validate;
   final TextInputType? keyboardType;
-  const newtextfield_widget({
+  const NewTextFieldWidget({
     Key? key,
     required this.title,
     required this.controller,
@@ -77,10 +77,10 @@ class newtextfield_widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 32),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Material(
         elevation: 2.0,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
         child: TextFormField(
           keyboardType: keyboardType,
           validator: validate,
@@ -91,12 +91,12 @@ class newtextfield_widget extends StatelessWidget {
               hintText: title,
               prefixIcon: Material(
                 elevation: 0,
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
                 child: icon,
               ),
               border: InputBorder.none,
               contentPadding:
-              EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+              const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
         ),
       ),
     );

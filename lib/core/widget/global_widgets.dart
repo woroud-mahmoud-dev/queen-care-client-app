@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
-class Desecrption1 extends StatelessWidget {
+class Description1 extends StatelessWidget {
   final String text;
 
-  const Desecrption1({
-    Key? key, required this.text,
+  const Description1({
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Text(text,style: TextStyle(
-          fontSize: 15.0,
-          color: darkGrey
-
-
-      ),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 13.0, color: darkGrey),
         textAlign: TextAlign.center,
       ),
     );
   }
 }
-class Desecrption2 extends StatelessWidget {
+
+class Description12 extends StatelessWidget {
   final String text;
 
-  const Desecrption2({
-    Key? key, required this.text,
+  const Description12({
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(
-        fontSize: 12.0,
-        color: darkGrey
-    ),textAlign: TextAlign.center,);
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 10.0, color: darkGrey),
+      textAlign: TextAlign.center,
+    );
   }
 }
 
@@ -43,35 +44,58 @@ class BigTitle extends StatelessWidget {
   final String text;
 
   const BigTitle({
-    Key? key, required this.text,
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Text(text,style: TextStyle(
-        fontSize: 28.0,
-
-      ),),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 20.0,
+        ),
+      ),
     );
   }
 }
 
-class title extends StatelessWidget {
+class CustomTitleWidget extends StatelessWidget {
   final String text;
-  const title({
-    Key? key, required this.text,
+  const CustomTitleWidget({
+    Key? key,
+    required this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Text(text,style: TextStyle(
-          fontSize: 18.0,
-          color: darkGrey
-      ),),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 18.0, color: darkGrey),
+      ),
+    );
+  }
+}
+
+class TitleWidget extends StatelessWidget {
+  final String text;
+  const TitleWidget({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 16.0, color: darkGrey),
+      ),
     );
   }
 }

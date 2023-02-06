@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
-import 'package:queen_care/modules/advices/advice_detalies_screen.dart';
+import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/modules/advices/advice_details_screen.dart';
 import 'package:queen_care/modules/advices/show_all_advices_screen.dart';
+import 'package:queen_care/modules/auth/pages/profile/convert_to_company.dart';
 import 'package:queen_care/modules/auth/pages/profile/profile.dart';
-import 'package:queen_care/modules/home/favorite/favorite_tap.dart';
+import 'package:queen_care/modules/favorite/favorite_tap.dart';
 import 'package:queen_care/modules/home/home_tap.dart';
-import 'package:queen_care/modules/home/offers/awords/awords.dart';
-import 'package:queen_care/modules/home/offers/competition/display_all_competitions.dart';
-import 'package:queen_care/modules/home/offers/competition/general_competitions.dart';
-import 'package:queen_care/modules/home/offers/offers_tap.dart';
-import 'package:queen_care/modules/home/offers/points/how_to_get_points.dart';
-import 'package:queen_care/modules/home/offers/points/my_points_balance.dart';
-import 'package:queen_care/modules/home/offers/points/my_points_screen.dart';
-import 'package:queen_care/modules/home/offers/points/replace_my_points.dart';
+import 'package:queen_care/modules/offers/awards/awards.dart';
+import 'package:queen_care/modules/offers/competition/display_all_competitions.dart';
+import 'package:queen_care/modules/offers/competition/general_competitions.dart';
+import 'package:queen_care/modules/offers/offers_tap.dart';
+import 'package:queen_care/modules/offers/points/how_to_get_points.dart';
+import 'package:queen_care/modules/offers/points/my_points_balance.dart';
+import 'package:queen_care/modules/offers/points/my_points_screen.dart';
+import 'package:queen_care/modules/offers/points/replace_my_points.dart';
  import 'package:queen_care/modules/period_calculator/period_calculator.dart';
-import 'package:queen_care/modules/period_calculator/peroid_qustions.dart';
+import 'package:queen_care/modules/period_calculator/period_questions.dart';
 import 'package:queen_care/modules/product/category_all_products.dart';
-import 'package:queen_care/modules/product/product_detailes.dart';
+import 'package:queen_care/modules/product/product_details.dart';
 
-import '../product/prouct_screen.dart';
+import '../product/product_screen.dart';
 class Home extends StatefulWidget {
 
   const Home({Key? key, required this.tapId}) : super(key: key);
@@ -43,7 +44,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(
-        length: 18,
+        length: 19,
         vsync: this,
         initialIndex: widget.tapId,
         animationDuration: const Duration(milliseconds: 10));
@@ -61,9 +62,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -73,7 +72,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         children: <Widget>[
           HomeTap(tabController: tabController,),//0
           Offer(tabController: tabController,),//1
-          Favorite(),//2
+          const Favorite(),//2
 
 
           Profile(tabController: tabController),//3
@@ -95,6 +94,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           DisplayAllCompetitions(tabController:tabController),//15
           ShowAdvicesScreen(tabController:tabController),//16
           AdviceScreen(tabController:tabController),//17
+          ConvertToCompany(tabController:tabController),//18
 
 
         ],
@@ -151,7 +151,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
 
     setState(() {
-      // _currentIndexBottomNavigationBarItem = value;
       tabController.animateTo(value);
     });
   }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
+
+import '../../../home/main_screen.dart';
 
 class Splach extends StatefulWidget {
   const Splach({Key? key}) : super(key: key);
@@ -12,14 +15,18 @@ class _SplachState extends State<Splach> {
   @override
   void initState() {
 Future.delayed(const Duration(seconds: 2)).then((value) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const SelectLanguage()));
+  CacheHelper.getData(key: 'api_token')!=null?
+  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> MainScreen()),(route) => false,):
+
+
+  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> SelectLanguage()),(route) => false,);
 });
 super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   
+
       body:Padding(padding: const EdgeInsets.all(70),
         child:  Center(
         child: Image.asset('assets/images/logo.png',),

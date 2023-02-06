@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:queen_care/core/my_service.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
@@ -11,7 +11,6 @@ import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
-
 class CompleteRegisterScreen extends StatelessWidget {
   CompleteRegisterScreen({Key? key, required this.email}) : super(key: key);
   final String email;
@@ -27,6 +26,8 @@ class CompleteRegisterScreen extends StatelessWidget {
   TextEditingController areaController = TextEditingController();
   MyService myService = MyService();
   var formKey = GlobalKey<FormState>();
+  DateTime dateTime = DateTime.now();
+  String? formattedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +41,17 @@ class CompleteRegisterScreen extends StatelessWidget {
             showToast(text: ' تم انشاء الحساب بنجاح', color: Colors.green);
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (_) => MainScreen()),
-                (route) => false);
+                    (route) => false);
           }
 
           if (state is RegisterErrorState) {
-            showToast(text: ' حدث خطأ أثناء إنشاء الحساب', color: Colors.red);
+            showToast(text: state.error, color: Colors.red);
+          }
+          if (state is NumberUsedState) {
+            showToast(text: state.error, color: Colors.amber);
           }
         },
         builder: (context, state) {
-
-
           return Scaffold(
             body: Container(
               padding: const EdgeInsets.all(20),
@@ -58,7 +60,7 @@ class CompleteRegisterScreen extends StatelessWidget {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const title(text: 'تسجيل'),
+                  const TitleWidget(text: 'تسجيل'),
                   const SizedBox(
                     height: 50,
                   ),
@@ -68,7 +70,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Desecrption1(text: 'أكمل التفاصيل الخاصة بك'),
+                  const Description1(text: 'أكمل التفاصيل الخاصة بك'),
                   SizedBox(
                     height: h * 0.03,
                   ),
@@ -81,8 +83,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'First Name is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -104,8 +105,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Last Name is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -127,8 +127,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Phone is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -150,8 +149,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Country is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -173,8 +171,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'City is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -196,8 +193,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Area is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -219,8 +215,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Address is Required ';
-                                }else{
-
+                                } else {
                                   return null;
                                 }
                               },
@@ -242,8 +237,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Password is Required ';
-                                }else{
-
+                                } else if (value.length < 6) {
+                                  return 'Password must be 6 characters at least';
+                                } else {
                                   return null;
                                 }
                               },
@@ -269,8 +265,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                   if (passwordController.text.trim() !=
                                       confirmPasswordController.text.trim()) {
                                     return 'Password  and confirm password do not match ';
-                                  }else{
-
+                                  } else {
                                     return null;
                                   }
                                 }
@@ -293,27 +288,21 @@ class CompleteRegisterScreen extends StatelessWidget {
                             style: const TextStyle(color: Colors.black),
                             readOnly: true,
                             validator: (input) {
-                              if (RegisterCubit.get(context)
-                                  .birthdayDateTime ==
+                              if (RegisterCubit.get(context).birthdayDateTime ==
                                   null) {
                                 return 'BirthDate is  Required ';
-                              }else{
-
+                              } else {
                                 return null;
                               }
                             },
                             decoration: InputDecoration(
-
                               enabled: false,
-                              hintText:       RegisterCubit.get(context)
-                                  .birthdayDateTime ==
+                              hintText:
+                              RegisterCubit.get(context).birthdayDateTime ==
                                   null
-                                  ?  'اختر تاريخ ميلادك':'${RegisterCubit.get(context)
-                                  .birthdayDateTime!.year}-${RegisterCubit.get(context)
-                                  .birthdayDateTime!.month}-${RegisterCubit.get(context)
-                                  .birthdayDateTime!.day}',
+                                  ? 'اختر تاريخ ميلادك'
+                                  : formattedDate,
                               hintStyle: const TextStyle(color: Colors.black),
-
                               prefixIconColor: kPrimaryColor,
                               label: const Text(
                                 'تاريخ الميلاد',
@@ -321,39 +310,61 @@ class CompleteRegisterScreen extends StatelessWidget {
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: kPrimaryColor),
+                                borderSide:
+                                const BorderSide(color: kPrimaryColor),
                               ),
-
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: kPrimaryColor),
+                                borderSide:
+                                const BorderSide(color: kPrimaryColor),
                               ),
                               labelStyle: const TextStyle(
                                   color: Colors.white, fontSize: 17),
                               suffix: GestureDetector(
                                 onTap: () async {
-                                  DatePicker.showDatePicker(context,
-                                      theme: const DatePickerTheme(
-                                        containerHeight: 210.0,
-                                      ),
-                                      maxTime: DateTime.now(),
-                                      showTitleActions: true,
-                                      onChanged: (time) {
-                                    myService.setLastDate = time;
-                                    RegisterCubit.get(context)
-                                        .selectBirthdayDateTime(time);
-                                  }, onConfirm: (time) {
-                                    RegisterCubit.get(context)
-                                        .selectBirthdayDateTime(time);
-                                  },
-                                      currentTime: DateTime.now(),
-                                      locale: LocaleType.en);
+
+                                  DateTime? newDate = await showDatePicker(
+                                    context: context,
+                                    initialDate: dateTime,
+                                    firstDate: DateTime(1990, 1, 1),
+                                    lastDate: DateTime.now(),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          colorScheme: const ColorScheme.light(
+                                            primary:
+                                            kPrimaryColor, // <-- SEE HERE
+                                            onPrimary:
+                                            Colors.black, // <-- SEE HERE
+                                            onSurface:
+                                            Colors.black, // <-- SEE HERE
+                                          ),
+                                          textButtonTheme: TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              foregroundColor: Colors
+                                                  .grey, // button text color
+                                            ),
+                                          ),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
+                                  // ignore: use_build_context_synchronously
+                                  RegisterCubit.get(context)
+                                      .selectBirthdayDateTime(newDate!);
+                                  if (newDate != null) {
+                                    formattedDate = DateFormat('yyyy-MM-dd')
+                                        .format(newDate);
+                                    print(
+                                        formattedDate); //formatted date output using intl package =>  2021-03-16
+
+                                  } else {}
                                 },
                                 child: const Icon(
                                   Icons.calendar_today_rounded,
                                   color: kPrimaryColor,
                                 ),
-
                               ),
                             ),
                           ),
@@ -365,7 +376,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                             children: [
                               GenderWidget(
                                 groupValue:
-                                    RegisterCubit.get(context).genderGroupValue,
+                                RegisterCubit.get(context).genderGroupValue,
                                 icon: Icons.man,
                                 name: 'Male',
                                 value: 1,
@@ -375,7 +386,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               ),
                               GenderWidget(
                                 groupValue:
-                                    RegisterCubit.get(context).genderGroupValue,
+                                RegisterCubit.get(context).genderGroupValue,
                                 icon: Icons.woman,
                                 name: 'Female',
                                 value: 0,
@@ -394,7 +405,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                     'please select your gender',
                                     style: TextStyle(
                                         color: Color.fromARGB(255, 205, 35, 23),
-                                        fontSize: 12),
+                                        fontSize: 10),
                                   )),
                             ],
                           ),
@@ -405,43 +416,42 @@ class CompleteRegisterScreen extends StatelessWidget {
                   ),
                   state is! RegisterLoadinglState
                       ? AuthButton(
-                          title: 'تأكيد',
-                          onTap: () {
-                            if (RegisterCubit.get(context).genderGroupValue ==
-                                null) {
-                              RegisterCubit.get(context).check();
-                            }
-                            if (formKey.currentState!.validate() &&
-                                RegisterCubit.get(context).genderGroupValue !=
-                                    null) {
-                              debugPrint(email);
-                              RegisterCubit.get(context).registerUser(
-                                firstName: firstNameController.text.trim(),
-                                lastName: lastNameController.text.trim(),
-                                address: addressController.text.trim(),
-                                area: areaController.text.trim(),
-                                country: countryController.text.trim(),
-                                city: cityController.text.trim(),
-                                phone: phoneController.text.trim(),
-                                password: passwordController.text.trim(),
-                                email: email,
-                                gender: RegisterCubit.get(context)
-                                    .genderGroupValue
-                                    .toString(),
-                              );
-                            }
-
-                          },
-                          color: kPrimaryColor,
-                        )
+                    title: 'تأكيد',
+                    onTap: () {
+                      if (RegisterCubit.get(context).genderGroupValue ==
+                          null) {
+                        RegisterCubit.get(context).check();
+                      }
+                      if (formKey.currentState!.validate() &&
+                          RegisterCubit.get(context).genderGroupValue !=
+                              null) {
+                        debugPrint(email);
+                        RegisterCubit.get(context).registerUser(
+                          firstName: firstNameController.text.trim(),
+                          lastName: lastNameController.text.trim(),
+                          address: addressController.text.trim(),
+                          area: areaController.text.trim(),
+                          country: countryController.text.trim(),
+                          city: cityController.text.trim(),
+                          phone: phoneController.text.trim(),
+                          password: passwordController.text.trim(),
+                          email: email,
+                          gender: RegisterCubit.get(context)
+                              .genderGroupValue
+                              .toString(),
+                        );
+                      }
+                    },
+                    color: kPrimaryColor,
+                  )
                       : const Center(
-                          child: CircularProgressIndicator(
-                          color: kPrimaryColor,
-                        )),
+                      child: CircularProgressIndicator(
+                        color: kPrimaryColor,
+                      )),
                   SizedBox(
                     height: h * 0.05,
                   ),
-                  const Desecrption2(
+                  const Description12(
                     text: 'من خلال الستمرار تأكيد موافقتك مع شروطنا',
                   )
                 ],
@@ -452,4 +462,5 @@ class CompleteRegisterScreen extends StatelessWidget {
       ),
     );
   }
+
 }

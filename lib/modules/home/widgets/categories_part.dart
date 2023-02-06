@@ -23,11 +23,9 @@ final TabController tabController;
 
 
             return CategoryWidget(
-              catImg: 'categoriesList[int].image',
-              // catName: categoriesList[int].type,
-              catId:categoriesList[int].id ,
+
               tabController:tabController ,
-              categorym:categoriesList[int], catName: categoriesList[int].name ,
+              category:categoriesList[int],
 
 
             );

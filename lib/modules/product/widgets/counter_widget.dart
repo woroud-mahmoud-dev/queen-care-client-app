@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utlis/constant.dart';
+import 'package:queen_care/core/utils/constant.dart';
 
-class SelecInfotItem extends StatelessWidget {
+class SelectInfoItem extends StatelessWidget {
   final int number;
   final VoidCallback? onPressAdd;
   final VoidCallback? onPressMin;
   final Color? col;
-  const SelecInfotItem({
+  const SelectInfoItem({
     Key? key,
 
     required this.number,
@@ -33,8 +33,8 @@ class SelecInfotItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
 
                 ),
-                child: Center(
-                  child: const Text(
+                child: const Center(
+                  child: Text(
                     '+',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
                   ),
@@ -42,7 +42,7 @@ class SelecInfotItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
 
           SizedBox(
             height: 25,
@@ -56,8 +56,8 @@ class SelecInfotItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
 
                 ),
-                child: Center(
-                  child: const Text(
+                child: const Center(
+                  child: Text(
 
                     '-',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white),
@@ -70,7 +70,7 @@ class SelecInfotItem extends StatelessWidget {
         ],
       ),
         Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           height: 35,
           width: 25,
           decoration: BoxDecoration(
@@ -81,7 +81,7 @@ class SelecInfotItem extends StatelessWidget {
           child: Center(
             child: Text(
               number.toString(),
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
             ),
           ),
         ),

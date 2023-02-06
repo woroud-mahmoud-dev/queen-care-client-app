@@ -20,8 +20,12 @@ class RegisterErrorState extends RegisterStates {
 
   RegisterErrorState({required this.error});
 }
+class NumberUsedState extends RegisterStates {
+  final String error;
 
+  NumberUsedState({required this.error});
+}
 class SelectGenderState extends RegisterStates {}
-class SelectBirthDayState extends RegisterStates {}
 
 class Cheeked extends RegisterStates {}
+class SelectBirthDayState extends RegisterStates {}
