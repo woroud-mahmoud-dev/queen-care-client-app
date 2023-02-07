@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/main_category_item.dart';
 
 import 'package:queen_care/modules/consultation/client/show_my_consultations.dart';
 import 'package:queen_care/modules/consultation/doctor/show_all_consultation.dart';
 import 'package:queen_care/modules/home/home.dart';
 import 'package:queen_care/modules/home/widgets/main_screen_item_model.dart';
+import 'package:queen_care/modules/home/widgets/search_bar.dart';
 import 'package:queen_care/modules/qr/qr_scanner_screen.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
@@ -37,140 +38,80 @@ class MainScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Center(
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  height: 200,
-                  width: 300,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          width: w,
+          height: h,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/background.png',
+                  ),
+                  fit: BoxFit.fill)),
+          child: Column(
+            children: [
+              SizedBox(height: h*0.05,),
+
+              SearchBar(w: w * 0.8),
+              SizedBox(height: h*0.05,),
+
+              SizedBox(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(0.0),
+                  physics: const NeverScrollableScrollPhysics(),
+                  childAspectRatio: (1 / 0.65),
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 40,
+                  crossAxisCount: 2,
+                  children: List.generate(myList.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        myList[index].id != 3 && myList[index].id != 6
+                            ? Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        Home(tapId: myList[index].tapId)),
+                              )
+                            : myList[index].id == 3
+                                ? Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (_) => const QRViewScreen()),
+                                  )
+                                : CacheHelper.getData(key: 'type') == "1"
+                                    ? Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const ShowAllConsultations()),
+                                      )
+                                    : Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                ShowMyConsultations()),
+                                      );
+                      },
+                      child: MainCategoryWidget(
+                        text: myList[index].title,
+                        myWidget: Icon(
+                          myList[index].iconName,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    );
+                  }),
                 ),
               ),
-            ),
-            const Spacer(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: GridView.count(
-                padding: const EdgeInsets.all(10.0),
-                physics: const BouncingScrollPhysics(),
-                childAspectRatio: (1 / 0.6),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 30,
-                crossAxisCount: 2,
-                children: List.generate(myList.length, (index) {
-                  return GestureDetector(
-                    onTap: () {
-                      myList[index].id != 3 && myList[index].id != 6
-                          ? Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      Home(tapId: myList[index].tapId)),
-                            )
-                          : myList[index].id == 3
-                              ? Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (_) => const QRViewScreen()),
-                                )
-                              : CacheHelper.getData(key: 'type') == "1"
-                                  ? Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              ShowAllConsultations()),
-                                    )
-                                  : Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              ShowMyConsultations()),
-                                    );
-                    },
-                    child: MainCategoryWidget(
-                      text: myList[index].title,
-                      myWidget: Icon(
-                        myList[index].iconName,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class MainCategoryWidget extends StatelessWidget {
-  final String text;
-  final Widget myWidget;
-  const MainCategoryWidget({
-    Key? key,
-    required this.text,
-    required this.myWidget,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.26,
-      height: MediaQuery.of(context).size.height * 0.11,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 2,
-            right: 0,
-            left: 5,
-            bottom: 0,
-            child: RotationTransition(
-              turns: const AlwaysStoppedAnimation(5 / 360),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 4,
-                color: Colors.black12,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 2,
-            right: 0,
-            left: 5,
-            bottom: 0,
-            child: RotationTransition(
-              turns: const AlwaysStoppedAnimation(-9 / 360),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                color: kPrimaryColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    myWidget,
-                    Text(
-                      text,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

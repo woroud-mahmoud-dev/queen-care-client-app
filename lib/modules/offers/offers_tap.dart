@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/modules/home/main_screen.dart';
 import 'package:queen_care/modules/home/widgets/main_screen_item_model.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 import 'package:queen_care/modules/qr/qr_scanner_screen.dart';
+import 'package:queen_care/core/widget/main_category_item.dart';
 
 class Offer extends StatelessWidget {
   final TabController tabController;

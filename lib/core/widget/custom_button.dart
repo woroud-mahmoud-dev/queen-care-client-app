@@ -59,32 +59,43 @@ class AuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: 55,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: color,
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: h*0.085,
+        width: w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: const LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [
+              0.3,
+              0.8,
+            ],
+            colors: [
+              Color(0xff8B1564),
+              Color(0xffBB4594),
+            ],
           ),
+        ),
 
-          // elevation: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal),
+              ),
+            ],
           ),
         ),
       ),

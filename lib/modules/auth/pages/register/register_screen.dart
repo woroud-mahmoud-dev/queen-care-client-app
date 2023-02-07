@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
@@ -10,24 +11,28 @@ import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dar
 
 class Register extends StatelessWidget {
   Register({Key? key}) : super(key: key);
-  TextEditingController emailController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: BlocConsumer<RegisterCubit, RegisterStates>(
-        listener: (context, state) {
-
-        },
-        builder: (context, state) {
-          return Scaffold(
-            body: Container(
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => RegisterCubit(),
+        child: BlocConsumer<RegisterCubit, RegisterStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return Container(
               padding: const EdgeInsets.all(20),
               width: w,
               height: h,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/background.png',
+                      ),
+                      fit: BoxFit.fill)),
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
@@ -53,30 +58,26 @@ class Register extends StatelessWidget {
                               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                               .hasMatch(value)) {
                             return 'Please enter a valid Email';
-                          }else{
+                          } else {
                             return null;
                           }
-
                         },
-                        label: 'الايميل',
-                        hintText: 'الايميل',
+                        label: 'email'.tr(context),
+                        hintText: 'enter_email'.tr(context),
                         isPassword: false,
                         icon: const Icon(
-                          Icons.email_outlined,
+                          Icons.email_rounded,
                           color: kPrimaryColor,
                         ),
                         controller: emailController,
                         context: context,
                         onEditingComplete: () {
-                          if(formKey.currentState!.validate()){
-
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => CompleteRegisterScreen(
+                          if (formKey.currentState!.validate()) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => CompleteRegisterScreen(
                                   email: emailController.text.trim(),
-
                                 )));
                           }
-
                         }),
                   ),
                   SizedBox(
@@ -85,31 +86,27 @@ class Register extends StatelessWidget {
                   AuthButton(
                     title: 'اكمال التسجيل ',
                     onTap: () {
-                      if(formKey.currentState!.validate()){
-
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => CompleteRegisterScreen(
+                      if (formKey.currentState!.validate()) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => CompleteRegisterScreen(
                               email: emailController.text.trim(),
-
                             )));
                       }
-
                     },
                     color: kPrimaryColor,
                   ),
                   SizedBox(
                     height: h * 0.05,
                   ),
-                  const Description12(
-                    text: 'من خلال الستمرار تأكيد موافقتك مع شروطنا',
+                  Description12(
+                    text: 'c'.tr(context),
                   )
                 ],
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 }
-

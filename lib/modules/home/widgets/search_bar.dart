@@ -41,15 +41,17 @@ class SearchBar extends StatelessWidget {
 
               width: 30,
 
+
               decoration: const BoxDecoration(color: kPrimaryColor,
                   shape: BoxShape.circle,
-                  image: DecorationImage(image: AssetImage('assets/images/filter.png'))
+
               ),
+              child: const Icon(Icons.filter_list_alt,color: Colors.white,),
 
             ),
 
             prefixIcon: IconButton(
-                onPressed: () {}, icon: const Icon(Icons.search))),
+                onPressed: () {}, icon: const Icon(Icons.search,color: kPrimaryColor,))),
       ),
     );
   }

@@ -47,9 +47,11 @@ class BlogWidget extends StatelessWidget {
                       ),
                       Text(
                         blogModel.body,
-                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        // textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: darkGrey2,
+
                             fontSize: 13,
                             fontWeight: FontWeight.bold),
                       ),
