@@ -26,12 +26,7 @@ class SelectLanguage extends StatelessWidget {
         return Container(
           width: w,
           height: h,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/background.png',
-                  ),
-                  fit: BoxFit.fill)),
+          decoration: customBoxDecoration,
           child: Column(
             children: [
               SizedBox(

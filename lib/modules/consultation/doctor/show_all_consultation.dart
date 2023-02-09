@@ -36,7 +36,7 @@ class ShowAllConsultations extends StatelessWidget {
             body: Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
-              color: kPrimaryColor2,
+              color: kPrimaryColor,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(

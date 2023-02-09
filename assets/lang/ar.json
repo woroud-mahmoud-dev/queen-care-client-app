@@ -33,6 +33,27 @@
   "choose_birt_date": "اختر تاريخ ميلادك",
   "birt_date": " تاريخ الميلاد",
   "c": " من خلال الستمرار تأكيد موافقتك مع شروطنا",
-  "no_internet_message": "لا يوجد اتصال بالانترنت"
+  "no_internet_message": "لا يوجد اتصال بالانترنت",
+  "error_message": "حدث خطأ ما، يرجى المحاولة لاحقاً",
+  "retry_again": "إعادة المحاولة",
+  "complete_registration": "إكمال التسجيل",
+  "register_email": "تسجيل البريد الالكتروني",
+  "consultation": "استشارة",
+  "offers_and_competition": "العروض والمسابقات",
+  "calculator": "الحاسبة",
+  "blogging": "المدونات",
+  "categories": "الأقسام",
+  "main": "الرئيسية",
+  "favorite": "المفضلة",
+  "profile":"الحساب",
+  "offers":"العروض",
+  "period_calculator": "حاسبة الدورة الشهرية",
+  "answer_questions": "أجيبي عن الأسئلة التالية :",
+  "last_period_start": "1  متى بدأ آخر حيض عندك؟",
+  "duration_of_menstruation": "2 ما مد الحيض لديك؟",
+  "how_many_days": "3 كم يوم تدوم دورتك الشهرية؟",
+  "track": "تتبع الدورة الشهرية"
+
+
 
 }

@@ -121,7 +121,7 @@ class PeriodCalculator extends StatelessWidget {
                             width: w * 0.4,
                             height: h * 0.09,
                             child: const Card(
-                              color: kPrimaryColor2,
+                              color: kPrimaryColor,
                               elevation: 2,
                               child: Center(
                                 child: Icon(

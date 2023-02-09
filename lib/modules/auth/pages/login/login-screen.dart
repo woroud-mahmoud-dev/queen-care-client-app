@@ -49,12 +49,7 @@ class Login extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               width: w,
               height: h,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/background.png',
-                      ),
-                      fit: BoxFit.fill)),
+              decoration: customBoxDecoration,
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [

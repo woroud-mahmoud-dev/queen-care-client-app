@@ -32,9 +32,10 @@ class ProfileItem extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            const Icon(Icons.arrow_left),
-            const Spacer(),
+
+
             Text(text),
+            const Spacer(),
             const SizedBox(
               width: 20,
             ),
@@ -45,6 +46,8 @@ class ProfileItem extends StatelessWidget {
               color: kPrimaryColor,
             )
                 : SvgPicture.asset(img!),
+
+
           ],
         ),
       ),

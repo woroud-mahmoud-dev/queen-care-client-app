@@ -33,7 +33,7 @@ class _ItemWidgetWithIconState extends State<ItemWidgetWithIcon> {
         height: 40,
         width: MediaQuery.of(context).size.width*0.31,
         decoration: BoxDecoration(
-          color:selected?kPrimaryColor2: darkGrey1,
+          color:selected?kPrimaryColor: darkGrey1,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
@@ -81,7 +81,7 @@ class _ItemWidgetState extends State<ItemWidget> {
         height: 40,
         width: MediaQuery.of(context).size.width*0.31,
         decoration: BoxDecoration(
-          color:selected?kPrimaryColor2: darkGrey1,
+          color:selected?kPrimaryColor: darkGrey1,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(child: Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,)),

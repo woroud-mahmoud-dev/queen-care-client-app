@@ -60,12 +60,7 @@ class CompleteRegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               width: w,
               height: h,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/background.png',
-                      ),
-                      fit: BoxFit.fill)),
+              decoration: customBoxDecoration,
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
@@ -459,7 +454,8 @@ class CompleteRegisterScreen extends StatelessWidget {
                   ),
                   Description12(
                     text: 'c'.tr(context),
-                  ),      SizedBox(
+                  ),
+                  SizedBox(
                     height: h * 0.05,
                   ),
                 ],

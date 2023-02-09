@@ -90,7 +90,7 @@ class CategoryAllProducts extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                        color: kPrimaryColor2,
+                        color: Colors.white,
                         borderRadius: BorderRadius.vertical(
                           top: Radius.elliptical(50, 30),
                         ),

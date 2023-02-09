@@ -35,6 +35,27 @@
   "choose_birt_date": "Choose your date of birth",
   "birt_date": "The date of birth",
   "c": "Confirm your agreement with our terms",
-  "no_internet_message": "There is no internet connection"
+  "no_internet_message": "There is no internet connection",
+  "retry_again": "Retry again",
+  "error_message": "Something went wrong,\n please try again later",
+  "complete_registration": "Complete the registration",
+  "register_email": "Email registration",
+  "products": "Products",
+  "competitions": "Competitions",
+  "consultation": "Consultation",
+  "offers_and_competition": "Offers and Competitions",
+  "calculator": "Calculator",
+  "blogging": "Blogging",
+  "categories": "Categories",
+  "main": "Home",
+  "favorite": "Favorite",
+  "profile":"Profile",
+  "offers":"Offers",
+  "period_calculator": "Period Calculator",
+  "answer_questions": "Answer the following questions:",
+  "last_period_start": "1 When did your last period start ?",
+  "duration_of_menstruation": "2 How long do you menstruate?  ",
+  "how_many_days": "3 How many days does your menstrual cycle last?",
+  "track": "Track your menstrual cycle"
 
 }

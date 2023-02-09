@@ -13,25 +13,22 @@ class CategoriesPart extends StatelessWidget {
 final TabController tabController;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.6,
-      child: ListView.builder(clipBehavior: Clip.hardEdge,
-          physics:const BouncingScrollPhysics(),
+    return ListView.builder(clipBehavior: Clip.hardEdge,
+        physics:const BouncingScrollPhysics(),
 
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int int) {
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int int) {
 
 
-            return CategoryWidget(
+          return CategoryWidget(
 
-              tabController:tabController ,
-              category:categoriesList[int],
+            tabController:tabController ,
+            category:categoriesList[int],
 
 
-            );
-          },
+          );
+        },
 
-          itemCount: categoriesList.length),
-    );
+        itemCount: categoriesList.length);
   }
 }

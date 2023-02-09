@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/favoriteModel.dart';
 import 'package:queen_care/modules/favorite/cubit/favorite_cubit.dart';
-import 'package:queen_care/modules/favorite/favorite_card.dart';
+import 'package:queen_care/modules/favorite/widget/favorite_products.dart';
 
 class Favorite extends StatelessWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -24,50 +26,51 @@ class Favorite extends StatelessWidget {
         builder: (context, state) {
           List<FavoriteModel> favoriteProductsList =
               FavoriteCubit.get(context).favoriteList;
+
           return Column(
             children: [
-              SizedBox(height: h * 0.05),
+              SizedBox(height: h * 0.03),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Icon(Icons.list),
-                  Text(
+                children: [
+                  //it will be change to anther one -.-
+                  // Icon(Icons.list),
+                  SizedBox(width: w * 0.15),
+                  const Text(
                     'المفضلة',
                     style: TextStyle(fontSize: 17),
                   ),
-                  GoCart(),
+                  const GoCart(),
+                ],
+              ),
+              Row(
+                children: [
+                  const Spacer(),
+                  LogoImage(
+                    w: w * 0.22,
+                    h: h * 0.11,
+                  )
                 ],
               ),
               state is GetFavoriteProductLoading
-                  ? const Padding(
-                      padding: EdgeInsets.all(50.0),
-                      child: Center(
-                          child: CircularProgressIndicator(
-                        backgroundColor: Colors.transparent,
-                        color: kPrimaryColor,
-                      )),
+                  ? const Expanded(
+                      child: LoadingWidget(),
                     )
-                  : Expanded(
-                      child: GridView.count(
-                        physics: const BouncingScrollPhysics(),
-                        childAspectRatio: (1 / 0.9),
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                        crossAxisCount: 2,
-                        children: List.generate(favoriteProductsList.length,
-                            (int index) {
-                          return FavoriteCardWidget(
-                            h: h,
-                            w: w,
+                  : state is DeviceNotConnectedState
+                      ? Expanded(
+                          child: NoInternetWidget(
                             onPressed: () {
-                              FavoriteCubit.get(context).deleteFromFavorite(
-                                  favoriteProductsList[index].mission.id);
+                              FavoriteCubit.get(context)
+                                  .getAllFavoriteProductsWithHttp();
                             },
-                            favoriteModel: favoriteProductsList[index],
-                          );
-                        }),
-                      ),
-                    ),
+                          ),
+                        )
+                      : Expanded(
+                          child: FavoriteProducts(
+                              favoriteProductsList: favoriteProductsList,
+                              h: h,
+                              w: w),
+                        ),
             ],
           );
         },

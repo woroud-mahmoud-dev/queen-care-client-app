@@ -27,21 +27,17 @@ class Register extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               width: w,
               height: h,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/background.png',
-                      ),
-                      fit: BoxFit.fill)),
+              decoration: customBoxDecoration,
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const TitleWidget(text: 'تسجيل'),
+                  TitleWidget(text: 'sign_up'.tr(context)),
+
                   const SizedBox(
                     height: 50,
                   ),
-                  const BigTitle(
-                    text: 'تسجيل الايميل ',
+                   BigTitle(
+                    text: 'register_email'.tr(context),
                   ),
                   SizedBox(
                     height: h * 0.2,
@@ -84,7 +80,7 @@ class Register extends StatelessWidget {
                     height: h * 0.2,
                   ),
                   AuthButton(
-                    title: 'اكمال التسجيل ',
+                    title: 'complete_registration'.tr(context),
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         Navigator.of(context).push(MaterialPageRoute(

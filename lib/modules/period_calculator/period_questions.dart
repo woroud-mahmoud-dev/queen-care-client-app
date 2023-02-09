@@ -1,22 +1,27 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
+import 'package:queen_care/modules/period_calculator/widgets/how_long_question.dart';
+import 'package:queen_care/modules/period_calculator/widgets/how_many_days_question_widget.dart';
+import 'package:queen_care/modules/period_calculator/widgets/question_text.dart';
+import 'package:queen_care/modules/period_calculator/widgets/show_data_picker.dart';
 
 class PeriodQuestions extends StatelessWidget {
   PeriodQuestions({Key? key, required this.tabController}) : super(key: key);
   final TabController tabController;
-  String? formattedDate;
-  DateTime dateTime = DateTime.now();
 
-  MyService myService = MyService();
+  final dateTime = DateTime.now();
+
+  final myService = MyService();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -32,285 +37,163 @@ class PeriodQuestions extends StatelessWidget {
           if (state is CalculateDatesError) {
             showToast(
                 text: 'تأكدي من إدخال جميع\n المعلومات وبشكل صحيح',
-                color: Colors.red);
+                color: kPrimaryColor);
           }
         },
         builder: (context, state) {
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height,
-              color: kPrimaryColor2,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: h * 0.02,
+          String? formattedDate;
+          return Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height,
+            decoration: customBoxDecoration,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            tabController.animateTo(3);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 13,
+                            color: black,
+                          )),
+                      const Spacer(),
+                      const GoCart(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: SvgPicture.asset(
+                          'assets/icons/list.svg',
+                          height: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'period_calculator'.tr(context),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    LogoImage(
+                      w: w * 0.22,
+                      h: h * 0.11,
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(30),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12,
+                            spreadRadius: 5,
+                            blurRadius: 10),
+                      ],
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(
-                            onPressed: () {
-                              tabController.animateTo(3);
+                        QuestionText(text: 'answer_questions'.tr(context)),
+                        SizedBox(
+                          height: h * 0.03,
+                        ),
+                        QuestionText(
+                          text: 'last_period_start'.tr(context),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                child: Text(
+                                  CalculatorCubit.get(context)
+                                              .selectLastDateIs ==
+                                          null
+                                      ? 'select'
+                                      : CalculatorCubit.get(context)
+                                          .selectLastDateIs
+                                          .toString(),
+                                  style: const TextStyle(
+                                      color: kPrimaryColor, fontSize: 14),
+                                ),
+                                onTap: () async {
+                                  DateTime? newDate = await buildShowDatePicker(
+                                      context, dateTime);
+                                  myService.setLastDate = newDate!;
+
+                                  // ignore: use_build_context_synchronously
+                                  CalculatorCubit.get(context)
+                                      .selectLastDate(newDate);
+                                  // ignore: unnecessary_null_comparison
+                                  if (newDate != null) {
+                                    myService.setLastDate = newDate;
+                                    debugPrint(
+                                        myService.getLastDate.toString());
+                                    formattedDate =
+                                        intl.DateFormat('yyyy-MM-dd')
+                                            .format(newDate);
+                                    debugPrint(
+                                        formattedDate); //formatted date output using intl package =>  2021-03-16
+
+                                  } else {}
+                                },
+                              ),
+                            ),
+                            const Divider(
+                              thickness: 0.8,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: h * 0.03,
+                        ),
+                        QuestionText(
+                          text: 'duration_of_menstruation'.tr(context),
+                        ),
+                        HowLongQuestion(myService: myService),
+                        SizedBox(
+                          height: h * 0.03,
+                        ),
+                        QuestionText(
+                          text: 'how_many_days'.tr(context),
+                        ),
+                        HowManyDaysQuestion(myService: myService),
+                        SizedBox(
+                          height: h * 0.1,
+                        ),
+                        Center(
+                          child: CustomButton(
+                            title: 'track'.tr(context),
+                            onTap: () {
+                              CalculatorCubit.get(context).calculator();
                             },
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: black,
-                            )),
-                        const Spacer(),
-                        const GoCart(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: SvgPicture.asset(
-                            'assets/icons/list.svg',
-                            height: 20,
+                            color: kPrimaryColor,
+                            width: w * 0.7,
+                            height: h * 0.07,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: h * 0.02,
-                  ),
-                  const Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'حاسبة الدورة الشهرية',
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: h * 0.02,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    width: double.infinity,
-                    height: h * 0.75,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.elliptical(50, 30),
-                      ),
-                    ),
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'أجيبي عن الأسئلة التالية :',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          SizedBox(
-                            height: h * 0.03,
-                          ),
-                          const Text(
-                            '1  متى بدأ آخر حيض عدك؟',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  child: Text(
-                                    CalculatorCubit.get(context)
-                                                .selectLastDateIs ==
-                                            null
-                                        ? 'select'
-                                        : CalculatorCubit.get(context)
-                                            .selectLastDateIs
-                                            .toString(),
-                                    style: const TextStyle(
-                                        color: kPrimaryColor, fontSize: 14),
-                                  ),
-                                  onTap: () async {
-
-                                    DateTime? newDate = await showDatePicker(
-                                      context: context,
-                                      initialDate: dateTime,
-                                      firstDate: DateTime(1990, 1, 1),
-                                      lastDate: DateTime.now(),
-                                      builder: (context, child) {
-                                        return Theme(
-                                          data: Theme.of(context).copyWith(
-                                            colorScheme:
-                                                const ColorScheme.light(
-                                              primary:
-                                                  kPrimaryColor, // <-- SEE HERE
-                                              onPrimary:
-                                                  Colors.black, // <-- SEE HERE
-                                              onSurface:
-                                                  Colors.black, // <-- SEE HERE
-                                            ),
-                                            textButtonTheme:
-                                                TextButtonThemeData(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor: Colors
-                                                    .grey, // button text color
-                                              ),
-                                            ),
-                                          ),
-                                          child: child!,
-                                        );
-                                      },
-                                    );
-                                    myService.setLastDate = newDate!;
-
-                                    // ignore: use_build_context_synchronously
-                                    CalculatorCubit.get(context)
-                                        .selectLastDate(newDate);
-                                    if (newDate != null) {
-                                      myService.setLastDate = newDate;
-                                      debugPrint(
-                                          myService.getLastDate.toString());
-                                      formattedDate =
-                                          intl.DateFormat('yyyy-MM-dd')
-                                              .format(newDate);
-                                      debugPrint(
-                                          formattedDate); //formatted date output using intl package =>  2021-03-16
-
-                                    } else {}
-                                  },
-                                ),
-                              ),
-                              const Divider(
-                                thickness: 0.8,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: h * 0.05,
-                          ),
-                          const Text(
-                            '2 ما مد الحيض لديك؟',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          DropdownButton(
-                            icon: const SizedBox(),
-                            isExpanded: true,
-                            elevation: 20,
-                            alignment: Alignment.topCenter,
-                            menuMaxHeight: 200,
-                            items: [
-                              2, 3, 4, 5, 6, 7,
-
-                              // ignore: sort_child_properties_last
-                            ]
-                                .map((e) => DropdownMenuItem(
-                                      child:  Text(
-                                        '$eيوم',
-                                        style: const TextStyle(
-                                            color: kPrimaryColor),
-                                      ),
-                                      value: e,
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              debugPrint('onChange $value');
-                              myService.setDaysNumber = value as int;
-                              CalculatorCubit.get(context)
-                                  .selectDurationOfTheMenstrualCycl(value);
-                            },
-                            value: CalculatorCubit.get(context)
-                                .selectedIndexOfDays,
-                          ),
-                          SizedBox(
-                            height: h * 0.05,
-                          ),
-                          const Text(
-                            '3 كم يوم تدوم دورتك الشهرية؟',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          DropdownButton(
-                            icon: const SizedBox(),
-                            isExpanded: true,
-                            elevation: 20,
-                            alignment: Alignment.topCenter,
-                            menuMaxHeight: 200,
-                            items: [
-                              21,
-                              22,
-                              23,
-                              24,
-                              25,
-                              26,
-                              27,
-                              28,
-                              29,
-                              30,
-                              31,
-                              32,
-                              33,
-                              34,
-                              35,
-                            ]
-                                .map((e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(
-                                        '$eيوم  ',
-                                        style: const TextStyle(
-                                            color: kPrimaryColor),
-                                      ),
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              myService.setHowLongPeriod = value as int;
-
-                              debugPrint('onChange $value');
-                              CalculatorCubit.get(context)
-                                  .selectDurationBetweenOfTowMenstrualCycle(
-                                      value);
-                            },
-                            value: CalculatorCubit.get(context).howLongPeriod,
-                          ),
-                          SizedBox(
-                            height: h * 0.05,
-                          ),
-                          Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                CalculatorCubit.get(context).calculator();
-                              },
-                              child: SizedBox(
-                                width: w * 0.72,
-                                height: h * 0.1,
-                                child: Card(
-                                  color: kPrimaryColor2,
-                                  elevation: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: const [
-                                          Text(
-                                            'تتبع الدورة الشهرية',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

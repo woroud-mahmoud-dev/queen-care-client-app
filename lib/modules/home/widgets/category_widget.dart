@@ -27,9 +27,9 @@ class CategoryWidget extends StatelessWidget {
         width: w,
         height: h*0.14,
         decoration: BoxDecoration(
-          color: kPrimaryColor2.withAlpha(90),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: kPrimaryColor),
+          border: Border.all(color: kBlueGreen),
         ),
         child: Stack(
           clipBehavior: Clip.none,
@@ -57,7 +57,7 @@ class CategoryWidget extends StatelessWidget {
                 child: Center(
                   child: Text(category.name
 
-                    ,textAlign: TextAlign.center,style: const TextStyle(color: kPrimaryColor),  ),
+                    ,textAlign: TextAlign.center,style: const TextStyle(color: kBlueGreen,),  ),
                 ),
               ),
             ),

@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/favoriteModel.dart';
 
-import '../../../core/utils/constant.dart';
+import '../../../../core/utils/constant.dart';
 
 class FavoriteCardWidget extends StatelessWidget {
   const FavoriteCardWidget({
@@ -20,34 +20,44 @@ class FavoriteCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: h * 0.25,
-      margin: const EdgeInsets.all(5),
       width: w * 0.38,
       child: Column(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Image.network(
               imgUrl + favoriteModel.mission.image,
               height: h * 0.2,
               width: w * 0.35,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
           ),
+          const Spacer(),
+          SizedBox(
+            width: w * 0.3,
+            child: Text(
+              favoriteModel.mission.name,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              style: const TextStyle(fontSize: 12),
+            ),
+          ),
+          const Spacer(),
           Expanded(
             flex: 1,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
-                    flex: 5,
-                    child: FittedBox(
-                        child: Text(
-                      favoriteModel.mission.name,
-                      maxLines: 2,
-                      style: const TextStyle(fontSize: 12),
-                    ))),
+                  flex: 1,
+                  child: Text(
+                    '${favoriteModel.mission.price} ليرة',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 14, color: kBlueGreen),
+                  ),
+                ),
                 Expanded(
                     flex: 1,
                     child: GestureDetector(
@@ -57,18 +67,6 @@ class FavoriteCardWidget extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: FittedBox(
-                child: Text(
-                  '${favoriteModel.mission.price} ليرة',
-                  style: const TextStyle(fontSize: 14, color: kPrimaryColor),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

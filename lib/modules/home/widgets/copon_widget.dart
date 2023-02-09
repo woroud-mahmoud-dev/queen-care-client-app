@@ -24,7 +24,7 @@ class coponWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
-              color: kPrimaryColor
+            color: kBlueGreen,
           ),
           borderRadius: BorderRadius.circular(5),
           boxShadow: const [
@@ -59,13 +59,13 @@ class coponWidget extends StatelessWidget {
                  const   [
                       Text('احصل على كوبون خصم  ',
                         style: TextStyle(
-                            color: kPrimaryColor,                          fontSize: 14
+                            color: kBlueGreen,                         fontSize: 14
 
 
                         ),),
                       Text('60%  ',
                         style: TextStyle(
-                            color: kPrimaryColor,                          fontSize: 14
+                            color: kBlueGreen,                        fontSize: 14
 
 
                         ),),

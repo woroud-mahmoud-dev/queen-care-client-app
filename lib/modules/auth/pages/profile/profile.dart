@@ -7,7 +7,7 @@ import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key? key, required this.tabController}) : super(key: key);
+   const Profile({Key? key, required this.tabController}) : super(key: key);
   final TabController tabController;
 
   @override
@@ -66,7 +66,8 @@ class _ProfileState extends State<Profile> {
             height: h * 0.15,
           ),
           ProfileItem(
-            img: 'assets/icons/profile_icon.svg',
+            iconNotImage: true,
+            iconData: Icons.person,
             text: 'حسابي',
             onTap: () {
               Navigator.of(context)
@@ -99,7 +100,8 @@ class _ProfileState extends State<Profile> {
             height: h * 0.05,
           ),
           ProfileItem(
-            img: 'assets/icons/logout_icon.svg',
+            iconNotImage: true,
+            iconData: Icons.login_outlined,
             text: 'تسجيل الخروج',
             onTap: () {
               CacheHelper.removeData(key: 'api_token');

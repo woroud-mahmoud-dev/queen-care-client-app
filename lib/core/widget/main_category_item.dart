@@ -29,7 +29,7 @@ class MainCategoryWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 elevation: 4,
-                color: Colors.black12,
+                color:darkGrey1,
               ),
             ),
           ),

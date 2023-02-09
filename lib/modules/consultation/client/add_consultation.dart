@@ -48,7 +48,7 @@ class AddConsultation extends StatelessWidget {
             body: Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
-              color: kPrimaryColor2,
+              color: kPrimaryColor,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -226,7 +226,7 @@ class AddConsultation extends StatelessWidget {
                                               width: w * 0.6,
                                               height: h * 0.09,
                                               child: Card(
-                                                color: kPrimaryColor2,
+                                                color: kPrimaryColor,
                                                 elevation: 2,
                                                 child: Padding(
                                                   padding:

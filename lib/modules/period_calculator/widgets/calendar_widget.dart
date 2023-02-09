@@ -29,7 +29,7 @@ class CalendarWidget extends StatelessWidget {
 
 
           Widget periodIcon(String day) => Container(
-                color: kPrimaryColor2,
+                color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
@@ -39,7 +39,7 @@ class CalendarWidget extends StatelessWidget {
                 ),
               );
           Widget nextPeriodIcon(String day) => Container(
-                color: kPrimaryColor2,
+                color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
@@ -49,7 +49,7 @@ class CalendarWidget extends StatelessWidget {
                 ),
               );
           Widget ovulationDayIcon(String day) => Container(
-                color: kPrimaryColor2,
+                color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
@@ -61,7 +61,7 @@ class CalendarWidget extends StatelessWidget {
                 ),
               );
           Widget firstRangeDayIcon(String day) => Container(
-                color: kPrimaryColor2,
+                color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
@@ -72,7 +72,7 @@ class CalendarWidget extends StatelessWidget {
                 ),
               );
           Widget safeRangeDayIcon(String day) => Container(
-            color: kPrimaryColor2,
+            color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
@@ -232,7 +232,7 @@ borderRadius: BorderRadius.circular(5)
               Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: kPrimaryColor2,
+                  color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: CalendarCarousel<Event>(

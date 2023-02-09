@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/advices/advice_details_screen.dart';
 import 'package:queen_care/modules/advices/show_all_advices_screen.dart';
@@ -14,14 +15,12 @@ import 'package:queen_care/modules/offers/points/how_to_get_points.dart';
 import 'package:queen_care/modules/offers/points/my_points_balance.dart';
 import 'package:queen_care/modules/offers/points/my_points_screen.dart';
 import 'package:queen_care/modules/offers/points/replace_my_points.dart';
- import 'package:queen_care/modules/period_calculator/period_calculator.dart';
+import 'package:queen_care/modules/period_calculator/period_calculator.dart';
 import 'package:queen_care/modules/period_calculator/period_questions.dart';
 import 'package:queen_care/modules/product/category_all_products.dart';
 import 'package:queen_care/modules/product/product_details.dart';
-
 import '../product/product_screen.dart';
 class Home extends StatefulWidget {
-
   const Home({Key? key, required this.tapId}) : super(key: key);
   final int tapId;
 
@@ -30,15 +29,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
-
-
   int _currentIndexBottomNavigationBarItem = 0;
 
-
-
-
   late TabController tabController;
-
 
   @override
   void initState() {
@@ -53,8 +46,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   void handleTabSelection() {
     setState(() {
-      if (tabController.index < 4) {
 
+      if (tabController.index < 4) {
         _currentIndexBottomNavigationBarItem = tabController.index;
       }
     });
@@ -62,99 +55,105 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: tabController,
-        children: <Widget>[
-          HomeTap(tabController: tabController,),//0
-          Offer(tabController: tabController,),//1
-          const Favorite(),//2
+      body: Container(
+        width: w,
+        height: h,
+        decoration: customBoxDecoration,
+        child: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: tabController,
+          children: <Widget>[
+            HomeTap(
+              tabController: tabController,
+            ), //0
+            Offer(
+              tabController: tabController,
+            ), //1
+            const Favorite(), //2
 
-
-          Profile(tabController: tabController),//3
-          CategoryAllProducts(tabController: tabController),//4
-          ProductScreen(tabController: tabController),//5
-          ProductDetails(tabController: tabController),//6
-          PeriodQuestions(tabController: tabController,),//7
-          PeriodCalculator(tabController: tabController,),//8
-          GeneralCompetitions(
-            tabController: tabController,
-          ), //9
-          MyPoints(
-            tabController: tabController,
-          ), //10
-          MyPointsBalance(tabController:tabController),//11
-          ReplaceMyPoints(tabController:tabController),//12
-          Awards(tabController:tabController),//13
-          HowToGetPoints(tabController:tabController),//14
-          DisplayAllCompetitions(tabController:tabController),//15
-          ShowAdvicesScreen(tabController:tabController),//16
-          AdviceScreen(tabController:tabController),//17
-          ConvertToCompany(tabController:tabController),//18
-
-
-        ],
-      ),
-
-      bottomNavigationBar: Container(  decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(25),
-          topLeft: Radius.circular(25),
-          // bottomRight: Radius.circular(20),
-          // bottomLeft: Radius.circular(20),
+            Profile(tabController: tabController), //3
+            CategoryAllProducts(tabController: tabController), //4
+            ProductScreen(tabController: tabController), //5
+            ProductDetails(tabController: tabController), //6
+            PeriodQuestions(
+              tabController: tabController,
+            ), //7
+            PeriodCalculator(
+              tabController: tabController,
+            ), //8
+            GeneralCompetitions(
+              tabController: tabController,
+            ), //9
+            MyPoints(
+              tabController: tabController,
+            ), //10
+            MyPointsBalance(tabController: tabController), //11
+            ReplaceMyPoints(tabController: tabController), //12
+            Awards(tabController: tabController), //13
+            HowToGetPoints(tabController: tabController), //14
+            DisplayAllCompetitions(tabController: tabController), //15
+            ShowAdvicesScreen(tabController: tabController), //16
+            AdviceScreen(tabController: tabController), //17
+            ConvertToCompany(tabController: tabController), //18
+          ],
         ),
-        boxShadow: [
-          BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-        ],
       ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(35.0),
-            topRight: Radius.circular(35.0),
-          ),
-          child: BottomNavigationBar(
-            unselectedFontSize: 11,
-            selectedFontSize: 12,
-
-            currentIndex: _currentIndexBottomNavigationBarItem,
-
-            items: const [
-
-              BottomNavigationBarItem(icon: Icon(Icons.home_outlined),
-                  label: 'الرئيسية'),
-
-
-              BottomNavigationBarItem(icon: Icon(Icons.local_offer_outlined),
-                  label: 'العروض'),
-              BottomNavigationBarItem(icon: Icon(Icons.favorite_border),
-                  label: 'المفضلة'),
-              BottomNavigationBarItem(icon: Icon(Icons.person_outline_outlined),
-                  label: 'الحساب '),
+      bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(25),
+              topLeft: Radius.circular(25),
+              // bottomRight: Radius.circular(20),
+              // bottomLeft: Radius.circular(20),
+            ),
+            boxShadow: [
+              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
-            onTap: onTapedBottomsNavigationBarItem,
-            backgroundColor: Colors.white,
-            unselectedItemColor: darkGrey,
-            selectedItemColor: kPrimaryColor,
-            type: BottomNavigationBarType.fixed,
-
-
-        ),
-      )),
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(35.0),
+              topRight: Radius.circular(35.0),
+            ),
+            child: BottomNavigationBar(
+              unselectedFontSize: 11,
+              selectedFontSize: 12,
+              currentIndex: _currentIndexBottomNavigationBarItem,
+              items:  [
+                BottomNavigationBarItem(
+                    icon: const Icon(Icons.home_outlined), label: 'main'.tr(context)),
+                BottomNavigationBarItem(
+                    icon: const Icon(Icons.local_offer_outlined), label:'offers'.tr(context)),
+                BottomNavigationBarItem(
+                    icon: const Icon(Icons.favorite_border), label: 'favorite'.tr(context)),
+                BottomNavigationBarItem(
+                    icon: const Icon(Icons.person_outline_outlined),
+                    label: 'profile'.tr(context)),
+              ],
+              onTap: onTapedBottomsNavigationBarItem,
+              backgroundColor: Colors.white,
+              unselectedItemColor: darkGrey,
+              selectedItemColor: kBlueGreen,
+              type: BottomNavigationBarType.fixed,
+            ),
+          )),
     );
   }
 
   void onTapedBottomsNavigationBarItem(int value) {
 
-
     setState(() {
+
       tabController.animateTo(value);
+
     });
+    if(tabController.index==0){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const Home(tapId: 0)), );
+    }
   }
-
-
-
 }

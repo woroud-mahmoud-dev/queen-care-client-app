@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
            home:   const Splach(),
-          //   home:AddConsultation(),
+
 
 
 
