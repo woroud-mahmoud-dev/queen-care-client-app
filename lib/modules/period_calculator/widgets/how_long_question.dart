@@ -37,7 +37,7 @@ class HowLongQuestion extends StatelessWidget {
         debugPrint('onChange $value');
         myService.setDaysNumber = value as int;
         CalculatorCubit.get(context)
-            .selectDurationOfTheMenstrualCycl(value);
+            .selectDurationOfTheMenstrualCycle(value);
       },
       value:
       CalculatorCubit.get(context).selectedIndexOfDays,

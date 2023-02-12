@@ -37,7 +37,7 @@ class AdviceScreen extends StatelessWidget {
             ),
             const Text(
               'النصائح',
-              style: TextStyle(color: kPrimaryColor, fontSize: 17),
+              style: TextStyle(color: kBlueGreen, fontSize: 17),
             ),
             IconButton(
                 onPressed: () {
@@ -52,11 +52,13 @@ class AdviceScreen extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        Align(
-          alignment: Alignment.topRight,
+        Padding(
+          padding: const EdgeInsets.all(5.0),
           child: Text(
             myService.getSelectedBlog!.name,
-            style: const TextStyle(color: kPrimaryColor, fontSize: 16),
+            textAlign: TextAlign.center,
+
+            style: const TextStyle( fontSize: 16),
           ),
         ),
         SizedBox(
@@ -74,9 +76,13 @@ class AdviceScreen extends StatelessWidget {
         const SizedBox(
           height: 30,
         ),
-        Text(
-          myService.getSelectedBlog!.body,
-          style: const TextStyle(fontSize: 14, color: darkGrey),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            myService.getSelectedBlog!.body,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 14, ),
+          ),
         ),
       ],
     );

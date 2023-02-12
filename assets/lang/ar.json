@@ -39,6 +39,7 @@
   "complete_registration": "إكمال التسجيل",
   "register_email": "تسجيل البريد الالكتروني",
   "consultation": "استشارة",
+  "products": "المنتجات",
   "offers_and_competition": "العروض والمسابقات",
   "calculator": "الحاسبة",
   "blogging": "المدونات",
@@ -52,7 +53,37 @@
   "last_period_start": "1  متى بدأ آخر حيض عندك؟",
   "duration_of_menstruation": "2 ما مد الحيض لديك؟",
   "how_many_days": "3 كم يوم تدوم دورتك الشهرية؟",
-  "track": "تتبع الدورة الشهرية"
+  "track": "تتبع الدورة الشهرية",
+  "get_coupon": "احصل على كوبون خصم",
+  "search": "البحث",
+  "add_to_cart": "إضافة إلى السلة",
+  "advices": "النصائح",
+  "all": "الكل",
+  "general_co": "المسابقات عامة",
+  "my_points": "نقاطي",
+  "awards": "الجوائز",
+  "scan_qr": "مسح QR",
+  "scan_gift": "امسح للحصول على هدية",
+  "answer_questions_": "أجب عن الأسئلة للحصول على جائزة",
+  "_next": "التالي",
+  "my_points_balance": "رصيدي من النقاط",
+  "replace_points": "استبدال نقاطي",
+  "replace": "استبدال",
+  "points_ways": "آالية الحصول على نقاط",
+  "my_current_balance": "رصيدي الحالي",
+  "point": "نقطة",
+  "replace_with_awards": "يمكنك استبدال النقاط بإحدى الجوائز التالية",
+  "congratulations": "مبروك لقد حصلت على هدية",
+  "score": "يتم الآن حساب النتيجة",
+  "luck": "لم يحالفك الحظ هذه المرة ",
+  "Back": "عودة إلى الصفحة الرئيسية",
+  "awards_you_have_received": "الجوائز التي حصلت عليها",
+  "get_points": "يمكنك الحصول على النقاط من خلال",
+  "Buy_a_product": "شراء منتج"
+
+
+
+
 
 
 

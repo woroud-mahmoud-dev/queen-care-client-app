@@ -11,7 +11,6 @@ import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
 import 'package:queen_care/modules/home/widgets/categories_part.dart';
 import 'package:queen_care/modules/home/widgets/copon_widget.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
-import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 
 class HomeTap extends StatelessWidget {
   const HomeTap({Key? key, required this.tabController}) : super(key: key);
@@ -47,7 +46,7 @@ class HomeTap extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                coponWidget(
+                CouponWidget(
                   h: h,
                   w: w,
                   onTap: () {},

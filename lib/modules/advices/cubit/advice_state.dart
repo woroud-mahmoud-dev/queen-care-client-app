@@ -5,6 +5,7 @@ abstract class AdviceState {}
 
 class AdviceInitial extends AdviceState {}
 class GetCategoriesLoading extends AdviceState{}
+class DeviceNotConnectedState extends AdviceState{}
 class GetCategoriesSuccess extends AdviceState{
   final List<CategoryBlogModel> categoriesList;
 

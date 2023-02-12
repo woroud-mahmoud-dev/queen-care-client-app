@@ -4,6 +4,7 @@ import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/product.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class ProductItem extends StatelessWidget {
   ProductItem({
@@ -27,11 +28,12 @@ class ProductItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           myService.setSelectedProduct = productModel;
+          CacheHelper.saveData(key: 'isFav', value: productModel.isfav);
           tabController.animateTo(5);
         },
         child: Card(
           color: Colors.white,
-          elevation: 5,
+          elevation: 8,
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Row(
@@ -52,10 +54,10 @@ class ProductItem extends StatelessWidget {
                     imageUrl: imgUrl + productModel.image,
                     placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(
-                          backgroundColor: Colors.transparent,
-                          color: kPrimaryColor,
-                          strokeWidth: 0.2,
-                        )),
+                      backgroundColor: Colors.transparent,
+                      color: kPrimaryColor,
+                      strokeWidth: 0.2,
+                    )),
                     errorWidget: (context, url, error) => const Icon(
                       Icons.error,
                       color: kPrimaryColor,

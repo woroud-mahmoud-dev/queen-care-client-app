@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/models/prize_model.dart';
@@ -13,6 +14,7 @@ class AwardAfterFinish extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -24,13 +26,15 @@ class AwardAfterFinish extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'مبروك لقد حصلت على هدية \n ${prizeModel.prize}',
-                  style: const TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
+                Expanded(
+                  child: Text(
+                    'congratulations'.tr(context)+"  "+ prizeModel.prize,
+                    style: const TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 17,
+              ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),
@@ -46,50 +50,24 @@ class AwardAfterFinish extends StatelessWidget {
             SizedBox(
               height: h * 0.07,
             ),
-            GeneralButton(
-              onTap: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => MainScreen()),
-                    (route) => false);
-              },
-              title: 'عودة إلى الرئيسية',
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              elevation: 7,
-              padding: 15,
+            Center(
+              child: CustomButton(
+                title: 'Back'.tr(context),
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const MainScreen()),
+                          (route) => false);
+                },
+                color: kPrimaryColor,
+                width: w * 0.7,
+                height: h * 0.07,
+              ),
             ),
             SizedBox(
               height: h * 0.07,
             ),
-            // GeneralButton(
-            //   onTap: () {
-            //     Navigator.of(context).push(
-            //         MaterialPageRoute(
-            //             builder: (_) =>
-            //                 Home(tapId: 10)));
-            //   },
-            //   title: 'إضافة إلى نقاطي',
-            //   margin: const EdgeInsets.symmetric(horizontal: 15),
-            //   elevation: 7,
-            //   padding: 15,
-            // ),
-            // SizedBox(
-            //   height: h * 0.03,
-            // ),
-            // GeneralButton(
-            //   onTap: () {
-            //     Navigator.of(context).push(
-            //         MaterialPageRoute(
-            //             builder: (_) =>
-            //                 Home(tapId: 13)));
-            //   },
-            //   title: 'الحصول على الهدية',
-            //   margin: const EdgeInsets.symmetric(horizontal: 15),
-            //   elevation: 7,
-            //   padding: 15,
-            // ),
-            SizedBox(
-              height: h * 0.12,
-            ),
+
+          
           ],
         ),
       ),

@@ -26,7 +26,10 @@ class CompetitionWidget extends StatelessWidget {
         height: h * 0.17,
         width: w,
         child: Card(
-          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ),
+          elevation: 5,
           margin: const EdgeInsets.symmetric(vertical: 5),
           child: Stack(
             clipBehavior: Clip.none,

@@ -1,13 +1,10 @@
-
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
-
-
-
 
 class QRViewScreen extends StatefulWidget {
   const QRViewScreen({Key? key}) : super(key: key);
@@ -38,24 +35,22 @@ class _QRViewScreenState extends State<QRViewScreen> {
       body: Container(
         height: h,
         width: w,
+        decoration: customBoxDecoration,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            const   SizedBox(height: 100,),
-            const     Text('امسح للحصول على هدية',style: TextStyle(
-            color: darkGrey,
-            fontSize: 17
-        )),
-            const  SizedBox(height: 70,),
-
-                Container(
-              height: h*0.4,
-              width:  h*0.4,
-              child: _buildQrView(context)),
-
-
-             Spacer(),
+            const SizedBox(
+              height: 100,
+            ),
+            Text('scan_gift'.tr(context),
+                style: const TextStyle(color: darkGrey, fontSize: 17)),
+            const SizedBox(
+              height: 70,
+            ),
+            SizedBox(
+                height: h * 0.4, width: h * 0.4, child: _buildQrView(context)),
+            const Spacer(),
           ],
         ),
       ),
@@ -63,17 +58,17 @@ crossAxisAlignment: CrossAxisAlignment.center,
   }
 
   Widget _buildQrView(BuildContext context) {
-    var scanArea = MediaQuery.of(context).size.width*0.8;
+    var scanArea = MediaQuery.of(context).size.width * 0.8;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
     return SizedBox(
-    width:  MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       child: QRView(
         key: qrKey,
         onQRViewCreated: _onQRViewCreated,
         overlay: QrScannerOverlayShape(
-            borderColor:kPrimaryColor,
-          //  borderRadius: 10,
+            borderColor: kPrimaryColor,
+            //  borderRadius: 10,
             borderLength: 60,
             borderWidth: 6,
             cutOutSize: scanArea),

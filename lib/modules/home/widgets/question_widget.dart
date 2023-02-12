@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
-class QuestionWidget extends StatefulWidget {
+class QuestionsAnswerWidget extends StatefulWidget {
   final String value;
   final  String name;
 
   var groupValue;
 
   final void Function(String) onChanged;
-   QuestionWidget(
+   QuestionsAnswerWidget(
       {Key? key,
         required this.value,
         required this.name,
@@ -19,10 +19,10 @@ class QuestionWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _QuestionWidgetState createState() => _QuestionWidgetState();
+  _QuestionsAnswerWidgetState createState() => _QuestionsAnswerWidgetState();
 }
 
-class _QuestionWidgetState extends State<QuestionWidget> {
+class _QuestionsAnswerWidgetState extends State<QuestionsAnswerWidget> {
   @override
   Widget build(BuildContext context) {
     bool selected = (widget.value == widget.groupValue);
@@ -34,18 +34,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             ? MediaQuery.of(context).size.width * 0.6
             : MediaQuery.of(context).size.width * 0.6,
         height: selected
-            ? MediaQuery.of(context).size.height * 0.11
+            ? MediaQuery.of(context).size.height * 0.1
             : MediaQuery.of(context).size.height * 0.1,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Card(
 
-              // color: selected ?kPrimaryColor2:Colors.white,
-              // shape: RoundedRectangleBorder(
-              //   side: BorderSide(
-              //       width: selected ? 1.5 : 1),
-              //   borderRadius: BorderRadius.circular(7),
-              // ),
               elevation: 5,
 
               child: Row(

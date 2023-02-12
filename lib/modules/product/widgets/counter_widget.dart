@@ -18,7 +18,22 @@ class SelectInfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [   Column(
+      children: [     Container(
+        margin: const EdgeInsets.all(10),
+        height: 35,
+        width: 25,
+        decoration: BoxDecoration(
+          color: kPrimaryColor,
+          borderRadius: BorderRadius.circular(5),
+
+        ),
+        child: Center(
+          child: Text(
+            number.toString(),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
+          ),
+        ),
+      ), Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
@@ -69,22 +84,7 @@ class SelectInfoItem extends StatelessWidget {
 
         ],
       ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          height: 35,
-          width: 25,
-          decoration: BoxDecoration(
-            color: kPrimaryColor,
-            borderRadius: BorderRadius.circular(5),
 
-          ),
-          child: Center(
-            child: Text(
-              number.toString(),
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold,color: Colors.white),
-            ),
-          ),
-        ),
 
       ],
     );

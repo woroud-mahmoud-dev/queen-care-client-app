@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/error_widget.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/cat_blog_model.dart';
 import 'package:queen_care/modules/advices/cubit/advice_cubit.dart';
 import 'package:queen_care/modules/advices/widgets/blogs_part.dart';
@@ -18,76 +22,93 @@ class ShowAdvicesScreen extends StatelessWidget {
       create: (context) => AdviceCubit()..getCategoryWithHttp(),
       child: BlocConsumer<AdviceCubit, AdviceState>(
         listener: (context, state) {
-          // TODO: implement listener
+
         },
         builder: (context, state) {
-          final List<CategoryBlogModel> categoriesList =AdviceCubit.get(context).categories_list;
-          final List<Tab> tabList = List.generate(categoriesList.length, (index) =>
-              Tab(
-
-                child: Center(child: Text(categoriesList[index].name,)),
-
-              ));
-          final kTabPages =List.generate(tabList.length, (index) => BlogsPart(
-            index: index,
-            tabController: tabController,
-
-          ));
-
+          final List<CategoryBlogModel> categoriesList =
+              AdviceCubit.get(context).categoriesList;
+          final List<Tab> tabList = List.generate(
+              categoriesList.length,
+              (index) => Tab(
+                    child: Center(
+                        child: Text(
+                      categoriesList[index].name,
+                    )),
+                  ));
+          final kTabPages = List.generate(
+              tabList.length,
+              (index) => BlogsPart(
+                    index: index,
+                    tabController: tabController,
+                  ));
 
           return DefaultTabController(
-
             initialIndex: 0,
-
-
             length: categoriesList.length,
-
-            child: Column(
+            child: ListView(
               children: [
-                SizedBox(height: h*0.02,),
-
-                Padding(
-                       padding: const EdgeInsets.all(20.0),
-                       child: SearchBar(w: w),
-                     ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text('النصائح', style: TextStyle(
-                      color: kPrimaryColor,
-                    fontSize: 17
-                  ),),
+                SizedBox(
+                  height: h * 0.02,
                 ),
-                SizedBox(height: h*0.02,),
-
-                state is GetCategoriesLoading?Container() :Directionality(
-                  textDirection: TextDirection.rtl,
-
-                  child: TabBar(
-
-onTap: (int index){
-  debugPrint(index.toString());
-},
-                    labelColor: kPrimaryColor,
-                    labelStyle: const TextStyle(fontWeight: FontWeight.bold,fontSize: 14),
-                    unselectedLabelColor: darkGrey2,
-                    tabs: tabList,
-                    indicatorColor: kPrimaryColor,
-
-indicatorWeight: 2,                        isScrollable: true,
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SearchBar(w: w),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'advices'.tr(context),
+                    style: const TextStyle(color: kBlueGreen, fontSize: 17),
                   ),
                 ),
-                state is GetCategoriesLoading?Container(
+                SizedBox(
+                  height: h * 0.02,
+                ),
+                state is GetCategoriesLoading ||     state is DeviceNotConnectedState
+                    ? Container()
 
-                ) :const Divider(color: kPrimaryColor,height:0,thickness: 2.5),
-                Directionality(
+                    : Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TabBar(
+                          onTap: (int index) {
+                            debugPrint(index.toString());
+                          },
+                          labelColor: kPrimaryColor,
+                          labelStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                          unselectedLabelColor: darkGrey2,
+                          tabs: tabList,
+                          indicatorColor: kPrimaryColor,
+                          indicatorWeight: 2,
+                          isScrollable: true,
+                        ),
+                      ),
+            const Divider(
+                        color: kPrimaryColor, height: 0, thickness: 2.5),
+                state is GetCategoriesLoading
+                    ? SizedBox(
+                    height: h * 0.65,
+                    child: const LoadingWidget())
+                    : state is DeviceNotConnectedState
+                    ? NoInternetWidget(
+                  onPressed: () {
+                    AdviceCubit.get(context)
+                        .getCategoryWithHttp();
+                  },
+                )
+                    : state is GetCategoriesError
+                    ? CustomErrorWidget(
+                  onPressed: () {
+                    AdviceCubit.get(context)
+                        .getCategoryWithHttp();
+                  },
+                )
+                    :    Directionality(
                   textDirection: TextDirection.rtl,
-
                   child: SizedBox(
-                    height: h*0.65,
+                    height: h * 0.65,
                     child: TabBarView(
-
-
-                      physics:const NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: kTabPages,
                     ),
                   ),
@@ -100,4 +121,3 @@ indicatorWeight: 2,                        isScrollable: true,
     );
   }
 }
-

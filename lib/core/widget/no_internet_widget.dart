@@ -12,11 +12,13 @@ class NoInternetWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/no_internet.png',
-          fit: BoxFit.contain,
-          height: h * 0.4,
-          width: w,
+        Expanded(
+          child: Image.asset(
+            'assets/images/no_internet.png',
+            fit: BoxFit.contain,
+            height: h * 0.4,
+            width: w,
+          ),
         ),
         Text(
           'no_internet_message'.tr(context),

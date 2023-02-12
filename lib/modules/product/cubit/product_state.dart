@@ -52,6 +52,7 @@ class AddToFavoriteErrorState extends ProductState{
 
 class DeleteFromFavoriteSuccessState extends ProductState{}
 class DeleteFromFavoriteErrorsState extends ProductState{}
+class DeviceNotConnectedState extends ProductState{}
 class AddToCartLoadingState extends ProductState{}
 class AddToCartSuccessState extends ProductState{
   final String message;

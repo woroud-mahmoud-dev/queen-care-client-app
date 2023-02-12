@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/modules/offers/points/cubit/points_cubit.dart';
 
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+
 
 class MyPointsBalance extends StatelessWidget {
   final TabController tabController;
@@ -40,11 +41,11 @@ class MyPointsBalance extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children:  [
                     Text(
-                      'رصيدي من النقاط',
-                      style: TextStyle(
-                          color: kPrimaryColor,
+                      'my_points_balance'.tr(context),
+                      style:const TextStyle(
+                          color: kBlueGreen,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
@@ -59,28 +60,30 @@ class MyPointsBalance extends StatelessWidget {
                           color: kPrimaryColor,
                         ),
                       )
-                    : Align(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          'رصيدي الحالي : ${PointsCubit.get(context).myPoints == '' ? '0' : PointsCubit.get(context).myPoints} نقطة ',
-                          style: const TextStyle(
-                              color: darkGrey2,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                    : Row(
+                  children: [
+                    Text(
+                      '${"my_current_balance".tr(context)} : ${PointsCubit.get(context).myPoints == '' ? '0' : PointsCubit.get(context).myPoints}  ${"point".tr(context)}',
+                      style: const TextStyle(
+
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                 const   Spacer(),
+                  ],
+                ),
                 SizedBox(
                   height: h * 0.14,
                 ),
-                GeneralButton(
-                  onTap: () {
+                CustomButton(
+                  height: h*0.08,
+                  width: w*0.7,
+                  onTap: (){
                     tabController.animateTo(12);
                   },
-                  title: 'استبدال',
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  elevation: 7,
-                  padding: 15,
+                  title: 'replace'.tr(context),
                 ),
+
                 const Spacer(),
                 Center(
                   child: Image.asset(

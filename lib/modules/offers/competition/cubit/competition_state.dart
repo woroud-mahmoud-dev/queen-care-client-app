@@ -15,7 +15,7 @@ class FinishStateWithWin extends CompetitionState {
 
 }
 class FinishStateWithLoss extends CompetitionState {
-  final double points;
+  final dynamic points;
 
   FinishStateWithLoss(this.points);
 }
@@ -39,6 +39,8 @@ class GetAllQuestionsErrorState extends CompetitionState {
 
   GetAllQuestionsErrorState({required this.error});
 }
+class DeviceNotConnectedState extends CompetitionState {}
+class DeviceNotConnectedToSendResultState extends CompetitionState {}
 class SendResultStateLoading extends CompetitionState {}
 class GetResultErrorState extends CompetitionState {
   final String error;

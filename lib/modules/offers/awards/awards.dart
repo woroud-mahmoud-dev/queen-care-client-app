@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/error_widget.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/prize_model.dart';
 import 'package:queen_care/modules/offers/awards/cubit/awards_cubit.dart';
 import 'package:queen_care/modules/offers/awards/widgets/prize_card.dart';
@@ -12,6 +17,7 @@ class Awards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => AwardsCubit()..getMyPrizes(),
       child: BlocConsumer<AwardsCubit, AwardsState>(
@@ -23,8 +29,7 @@ class Awards extends StatelessWidget {
               AwardsCubit.get(context).myPrizes;
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
+            child: Column(
               children: [
                 Align(
                   alignment: Alignment.topRight,
@@ -43,70 +48,87 @@ class Awards extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      'الجوائز',
-                      style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      'awards'.tr(context),
+                      style: const TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 18,
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(
                   height: h * 0.07,
                 ),
-                const Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    'الجوائز التي حصلت عليها',
-                    style: TextStyle(
-                        color: darkGrey2,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(
-                  height: h * 0.06,
+                Row(
+                  children: [
+                    Text(
+                      'awards_you_have_received'.tr(context),
+                      style: const TextStyle(
+                          color: darkGrey2,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
                 state is GetMyPrizesLoadingState
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: kPrimaryColor,
-                        ),
-                      )
-                    : (myPrizesList.isEmpty)
-                        ? const Center(
-                            child: Text(
-                              'لا توجد جوائز ',
-                              style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
+                    ? const Expanded(
+                    flex: 7,child: LoadingWidget())
+                    : state is DeviceNotConnectedState
+                        ? Expanded(
+                  flex: 7,
+                            child: NoInternetWidget(
+                              onPressed: () {
+                                AwardsCubit.get(context).getMyPrizes();
+                              },
                             ),
                           )
-                        : SizedBox(
-                            child: ListView.builder(
-                                clipBehavior: Clip.hardEdge,
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: PrizeCard(
-                                      title: myPrizesList[index].prize,
+                        : state is GetMyPrizesErrorState
+                            ? Expanded(
+                  flex: 7,
+                                child: CustomErrorWidget(
+                                  onPressed: () {
+                                    AwardsCubit.get(context).getMyPrizes();
+                                  },
+                                ),
+                              )
+                            : (myPrizesList.isEmpty)
+                                ? const Center(
+                                    child: Text(
+                                      'لا توجد جوائز ',
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  );
-                                },
-                                itemCount: myPrizesList.length),
-                          ),
-                Center(
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    height: 200,
-                    width: 200,
-                  ),
-                ),
+                                  )
+                                : Expanded(
+                  flex: 7,
+                                    child: ListView.builder(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 30),
+                                        clipBehavior: Clip.hardEdge,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return PrizeCard(
+                                            height: h * 0.07,
+                                            width: w * 0.65,
+                                            title: myPrizesList[index].prize,
+                                          );
+                                        },
+                                        itemCount: myPrizesList.length),
+                                  ),
+                 Expanded(
+                   flex: 1,
+                     child: LogoImage(
+                   h: h*0.1,
+                  w:w,
+
+
+                ))
               ],
             ),
           );

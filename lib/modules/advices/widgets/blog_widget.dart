@@ -25,7 +25,10 @@ class BlogWidget extends StatelessWidget {
         height: h * 0.17,
         width: w,
         child: Card(
-          elevation: 3,
+          elevation: 5,
+          shape:RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ) ,
           margin: const EdgeInsets.symmetric(vertical: 5),
           child: Row(
             children: [
@@ -43,17 +46,16 @@ class BlogWidget extends StatelessWidget {
                         style: const TextStyle(
                             color: darkGrey,
                             fontSize: 15,
-                            fontWeight: FontWeight.bold),
+                    ),
                       ),
                       Text(
                         blogModel.body,
-                        maxLines: 2,
-                        // textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: darkGrey2,
 
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+
+                            fontSize: 12,
+                 ),
                       ),
                     ],
                   ),

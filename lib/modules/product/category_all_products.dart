@@ -1,14 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/error_widget.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/product.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/widgets/product_item.dart';
-
 
 class CategoryAllProducts extends StatelessWidget {
   CategoryAllProducts({Key? key, required this.tabController})
@@ -56,13 +58,9 @@ class CategoryAllProducts extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: h * 0.4,
-                      width: w * 0.6,
-                    ),
+                  LogoImage(
+                    w: w,
+                    h: h * 0.22,
                   ),
                   Expanded(
                     flex: 1,
@@ -86,34 +84,49 @@ class CategoryAllProducts extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
+                    flex: 6,
                     child: Container(
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.elliptical(50, 30),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black12, spreadRadius: 2, blurRadius: 5),
+                        ],
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(20),
                         ),
                       ),
                       child: state is GetAllProductByTypeLoading
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                color: kPrimaryColor,
-                              ),
-                            )
-                          : ListView.builder(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              itemCount: allProductsByType.length,
-                              itemBuilder: (context, int index) {
-                                return ProductItem(
-                                  w: w,
-                                  h: h,
-                                  tabController: tabController,
-                                  productModel: allProductsByType[index],
-                                );
-                              },
-                            ),
+                          ? const LoadingWidget()
+                          : state is DeviceNotConnectedState
+                              ? NoInternetWidget(
+                                  onPressed: () {
+                                    ProductCubit.get(context)
+                                        .getAllProductsByTypeWithHttp();
+                                  },
+                                )
+                              : state is GetAllProductByTypeError
+                                  ? CustomErrorWidget(
+                                      onPressed: () {
+                                        ProductCubit.get(context)
+                                            .getAllProductsByTypeWithHttp();
+                                      },
+                                    )
+                                  : ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      itemCount: allProductsByType.length,
+                                      itemBuilder: (context, int index) {
+                                        return ProductItem(
+                                          w: w,
+                                          h: h,
+                                          tabController: tabController,
+                                          productModel:
+                                              allProductsByType[index],
+                                        );
+                                      },
+                                    ),
                     ),
                   ),
                 ],
@@ -125,5 +138,3 @@ class CategoryAllProducts extends StatelessWidget {
     );
   }
 }
-
-

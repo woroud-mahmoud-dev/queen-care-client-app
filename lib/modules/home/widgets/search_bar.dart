@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 class SearchBar extends StatelessWidget {
@@ -34,7 +35,7 @@ class SearchBar extends StatelessWidget {
             fillColor: Colors.white,
             contentPadding: const EdgeInsets.symmetric(
                 horizontal: 20.0, vertical: 10.0),
-            hintText: "البحث ",
+            hintText: "search".tr(context),
             hintStyle: const TextStyle(fontSize: 14),
             suffix: Container(
               height: 30,

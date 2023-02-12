@@ -21,8 +21,8 @@ class ApiBaseHelper {
   }
 
   dynamic _returnResponse(
-      http.Response response,
-      ) {
+    http.Response response,
+  ) {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
@@ -34,6 +34,7 @@ class ApiBaseHelper {
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
+
       case 401:
       case 403:
         throw UnauthorisedException(response.body.toString());

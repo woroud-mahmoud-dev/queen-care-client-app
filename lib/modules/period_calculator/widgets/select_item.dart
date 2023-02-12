@@ -40,7 +40,7 @@ class _ItemWidgetWithIconState extends State<ItemWidgetWithIcon> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             widget.widget2!,
-            Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,),
+            Text(widget.name,style:  TextStyle(color: selected?Colors.white: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,),
           ],
         ),
       ),
@@ -84,7 +84,7 @@ class _ItemWidgetState extends State<ItemWidget> {
           color:selected?kPrimaryColor: darkGrey1,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Center(child: Text(widget.name,style: const TextStyle(color: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,)),
+        child: Center(child: Text(widget.name,style:  TextStyle(color:selected?Colors.white: darkGrey2,fontSize: 14),textAlign: TextAlign.center,maxLines: 2,)),
       ),
     );
   }

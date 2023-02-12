@@ -27,7 +27,6 @@ class CalendarWidget extends StatelessWidget {
 
           DateTime currentDate = DateTime.now();
 
-
           Widget periodIcon(String day) => Container(
                 color: kPrimaryColor,
                 child: Center(
@@ -66,26 +65,27 @@ class CalendarWidget extends StatelessWidget {
                   child: Text(
                     day,
                     style: const TextStyle(
-                      color:  Color(0xff0312E5),
+                      color: Colors.white,
                     ),
                   ),
                 ),
               );
           Widget safeRangeDayIcon(String day) => Container(
-            color: kPrimaryColor,
+                color: kPrimaryColor,
                 child: Center(
                   child: Text(
                     day,
                     style: const TextStyle(
-                      color: darkGrey2,fontWeight: FontWeight.bold
-                    ),
+                        color: darkGrey2, fontWeight: FontWeight.bold),
                   ),
                 ),
               );
           List<DateTime> periodDates = CalculatorCubit.get(context).periodDates;
 
-          List<DateTime> firstSafeRangDates =     CalculatorCubit.get(context).firstSafeRangDates;
-          List<DateTime> secondSafeRangDates =     CalculatorCubit.get(context).secondSafeRangDates;
+          List<DateTime> firstSafeRangDates =
+              CalculatorCubit.get(context).firstSafeRangDates;
+          List<DateTime> secondSafeRangDates =
+              CalculatorCubit.get(context).secondSafeRangDates;
           List<DateTime> firstRangDates =
               CalculatorCubit.get(context).firstRangDates;
           List<DateTime> secondRangDates =
@@ -183,8 +183,7 @@ class CalendarWidget extends StatelessWidget {
           return Column(
             children: [
               Container(
-                margin: const EdgeInsets.all(5)
-                ,
+                margin: const EdgeInsets.all(5),
                 padding: const EdgeInsets.all(5),
                 height: MediaQuery.of(context).size.height * 0.09,
                 width: double.infinity,
@@ -193,38 +192,39 @@ class CalendarWidget extends StatelessWidget {
                   children: [
                     InkWell(
                         onTap: () {
-                          CalculatorCubit.get(context).getPrevtMonth();
+                          CalculatorCubit.get(context).getMonth();
                         },
-                        child: SvgPicture.asset('assets/icons/prev.svg',
+                        child: SvgPicture.asset(
+                          'assets/icons/prev.svg',
                           width: 35,
-                          height: 35,)),
+                          height: 35,
+                        )),
                     InkWell(
                         onTap: () {
                           CalculatorCubit.get(context).getNextMonth();
                         },
-                        child: SvgPicture.asset('assets/icons/next.svg',
-                        width: 35,
+                        child: SvgPicture.asset(
+                          'assets/icons/next.svg',
+                          width: 35,
                           height: 35,
                         )),
-
-
-          Container(
-            padding: const EdgeInsets.all(5),
-            width: MediaQuery.of(context).size.width*0.25,
-            decoration: BoxDecoration(
-              color: darkGrey2,
-borderRadius: BorderRadius.circular(5)
-            ),
-            child: Text(
-            CalculatorCubit.get(context). selectedMonth,
-            style: const TextStyle(
-            fontSize: 18,
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-            ),),
-          ),
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      decoration: BoxDecoration(
+                          color: darkGrey2,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        CalculatorCubit.get(context).selectedMonth,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*0.3,
+                      width: MediaQuery.of(context).size.width * 0.3,
                     ),
                   ],
                 ),
@@ -236,7 +236,7 @@ borderRadius: BorderRadius.circular(5)
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: CalendarCarousel<Event>(
-                  isScrollable: false,
+                  isScrollable: true,
                   height: MediaQuery.of(context).size.height * 0.45,
                   targetDateTime: CalculatorCubit.get(context).targetDateTime,
                   todayButtonColor: Colors.transparent,
@@ -260,10 +260,11 @@ borderRadius: BorderRadius.circular(5)
                   headerTitleTouchable: false,
 
                   headerTextStyle: const TextStyle(color: darkGrey2),
-          weekdayTextStyle :const TextStyle(color: Colors.black),
+                  weekdayTextStyle: const TextStyle(color: Colors.black),
                   thisMonthDayBorderColor: Colors.black,
 
-                  minSelectedDate: currentDate.subtract(const Duration(days: 360)),
+                  minSelectedDate:
+                      currentDate.subtract(const Duration(days: 360)),
                   maxSelectedDate: currentDate.add(const Duration(days: 360)),
                   // null for not showing hidden events indicator
                   markedDateIconBuilder: (event) {

@@ -18,30 +18,6 @@ class AwardsCubit extends Cubit<AwardsState> {
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
-  // Future<List<PrizeModel>> getMyPrizes() async {
-  //   emit(GetMyPrizesLoadingState());
-  //
-  //   var myUrl =
-  //       Uri.parse("https://karam-app.com/celo/queencare/public/api/my_prize");
-  //
-  //   final response = await http.post(myUrl, body: {
-  //     'token': CacheHelper.getData(key: 'api_token'),
-  //   });
-  //   debugPrint(response.statusCode.toString());
-  //
-  //   if (response.statusCode == 200) {
-  //     myPrizes = prizeModelListFromJson(response.body);
-  //     debugPrint(myPrizes.toString());
-  //     debugPrint(myPrizes.length.toString());
-  //
-  //     emit(GetMyPrizesSuccessState(
-  //       myPrizes: myPrizes,
-  //     ));
-  //   } else if (response.statusCode == 404) {
-  //     emit(GetMyPrizesErrorState(error: 'error'));
-  //   }
-  //   return myPrizes;
-  // }
 
   Future<List<CompetitionPrize>?> getMyPrizes() async {
     emit(GetMyPrizesLoadingState());

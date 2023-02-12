@@ -44,27 +44,52 @@ class PointsCubit extends Cubit<PointsState> {
   ApiBaseHelper apiBaseHelper = ApiBaseHelper();
 
   Future<List<String>> getMyPointsPrize() async {
-    emit(ReplaceMyPointsLoadingState());
+    emit(GetMyPointsPrizeLoadingState());
 
     if (await connectionChecker.hasConnection) {
       try {
         var point = await getMyPoints();
         var data = await apiBaseHelper.post('redeem', {
-          'point': '70',
+          'point': point,
         });
         myPointsPrizeList = MyPointsPrizeModel.fromJson(data).prize;
 
         debugPrint(myPointsPrizeList.toString());
 
-        emit(ReplaceMyPointsSuccessState());
+        emit(GetMyPointsPrizeSuccessState());
 
         return myPointsPrizeList;
       } catch (e) {
-        emit(ReplaceMyPointsErrorState());
+        emit(GetMyPointsPrizeErrorState());
       }
     } else {
       emit(DeviceNotConnectedState());
     }
     return myPointsPrizeList;
+  }
+
+  replacePointWithPrize({required String prize}) async {
+    emit(ReplacePointLoadingState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/prize_point");
+
+        final response = await http.post(myUrl, body: {
+          'token': CacheHelper.getData(key: 'api_token'),
+          'prize': prize,
+        });
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          emit(ReplacePointSuccessState());
+        } else if (response.statusCode == 404) {
+          emit(ReplacePointErrorState());
+        }
+      } catch (e) {
+        emit(ReplacePointErrorState());
+      }
+    } else {
+      emit(NotInternetToReplaceState());
+    }
   }
 }

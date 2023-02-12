@@ -7,6 +7,7 @@ class PointsInitial extends PointsState {}
 
 class GetMyPointsLoading extends PointsState {}
 class DeviceNotConnectedState extends PointsState {}
+class NotInternetToReplaceState extends PointsState {}
 
 class GetMyPointsLoaded extends PointsState {
 var myPoints;
@@ -19,6 +20,9 @@ class GetMyPointsError extends PointsState {
 
   GetMyPointsError({required this.error});
 }
-class ReplaceMyPointsLoadingState extends PointsState {}
-class ReplaceMyPointsSuccessState extends PointsState {}
-class ReplaceMyPointsErrorState extends PointsState {}
+class GetMyPointsPrizeLoadingState extends PointsState {}
+class GetMyPointsPrizeSuccessState extends PointsState {}
+class GetMyPointsPrizeErrorState extends PointsState {}
+class ReplacePointLoadingState extends PointsState {}
+class ReplacePointSuccessState extends PointsState {}
+class ReplacePointErrorState extends PointsState {}

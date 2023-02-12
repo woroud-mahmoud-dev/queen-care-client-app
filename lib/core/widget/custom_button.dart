@@ -105,14 +105,14 @@ class AuthButton extends StatelessWidget {
 class CustomButton extends StatelessWidget {
   final GestureTapCallback onTap;
   final String title;
-  final Color color;
+  final Color? color;
   final double width;
   final double height;
   const CustomButton({
     Key? key,
     required this.onTap,
     required this.title,
-    required this.color,
+     this.color,
     required this.width,
     required this.height,
   }) : super(key: key);

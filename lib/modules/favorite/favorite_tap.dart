@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
@@ -33,13 +34,12 @@ class Favorite extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //it will be change to anther one -.-
-                  // Icon(Icons.list),
-                  SizedBox(width: w * 0.15),
-                  const Text(
-                    'المفضلة',
-                    style: TextStyle(fontSize: 17),
+                  Spacer(),
+                  Text(
+                    'favorite'.tr(context),
+                    style: const TextStyle(fontSize: 17),
                   ),
+                  const Spacer(),
                   const GoCart(),
                 ],
               ),
@@ -49,7 +49,7 @@ class Favorite extends StatelessWidget {
                   LogoImage(
                     w: w * 0.22,
                     h: h * 0.11,
-                  )
+                  ),
                 ],
               ),
               state is GetFavoriteProductLoading
