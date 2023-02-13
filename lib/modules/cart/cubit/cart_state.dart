@@ -31,3 +31,6 @@ class DeleteFromCartErrorsState extends CartState {}
 class AddOrderLoadingState extends CartState{}
 class AddOrderSuccessState extends CartState{}
 class AddOrderErrorState extends CartState{}
+class DeviceNotConnectedState extends CartState {}
+class DeviceNotConnectedToDeleteState extends CartState {}
+class DeviceNotConnectedToSendOrderState extends CartState {}

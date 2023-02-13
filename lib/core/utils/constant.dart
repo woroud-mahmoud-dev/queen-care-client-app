@@ -17,3 +17,12 @@ const customBoxDecoration = BoxDecoration(
       ),
       fit: BoxFit.fill),
 );
+const customContainerBoxDecoration = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.vertical(
+    top: Radius.elliptical(50, 30),
+  ),
+  boxShadow: [
+    BoxShadow(color: Colors.black12, spreadRadius: 5, blurRadius: 10),
+  ],
+);

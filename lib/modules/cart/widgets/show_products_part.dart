@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:queen_care/models/cart_model.dart';
-import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 import 'package:queen_care/modules/cart/widgets/cart_widget.dart';
 import 'package:queen_care/modules/cart/widgets/cart_widget2.dart';
 
@@ -21,7 +20,7 @@ class ShowCartProducts extends StatelessWidget {
       height: MediaQuery.of(context).size.height* 0.7,
       child: ListView.builder(clipBehavior: Clip.hardEdge,
           physics:const BouncingScrollPhysics(),
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
 
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int int) {
@@ -58,7 +57,7 @@ class ShowCartProducts2 extends StatelessWidget {
       // height: MediaQuery.of(context).size.height* 0.7,
       child: ListView.builder(clipBehavior: Clip.hardEdge,
           physics:const BouncingScrollPhysics(),
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
 
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int int) {

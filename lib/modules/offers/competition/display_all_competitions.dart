@@ -45,8 +45,15 @@ class DisplayAllCompetitions extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: h * 0.05,
+
+                    InkWell(
+                      child: const Icon(
+                         Icons.arrow_back,
+                        color: darkGrey2,
+                      ),
+                      onTap: () {
+                        tabController.animateTo(1);
+                      },
                     ),
                     Text(
                       'general_co'.tr(context),
@@ -55,15 +62,10 @@ class DisplayAllCompetitions extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
-                    InkWell(
-                      child: const Icon(
-                        Icons.arrow_forward_ios_sharp,
-                        color: darkGrey2,
-                      ),
-                      onTap: () {
-                        tabController.animateTo(1);
-                      },
-                    )
+                    SizedBox(
+                      width: h * 0.05,
+                    ),
+
                   ],
                 ),
 

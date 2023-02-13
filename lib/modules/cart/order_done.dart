@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
@@ -9,24 +10,24 @@ class OrderDone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         height: h,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/done.png'),
-                fit: BoxFit.cover)),
+        width: w,
+        decoration: customBoxDecoration,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Expanded(flex: 6, child: SizedBox()),
+            const Spacer(),
+            Expanded(flex: 3, child: Image.asset('assets/images/done.png')),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'تم الطلب بنجاح',
-                    style: TextStyle(
+                    'request'.tr(context),
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                     ),
@@ -37,10 +38,10 @@ class OrderDone extends StatelessWidget {
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'سيتم إرسال الحزمة الخاصة بك \nإلى العنوان , شكراً لك',
-                    style: TextStyle(
+                    'send_package'.tr(context),
+                    style: const TextStyle(
                       color: darkGrey2,
                       fontSize: 18,
                     ),
@@ -49,23 +50,16 @@ class OrderDone extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-                child: GeneralButton(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => MainScreen()),
-                        (route) => false);
-                  },
-                  title: 'عودة إلى الرئيسية',
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  elevation: 7,
-                  padding: 15,
-                ),
-              ),
+            CustomButton(
+              title: 'Back'.tr(context),
+              onTap: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const MainScreen()),
+                    (route) => false);
+              },
+              color: kPrimaryColor,
+              width: w * 0.4,
+              height: h * 0.07,
             ),
             const Expanded(child: SizedBox()),
           ],

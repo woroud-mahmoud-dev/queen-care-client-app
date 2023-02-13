@@ -25,7 +25,7 @@ Widget ConsultationTextField({
       maxLines: maxLines,
       textInputAction: TextInputAction.send,
       keyboardType: TextInputType.text,
-      keyboardAppearance: Brightness.light,
+
       onEditingComplete: onEditingComplete,
       controller: controller,
       validator: validate,
@@ -33,6 +33,7 @@ Widget ConsultationTextField({
       decoration: InputDecoration(
 
         hintText:hintText ,
+
         prefixIconColor: kPrimaryColor,
 
 

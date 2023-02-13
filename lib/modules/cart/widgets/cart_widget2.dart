@@ -26,7 +26,7 @@ class CartWidget2 extends StatelessWidget {
       child: BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Card(
+          return Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 8.0, top: 5),
@@ -81,13 +81,27 @@ class CartWidget2 extends StatelessWidget {
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: FittedBox(
-                          child: Text(
-                            '${cartModel.mission.price}  x  ${numberOfItems[productId]}',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 12, color: kPrimaryColor),
-                          ),
+                        child: Row(
+                          children: [
+                            Text(
+                              cartModel.mission.price,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 12, color: kPrimaryColor),
+                            ),
+                            const    Text(
+                              ' x  ',
+                              textAlign: TextAlign.center,
+                              style:  TextStyle(
+                                  fontSize: 12, color: kPrimaryColor),
+                            ),
+                            Text(
+                              ' ${numberOfItems[productId]}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 12, color: kPrimaryColor),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(

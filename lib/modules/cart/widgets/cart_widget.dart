@@ -23,38 +23,74 @@ class CartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    return Card(
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0, top: 5),
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: w * 0.2,
-                    child: CachedNetworkImage(
-                      key: UniqueKey(),
-                      imageUrl: imgUrl + cartModel.mission.image,
-                      placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(
-                        backgroundColor: Colors.transparent,
-                        color: kPrimaryColor,
-                        strokeWidth: 0.2,
-                      )),
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.error,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                ],
+            CircleButton(
+              onTap: () {
+                CartCubit.get(context).deleteFromCart(cartModel.mission.id);
+              },
+              myIcon: const Icon(
+                Icons.delete_outline,
+                color: Colors.white,
+                size: 15,
               ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Column(
+              children: [
+                HalfCircleButton1(
+                  onTap: () {
+                    CartCubit.get(context).increaseProductNumber(productId);
+                  },
+                  myIcon: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 10,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                HalfCircleButton(
+                  onTap: () {
+                    CartCubit.get(context).decreaseProductNumber(productId);
+                  },
+                  myIcon: const Icon(
+                    Icons.minimize,
+                    color: Colors.white,
+                    size: 10,
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.all(3),
+              height: 35,
+              width: 25,
+              decoration: BoxDecoration(
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Center(
+                child: Text(
+                  numberOfItems[productId].toString(),
+                  style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+
+
+
+
+            const SizedBox(
+              width: 10,
             ),
             Column(
               children: [
@@ -86,66 +122,34 @@ class CartWidget extends StatelessWidget {
                 ),
               ],
             ),
-            // SizedBox(width: w*0.1,),
-            Container(
-              margin: const EdgeInsets.all(3),
-              height: 35,
-              width: 25,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  numberOfItems[productId].toString(),
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                HalfCircleButton1(
-                  onTap: () {
-                    CartCubit.get(context).increaseProductNumber(productId);
-                  },
-                  myIcon: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 10,
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: w * 0.2,
+                    child: CachedNetworkImage(
+                      key: UniqueKey(),
+                      imageUrl: imgUrl + cartModel.mission.image,
+                      placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.transparent,
+                            color: kPrimaryColor,
+                            strokeWidth: 0.2,
+                          )),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.error,
+                        color: kPrimaryColor,
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 3),
-                HalfCircleButton(
-                  onTap: () {
-                    CartCubit.get(context).decreaseProductNumber(productId);
-                  },
-                  myIcon: const Icon(
-                    Icons.minimize,
-                    color: Colors.white,
-                    size: 10,
+                  const SizedBox(
+                    height: 3,
                   ),
-                )
-              ],
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            CircleButton(
-              onTap: () {
-                CartCubit.get(context).deleteFromCart(cartModel.mission.id);
-              },
-              myIcon: const Icon(
-                Icons.delete_outline,
-                color: Colors.white,
-                size: 15,
+                ],
               ),
             ),
-            const SizedBox(
-              width: 10,
-            ),
+
           ],
         ),
       ),

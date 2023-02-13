@@ -9,16 +9,14 @@ class CustomErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: Text(
-            'error_message'.tr(context),
-            style: const TextStyle(
-              // color: kPrimaryColor,
-                color: kBlueGreen,
-              fontSize: 14
-            ),
+        Text(
+          'error_message'.tr(context),
+          style: const TextStyle(
+            // color: kPrimaryColor,
+              color: kBlueGreen,
+            fontSize: 14
           ),
         ),
         IconButton(onPressed: onPressed, icon: const Icon(Icons.refresh,

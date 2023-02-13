@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'dart:convert';
 import 'package:queen_care/core/my_service.dart';
@@ -17,45 +18,66 @@ class CartCubit extends Cubit<CartState> {
 
   bool refresh = false;
   Map<dynamic, dynamic> priceMap = {};
+  final InternetConnectionChecker connectionChecker =
+      InternetConnectionChecker();
   Future<List<CartModel>> getAllCartsProduct() async {
     emit(GetAllProductsLoadingState());
-    var myUrl =
-        Uri.parse("https://karam-app.com/celo/queencare/public/api/show_cart");
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/show_cart");
 
-    final response = await http.post(myUrl, body: {
-      'token': CacheHelper.getData(key: 'api_token'),
-    });
+        final response = await http.post(myUrl, body: {
+          'token': CacheHelper.getData(key: 'api_token'),
+        });
 
-    if (response.statusCode == 200) {
-      debugPrint(response.statusCode.toString());
-      allCartsProductsList = cartModelFromJson(response.body);
+        if (response.statusCode == 200) {
+          debugPrint(response.statusCode.toString());
+          allCartsProductsList = cartModelFromJson(response.body);
 
-      myService.setNumberOfItems = List.generate(allCartsProductsList.length,
-          (index) => int.parse(allCartsProductsList[index].amount));
-      allCartsProductsList.isNotEmpty
-          ? countAllMoney(allCartsProductsList)
-          : debugPrint('empty');
-      emit(GetAllProductsSuccessState(allProductsList: allCartsProductsList));
-    } else if (response.statusCode == 404) {
-      emit(GetAllProductsErrorState(error: 'error'));
+          myService.setNumberOfItems = List.generate(
+              allCartsProductsList.length,
+              (index) => int.parse(allCartsProductsList[index].amount));
+          allCartsProductsList.isNotEmpty
+              ? countAllMoney(allCartsProductsList)
+              : debugPrint('empty');
+          emit(GetAllProductsSuccessState(
+              allProductsList: allCartsProductsList));
+        } else if (response.statusCode == 404) {
+          emit(GetAllProductsErrorState(error: 'error'));
+        }
+      } catch (e) {
+        emit(GetAllProductsErrorState(error: 'error:$e'));
+      }
+    } else {
+      emit(DeviceNotConnectedState());
     }
+
     return allCartsProductsList;
   }
 
   deleteFromCart(int id) async {
     debugPrint(id.toString());
-    var myUrl = Uri.parse(
-        "https://karam-app.com/celo/queencare/public/api/delete-cart");
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/delete-cart");
 
-    final response = await http.post(myUrl, body: {
-      'id': id.toString(),
-    });
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      getAllCartsProduct();
-      emit(DeleteFromCartSuccessState());
-    } else if (response.statusCode == 400) {
-      emit(DeleteFromCartErrorsState());
+        final response = await http.post(myUrl, body: {
+          'id': id.toString(),
+        });
+        debugPrint(response.statusCode.toString());
+        if (response.statusCode == 200) {
+          getAllCartsProduct();
+          emit(DeleteFromCartSuccessState());
+        } else if (response.statusCode == 400) {
+          emit(DeleteFromCartErrorsState());
+        }
+      } catch (e) {
+        emit(DeleteFromCartErrorsState());
+      }
+    } else {
+      emit(DeviceNotConnectedToDeleteState());
     }
   }
 
@@ -74,27 +96,36 @@ class CartCubit extends Cubit<CartState> {
     required String address,
     required String note,
   }) async {
-    var myUrl =
-        Uri.parse("https://karam-app.com/celo/queencare/public/api/addorder");
     emit(AddOrderLoadingState());
-    var body = json.encode({
-      'token': CacheHelper.getData(key: 'api_token'),
-      'id': list,
-      'address':  address.isEmpty ? CacheHelper.getData(key: 'address') : address,
-      'note': note,
-      'client_id': '1',
-    });
-    final response = await http.post(myUrl,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: body);
-    debugPrint(response.statusCode.toString());
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      emit(AddOrderSuccessState());
-    } else if (response.statusCode == 404) {
-      emit(AddOrderErrorState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/addorder");
+        var body = json.encode({
+          'token': CacheHelper.getData(key: 'api_token'),
+          'id': list,
+          'address':
+              address.isEmpty ? CacheHelper.getData(key: 'address') : address,
+          'note': note,
+          'client_id': '1',
+        });
+        final response = await http.post(myUrl,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: body);
+        debugPrint(response.statusCode.toString());
+        debugPrint(response.body.toString());
+        if (response.statusCode == 200) {
+          emit(AddOrderSuccessState());
+        } else if (response.statusCode == 404) {
+          emit(AddOrderErrorState());
+        }
+      } catch (e) {
+        emit(AddOrderErrorState());
+      }
+    } else {
+      emit(DeviceNotConnectedToSendOrderState());
     }
   }
 

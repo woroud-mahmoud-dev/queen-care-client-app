@@ -16,24 +16,35 @@ class PointsCubit extends Cubit<PointsState> {
   List<String> myPointsPrizeList = [];
   Future<dynamic> getMyPoints() async {
     emit(GetMyPointsLoading());
-    var myUrl =
-        Uri.parse("https://karam-app.com/celo/queencare/public/api/my_point");
 
-    final response = await http.post(myUrl, body: {
-      'token': CacheHelper.getData(key: 'api_token'),
-    });
-    debugPrint(response.toString());
+    try{
+      var myUrl =
+      Uri.parse("https://karam-app.com/celo/queencare/public/api/my_point");
 
-    if (response.statusCode == 200) {
-      myPoints = response.body;
-      debugPrint('myPHints$myPoints');
+      final response = await http.post(myUrl, body: {
+        'token': CacheHelper.getData(key: 'api_token'),
+      });
+      debugPrint(response.toString());
 
-      emit(GetMyPointsLoaded(myPoints!));
-    } else if (response.statusCode == 404) {
-      emit(GetMyPointsError(error: 'Error'));
-    } else if (response.statusCode == 500) {
-      // emit(GetMyPointsError(error: 'Error'));
-      debugPrint('500 Internal Server Error');
+      if (response.statusCode == 200) {
+        myPoints = response.body;
+
+        debugPrint('myPHints$myPoints');
+
+        emit(GetMyPointsLoaded(myPoints!));
+      } else if (response.statusCode == 404) {
+        emit(GetMyPointsError(error: 'Error'));
+      } else if (response.statusCode == 500) {
+        // emit(GetMyPointsError(error: 'Error'));
+        debugPrint('500 Internal Server Error');
+      }
+
+    }catch(e){
+      emit(GetMyPointsError(error: 'Error:$e'));
+
+    }
+    if(await connectionChecker.hasConnection){}else{
+      emit(DeviceNotConnectedState());
     }
 
     return myPoints;

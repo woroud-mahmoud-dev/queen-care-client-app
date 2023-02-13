@@ -81,5 +81,31 @@
   "Back": "Back to the main ",
   "awards_you_have_received": "Awards you have received",
   "get_points": "You can get points through",
-  "Buy_a_product": "Buy a product"
+  "Buy_a_product": "Buy a product",
+  "request": "The request has been sent successfully",
+  "send_package": "Your package will be sent \n to the address, thank you",
+  "edite_address": "Edite address",
+  "add_notes": "Add your notes",
+  "purchases": "Purchases",
+  "complete_purchases": "Complete the currency purchase",
+  "cart": "Cart",
+  "cart_empty!": "The cart is empty!",
+  "choose_number": "Choose the required number of each product",
+  "the_sum": "The Sum",
+  "log_out": "Sign out",
+  "Transfer_to_company": "Transfer to a company",
+  "my_consulting": "My Consulting",
+  "add_consulting": "Add another consultation",
+  "consulting_details": "Consultation details",
+  "counseling": "Consultation :",
+  "f_a_q": "Frequently asked questions ",
+  "consulting_answer": "Answer :",
+  "r_p_c": "Request a private consultation",
+  "send": "Send",
+  "enter_consultation": "Enter your consultation",
+  "doctor_answer": "Waiting for the doctor's answer..."
+
+
+
+
 }

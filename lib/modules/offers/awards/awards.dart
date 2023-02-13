@@ -27,110 +27,135 @@ class Awards extends StatelessWidget {
         builder: (context, state) {
           List<CompetitionPrize> myPrizesList =
               AwardsCubit.get(context).myPrizes;
-          return Padding(
+          List<PointsPrize> myPointsPrizes =
+              AwardsCubit.get(context).myPointsPrizes;
+          return ListView(
+            clipBehavior: Clip.none,
             padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
+            physics: const BouncingScrollPhysics(),
+            children: [
+              Row(
+                children: [
+
+                  InkWell(
                     child: const Icon(
-                      Icons.arrow_forward_ios_sharp,
+                      Icons.arrow_back,
                       color: darkGrey2,
                     ),
                     onTap: () {
                       tabController.animateTo(1);
                     },
                   ),
-                ),
-                SizedBox(
-                  height: h * 0.01,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'awards'.tr(context),
-                      style: const TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 18,
-                      ),
+                  const Spacer(),
+                ],
+              ),
+              SizedBox(
+                height: h * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'awards'.tr(context),
+                    style: const TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 18,
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: h * 0.07,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'awards_you_have_received'.tr(context),
-                      style: const TextStyle(
-                          color: darkGrey2,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                state is GetMyPrizesLoadingState
-                    ? const Expanded(
-                    flex: 7,child: LoadingWidget())
-                    : state is DeviceNotConnectedState
-                        ? Expanded(
-                  flex: 7,
-                            child: NoInternetWidget(
-                              onPressed: () {
-                                AwardsCubit.get(context).getMyPrizes();
-                              },
-                            ),
-                          )
-                        : state is GetMyPrizesErrorState
-                            ? Expanded(
-                  flex: 7,
-                                child: CustomErrorWidget(
-                                  onPressed: () {
-                                    AwardsCubit.get(context).getMyPrizes();
-                                  },
-                                ),
-                              )
-                            : (myPrizesList.isEmpty)
-                                ? const Center(
-                                    child: Text(
-                                      'لا توجد جوائز ',
-                                      style: TextStyle(
-                                          color: kPrimaryColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  )
-                                : Expanded(
-                  flex: 7,
-                                    child: ListView.builder(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 30),
-                                        clipBehavior: Clip.hardEdge,
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return PrizeCard(
-                                            height: h * 0.07,
-                                            width: w * 0.65,
-                                            title: myPrizesList[index].prize,
-                                          );
-                                        },
-                                        itemCount: myPrizesList.length),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: h * 0.07,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'awards_you_have_received'.tr(context),
+                    style: const TextStyle(
+                        color: darkGrey2,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              state is GetMyPrizesLoadingState
+                  ? SizedBox(height: h * 0.5, child: const LoadingWidget())
+                  : state is DeviceNotConnectedState
+                      ? SizedBox(
+                          height: h * 0.5,
+                          child: NoInternetWidget(
+                            onPressed: () {
+                              AwardsCubit.get(context).getMyPrizes();
+                            },
+                          ),
+                        )
+                      : state is GetMyPrizesErrorState
+                          ? SizedBox(
+                              height: h * 0.5,
+                              child: CustomErrorWidget(
+                                onPressed: () {
+                                  AwardsCubit.get(context).getMyPrizes();
+                                },
+                              ),
+                            )
+                          : (myPrizesList.isEmpty)
+                              ? SizedBox(
+                                  height: h * 0.5,
+                                  child: const Text(
+                                    'لا توجد جوائز ',
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                 Expanded(
-                   flex: 1,
-                     child: LogoImage(
-                   h: h*0.1,
-                  w:w,
-
-
-                ))
-              ],
-            ),
+                                )
+                              : Column(
+                                  children: [
+                                    SizedBox(
+                                      child: ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          clipBehavior: Clip.none,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return PrizeCard(
+                                              height: h,
+                                              width: w,
+                                              competitionPrize:
+                                                  myPrizesList[index],
+                                            );
+                                          },
+                                          itemCount: myPrizesList.length),
+                                    ),
+                                    SizedBox(
+                                      child: ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          clipBehavior: Clip.none,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return PointsPrizeCard(
+                                              height: h,
+                                              width: w,
+                                              pointsPrize:
+                                                  myPointsPrizes[index],
+                                            );
+                                          },
+                                          itemCount: myPointsPrizes.length),
+                                    ),
+                                  ],
+                                ),
+              LogoImage(
+                h: h * 0.15,
+                w: w,
+              )
+            ],
           );
         },
       ),

@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/error_widget.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/modules/offers/points/cubit/points_cubit.dart';
-
-
 
 class MyPointsBalance extends StatelessWidget {
   final TabController tabController;
@@ -24,30 +25,34 @@ class MyPointsBalance extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                    child: const Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: darkGrey2,
+                Row(
+                  children: [
+
+                    InkWell(
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: darkGrey2,
+                      ),
+                      onTap: () {
+                        tabController.animateTo(10);
+                      },
                     ),
-                    onTap: () {
-                      tabController.animateTo(10);
-                    },
-                  ),
+                    const Spacer(),
+                  ],
                 ),
+
                 SizedBox(
                   height: h * 0.01,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
+                  children: [
                     Text(
                       'my_points_balance'.tr(context),
-                      style:const TextStyle(
-                          color: kBlueGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: kBlueGreen,
+                        fontSize: 18,
+                      ),
                     ),
                   ],
                 ),
@@ -55,36 +60,46 @@ class MyPointsBalance extends StatelessWidget {
                   height: h * 0.14,
                 ),
                 state is GetMyPointsLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          color: kPrimaryColor,
-                        ),
-                      )
-                    : Row(
-                  children: [
-                    Text(
-                      '${"my_current_balance".tr(context)} : ${PointsCubit.get(context).myPoints == '' ? '0' : PointsCubit.get(context).myPoints}  ${"point".tr(context)}',
-                      style: const TextStyle(
-
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    ),
-                 const   Spacer(),
-                  ],
-                ),
+                    ? const Center(child: LoadingWidget())
+                    : state is GetMyPointsError
+                        ? Expanded(
+                            child: CustomErrorWidget(
+                              onPressed: () {
+                                PointsCubit.get(context).getMyPoints();
+                              },
+                            ),
+                          )
+                        : state is DeviceNotConnectedState
+                            ? Expanded(
+                              child: NoInternetWidgetWithoutImage(
+                                  onPressed: () {
+                                    PointsCubit.get(context).getMyPoints();
+                                  },
+                                ),
+                            )
+                            : Row(
+                                children: [
+                                  Text(
+                                    '${"my_current_balance".tr(context)} : ${PointsCubit.get(context).myPoints == '' ? '0' : double.parse(PointsCubit.get(context).myPoints).round()}  ${"point".tr(context)}',
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
                 SizedBox(
                   height: h * 0.14,
                 ),
                 CustomButton(
-                  height: h*0.08,
-                  width: w*0.7,
-                  onTap: (){
+                  height: h * 0.08,
+                  width: w * 0.7,
+                  onTap: () {
                     tabController.animateTo(12);
                   },
                   title: 'replace'.tr(context),
                 ),
 
-                const Spacer(),
                 Center(
                   child: Image.asset(
                     'assets/images/logo.png',

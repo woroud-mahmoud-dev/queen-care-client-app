@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/toast.dart';
+import 'package:queen_care/core/widget/error_snack_bar.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
+import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 import 'package:queen_care/modules/cart/order_done.dart';
+import 'package:queen_care/modules/cart/widgets/send_order_card.dart';
 import 'package:queen_care/modules/cart/widgets/show_products_part.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
@@ -35,8 +39,10 @@ class CompleteBuyScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const OrderDone()),
                   (route) => false);
             } else if (state is AddOrderErrorState) {
-              showToast(
-                  color: Colors.red, text: 'حدث خطأ يرجى المحاولة مجدداً');
+              showErrorSnackBar(context);
+            }
+            if (state is DeviceNotConnectedToSendOrderState) {
+              showSnackBar(context);
             }
           },
           builder: (context, state) {
@@ -50,19 +56,19 @@ class CompleteBuyScreen extends StatelessWidget {
                 'id': allProducts[index].missionId,
               };
             });
-            return Padding(
-              padding: const EdgeInsets.all(0.0),
+            return Container(
+              decoration: customBoxDecoration,
               child: ListView(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const BackButton(),
-                      const Align(
+                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          'إتمام عملة الشراء',
-                          style: TextStyle(color: kPrimaryColor, fontSize: 16),
+                          'complete_purchases'.tr(context),
+                          style:const TextStyle(color: kPrimaryColor, fontSize: 14),
                         ),
                       ),
                       SizedBox(
@@ -70,13 +76,22 @@ class CompleteBuyScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  const Align(
+                  Row(
+                    children: [
+                      const Spacer(),
+                      LogoImage(
+                        w: w * 0.22,
+                        h: h * 0.11,
+                      ),
+                    ],
+                  ),
+                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.all(20),
+                      padding:const EdgeInsets.all(20),
                       child: Text(
-                        'المشتريات',
-                        style: TextStyle(color: kPrimaryColor, fontSize: 16),
+                        'purchases'.tr(context),
+                        style: const TextStyle(color: kPrimaryColor, fontSize: 16),
                       ),
                     ),
                   ),
@@ -94,15 +109,15 @@ class CompleteBuyScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children:  [
                         Text(
-                          'العنوان',
-                          style: TextStyle(
+                          'address'.tr(context),
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'تحرير العنوان',
-                          style: TextStyle(
+                          'edite_address'.tr(context),
+                          style:const TextStyle(
                             color: darkGrey,
                             fontSize: 14,
                           ),
@@ -132,10 +147,10 @@ class CompleteBuyScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      children:  [
                         Text(
-                          ' أضف ملاحظاتك',
-                          style: TextStyle(
+                          'add_notes'.tr(context),
+                          style:const TextStyle(
                             color: darkGrey,
                             fontSize: 14,
                           ),
@@ -152,13 +167,12 @@ class CompleteBuyScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           keyboardAppearance: Brightness.light,
                           controller: noteController,
-                          decoration: const InputDecoration(
-                            hintText: 'اكتب ملاحظاتك هنا',
+                          decoration:  InputDecoration(
+                            hintText:  'add_notes'.tr(context),
                             prefixIconColor: kPrimaryColor,
 
-                            //
-                            //
-                            focusedBorder: UnderlineInputBorder(
+
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: kPrimaryColor),
                             ),
                           ),
@@ -167,96 +181,14 @@ class CompleteBuyScreen extends StatelessWidget {
                   SizedBox(
                     height: h * 0.05,
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).size.height * 0.18,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(25),
-                        topLeft: Radius.circular(25),
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black38,
-                            spreadRadius: 0,
-                            blurRadius: 10),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            //must change this picture
-
-                            const Text(
-                              'المجموع',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '$allMoney ليرة',
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        (state is AddOrderLoadingState ||
-                                state is AddOrderSuccessState)
-                            ? const Padding(
-                                padding: EdgeInsets.all(28.0),
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: kPrimaryColor,
-                                  ),
-                                ),
-                              )
-                            : Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Icon(
-                                    Icons.arrow_forward_ios_sharp,
-                                    color: darkGrey2,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      CartCubit.get(context).addOrder(
-                                          note: noteController.text,
-                                          address: addressController.text,
-                                          list: list);
-                                    },
-                                    child: SizedBox(
-                                      width: w * 0.4,
-                                      height: h * 0.06,
-                                      child: const Card(
-                                        color: kPrimaryColor,
-                                        elevation: 4,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(1.0),
-                                          child: Center(
-                                            child: Text(
-                                              'إتمام عملية الشراء ',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-                  ),
+                  SendOrderCard(
+                      state: state,
+                      allMoney: allMoney,
+                      noteController: noteController,
+                      addressController: addressController,
+                      list: list,
+                      w: w,
+                      h: h),
                 ],
               ),
             );

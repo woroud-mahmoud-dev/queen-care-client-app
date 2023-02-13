@@ -39,17 +39,21 @@ class ReplaceMyPoints extends StatelessWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: InkWell(
-                          child: const Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            color: darkGrey2,
+
+                      Row(
+                        children: [
+
+                          InkWell(
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: darkGrey2,
+                            ),
+                            onTap: () {
+                              tabController.animateTo(10);
+                            },
                           ),
-                          onTap: () {
-                            tabController.animateTo(10);
-                          },
-                        ),
+                          const Spacer(),
+                        ],
                       ),
                       SizedBox(
                         height: h * 0.01,

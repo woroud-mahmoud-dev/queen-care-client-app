@@ -15,17 +15,20 @@ class MyPoints extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: InkWell(
-              child: const Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: darkGrey2,
+          Row(
+            children: [
+
+              InkWell(
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: darkGrey2,
+                ),
+                onTap: () {
+                  tabController.animateTo(1);
+                },
               ),
-              onTap: () {
-                tabController.animateTo(1);
-              },
-            ),
+              const Spacer(),
+            ],
           ),
           SizedBox(
             height: h * 0.01,

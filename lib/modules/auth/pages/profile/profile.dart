@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
@@ -68,7 +69,7 @@ class _ProfileState extends State<Profile> {
           ProfileItem(
             iconNotImage: true,
             iconData: Icons.person,
-            text: 'حسابي',
+            text: 'profile'.tr(context),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => EditeProfile()));
@@ -80,7 +81,7 @@ class _ProfileState extends State<Profile> {
           ProfileItem(
             iconData:Icons.compare_arrows,
             iconNotImage: true,
-            text: 'التحويل إلى شركة',
+            text: 'Transfer_to_company'.tr(context),
             onTap: () {
               widget.tabController.animateTo(18);
             },
@@ -91,7 +92,7 @@ class _ProfileState extends State<Profile> {
           ProfileItem(
             iconNotImage: true,
             iconData: Icons.calendar_month_sharp,
-            text: 'حاسبة الدورة الشهرية',
+            text: 'period_calculator'.tr(context),
             onTap: () {
               widget.tabController.animateTo(7);
             },
@@ -102,7 +103,7 @@ class _ProfileState extends State<Profile> {
           ProfileItem(
             iconNotImage: true,
             iconData: Icons.login_outlined,
-            text: 'تسجيل الخروج',
+            text: 'log_out'.tr(context),
             onTap: () {
               CacheHelper.removeData(key: 'api_token');
               Navigator.of(context).pushAndRemoveUntil(

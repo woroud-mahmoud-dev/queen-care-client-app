@@ -112,101 +112,7 @@ class ShowAllConsultations extends StatelessWidget {
                                     'الاستشارات',
                                     style: TextStyle(fontSize: 17),
                                   ),
-                                  Expanded(
-                                      child: ListView.builder(
-                                          padding: const EdgeInsets.all(5),
-                                          shrinkWrap: true,
-                                          physics:
-                                              const BouncingScrollPhysics(),
-                                          itemCount:
-                                              allConsultationsList.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: h * 0.03,
-                                                ),
-                                                Text(
-                                                  '- ${allConsultationsList[index].question}',
-                                                  maxLines: 3,
-                                                  style: const TextStyle(
-                                                      color: kPrimaryColor,
-                                                      fontSize: 17),
-                                                ),
-                                                allConsultationsList[index]
-                                                        .answer!
-                                                        .isEmpty
-                                                    ? const Text(
-                                                        'لم تتم الإجابة بعد..',
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: darkGrey),
-                                                        maxLines: 3)
-                                                    : AnswersWidget(
-                                                        allConsultationsList:
-                                                            allConsultationsList,
-                                                        w: w,
-                                                        index: index,
-                                                        h: h,
-                                                      ),
-                                                SizedBox(
-                                                  height: h * 0.01,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      width: 30,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              border: Border(
-                                                        bottom: BorderSide(
-                                                          color: darkGrey2,
-                                                        ),
-                                                      )),
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (_) => AddAnswer(
-                                                                    consultation:
-                                                                        allConsultationsList[
-                                                                            index])));
-                                                      },
-                                                      child: Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(3),
-                                                        alignment: Alignment
-                                                            .centerRight,
-                                                        height: h * 0.05,
-                                                        width: w * 0.7,
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(
-                                                                color:
-                                                                    kPrimaryColor),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        6)),
-                                                        child: const Text(
-                                                          'أدخل الجواب هنا ',
-                                                          maxLines: 3,
-                                                          style: TextStyle(
-                                                              color: darkGrey,
-                                                              fontSize: 10),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            );
-                                          })),
+                                  AllConsultation(allConsultationsList: allConsultationsList, h: h, w: w),
                                   SizedBox(
                                     height: h * 0.03,
                                   ),
@@ -222,5 +128,117 @@ class ShowAllConsultations extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class AllConsultation extends StatelessWidget {
+  const AllConsultation({
+    Key? key,
+    required this.allConsultationsList,
+    required this.h,
+    required this.w,
+  }) : super(key: key);
+
+  final List<Consultation> allConsultationsList;
+  final double h;
+  final double w;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: ListView.builder(
+            padding: const EdgeInsets.all(5),
+            shrinkWrap: true,
+            physics:
+                const BouncingScrollPhysics(),
+            itemCount:
+                allConsultationsList.length,
+            itemBuilder: (BuildContext context,
+                int index) {
+              return Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: h * 0.03,
+                  ),
+                  Text(
+                    '- ${allConsultationsList[index].question}',
+                    maxLines: 3,
+                    style: const TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 17),
+                  ),
+                  allConsultationsList[index]
+                          .answer!
+                          .isEmpty
+                      ? const Text(
+                          'لم تتم الإجابة بعد..',
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: darkGrey),
+                          maxLines: 3)
+                      : AnswersWidget(
+                          allConsultationsList:
+                              allConsultationsList,
+                          w: w,
+                          index: index,
+                          h: h,
+                        ),
+                  SizedBox(
+                    height: h * 0.01,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 30,
+                        decoration:
+                            const BoxDecoration(
+                                border: Border(
+                          bottom: BorderSide(
+                            color: darkGrey2,
+                          ),
+                        )),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => AddAnswer(
+                                      consultation:
+                                          allConsultationsList[
+                                              index])));
+                        },
+                        child: Container(
+                          padding:
+                              const EdgeInsets
+                                  .all(3),
+                          alignment: Alignment
+                              .centerRight,
+                          height: h * 0.05,
+                          width: w * 0.7,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color:
+                                      kPrimaryColor),
+                              borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                          6)),
+                          child: const Text(
+                            'أدخل الجواب هنا ',
+                            maxLines: 3,
+                            style: TextStyle(
+                                color: darkGrey,
+                                fontSize: 10),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            }));
   }
 }

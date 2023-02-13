@@ -16,17 +16,20 @@ class HowToGetPoints extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: InkWell(
-              child: const Icon(
-                Icons.arrow_forward_ios_sharp,
-                color: darkGrey2,
+          Row(
+            children: [
+
+              InkWell(
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: darkGrey2,
+                ),
+                onTap: () {
+                  tabController.animateTo(10);
+                },
               ),
-              onTap: () {
-                tabController.animateTo(10);
-              },
-            ),
+              const Spacer(),
+            ],
           ),
           SizedBox(
             height: h * 0.01,
@@ -39,20 +42,22 @@ class HowToGetPoints extends StatelessWidget {
                 style: const TextStyle(
                     color: kPrimaryColor,
                     fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                ),
               ),
             ],
           ),
           SizedBox(
             height: h * 0.07,
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Text(
-              'get_points'.tr(context),
-              style: const TextStyle(
-                  color: darkGrey2, fontSize: 14, fontWeight: FontWeight.bold),
-            ),
+          Row(
+            children: [
+              Text(
+                'get_points'.tr(context),
+                style: const TextStyle(
+                    color: darkGrey2, fontSize: 14, ),
+              ),
+              const Spacer(),
+            ],
           ),
           SizedBox(
             height: h * 0.12,
