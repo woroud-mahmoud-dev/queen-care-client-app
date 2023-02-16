@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
@@ -7,12 +8,10 @@ import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/toast.dart';
-import 'package:queen_care/modules/auth/pages/forget_password/forget_password.dart';
 import 'package:queen_care/modules/auth/pages/login/cubit/login_cubit.dart';
 import 'package:queen_care/modules/auth/pages/login/cubit/login_states.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
-import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -31,14 +30,14 @@ class Login extends StatelessWidget {
           listener: (context, state) {
             debugPrint(state.toString());
             if (state is LoginSuccessState) {
-              showToast(text: ' تم تسجيل الدخول بنجاح', color: Colors.green);
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => MainScreen()),
+                  MaterialPageRoute(builder: (_) => const MainScreen()),
                   (route) => false);
             }
 
             if (state is LoginErrorState) {
-              showToast(text: "كلمة السر او رقم الهاتف غلط", color: kPrimaryColor);
+              showToast(
+                  text: "كلمة السر او رقم الهاتف غلط", color: kPrimaryColor);
             }
             if (state is DeviceNotConnectedState) {
               showSnackBar(context);
@@ -85,7 +84,7 @@ class Login extends StatelessWidget {
                               keyboardType: TextInputType.phone,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Phone is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -107,7 +106,7 @@ class Login extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Password is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -125,7 +124,7 @@ class Login extends StatelessWidget {
                         ],
                       )),
                   SizedBox(
-                    height: h * 0.14,
+                    height: h * 0.12,
                   ),
                   Row(
                     children: [
@@ -144,17 +143,19 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => ForgetPassword()));
-                          },
-                          child: Text(
-                            'forget_password'.tr(context),
-                            style: const TextStyle(
-                                color: darkGrey,
-                                decoration: TextDecoration.underline),
-                          )),
+                      // TextButton(
+                      //     onPressed: () {
+                      //       // Navigator.of(context).push(MaterialPageRoute(
+                      //       //     builder: (_) => ForgetPassword()));
+                      //     },
+                      //     child: FittedBox(
+                      //       child: Text(
+                      //         'forget_password'.tr(context),
+                      //         style: const TextStyle(
+                      //             color: darkGrey,
+                      //             decoration: TextDecoration.underline),
+                      //       ),
+                      //     )),
                     ],
                   ),
                   SizedBox(
@@ -168,7 +169,7 @@ class Login extends StatelessWidget {
                             if (formKey.currentState!.validate()) {
                               debugPrint(' validate done !!!!');
 
-                              LoginCubit.get(context).login(
+                              LoginCubit.get(context).loginWithHttp(
                                   phone: phoneController.text.trim(),
                                   password: passwordController.text.trim());
                             }

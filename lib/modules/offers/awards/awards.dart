@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
@@ -36,7 +37,6 @@ class Awards extends StatelessWidget {
             children: [
               Row(
                 children: [
-
                   InkWell(
                     child: const Icon(
                       Icons.arrow_back,
@@ -71,10 +71,10 @@ class Awards extends StatelessWidget {
                 children: [
                   Text(
                     'awards_you_have_received'.tr(context),
-                    style: const TextStyle(
-                        color: darkGrey2,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: darkGrey2,
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ],
               ),
@@ -101,11 +101,11 @@ class Awards extends StatelessWidget {
                           : (myPrizesList.isEmpty)
                               ? SizedBox(
                                   height: h * 0.5,
-                                  child: const Text(
-                                    'لا توجد جوائز ',
+                                  child: Text(
+                                    'no_prizes'.tr(context),
                                     style: TextStyle(
                                         color: kPrimaryColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 )

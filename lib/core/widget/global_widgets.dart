@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 class Description1 extends StatelessWidget {
@@ -75,7 +76,7 @@ class CustomTitleWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 18.0, color: darkGrey),
+        style:  TextStyle(fontSize: 18.sp, color: darkGrey),
       ),
     );
   }
@@ -94,7 +95,7 @@ class TitleWidget extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 16.0, color: darkGrey),
+        style:  TextStyle(fontSize: 15.sp, color: darkGrey),
       ),
     );
   }

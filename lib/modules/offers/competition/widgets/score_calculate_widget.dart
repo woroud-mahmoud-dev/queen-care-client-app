@@ -5,7 +5,6 @@ import 'package:queen_care/core/utils/constant.dart';
 
 import 'package:queen_care/core/widget/loading_widget.dart';
 
-
 class ScoreCalculateWidget extends StatelessWidget {
   const ScoreCalculateWidget({
     Key? key,

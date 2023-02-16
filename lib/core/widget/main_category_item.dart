@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 class MainCategoryWidget extends StatelessWidget {
@@ -51,10 +52,9 @@ class MainCategoryWidget extends StatelessWidget {
                     myWidget,
                     Text(
                       text,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                       textAlign: TextAlign.center,
                     ),

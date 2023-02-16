@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
-
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
@@ -51,11 +51,11 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const BackButton(),
-                   Align(
+                  Align(
                     alignment: Alignment.topCenter,
                     child: Text(
                       'cart'.tr(context),
-                      style: const TextStyle(color: kPrimaryColor, fontSize: 17),
+                      style: TextStyle(color: kPrimaryColor, fontSize: 16.sp),
                     ),
                   ),
                   SizedBox(
@@ -105,5 +105,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-
-

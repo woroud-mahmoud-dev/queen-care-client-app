@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
@@ -43,7 +44,7 @@ class ProductItem extends StatelessWidget {
                   flex: 2,
                   child: Text(
                     productModel.name,
-                    style: const TextStyle(color: Colors.black54, fontSize: 14),
+                    style: TextStyle(color: Colors.black54, fontSize: 14.sp),
                     textAlign: TextAlign.center,
                   ),
                 ),

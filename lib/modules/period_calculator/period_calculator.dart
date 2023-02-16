@@ -6,7 +6,6 @@ import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
-
 import 'package:queen_care/modules/period_calculator/widgets/show_calender_and_details.dart';
 
 class PeriodCalculator extends StatelessWidget {
@@ -26,10 +25,8 @@ class PeriodCalculator extends StatelessWidget {
         },
         builder: (context, state) {
           return ListView(
-
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
-
             children: [
               SizedBox(
                 height: h * 0.02,
@@ -78,8 +75,6 @@ class PeriodCalculator extends StatelessWidget {
                   )
                 ],
               ),
-
-
               ShowCalenderAndDetails(h: h, w: w),
             ],
           );

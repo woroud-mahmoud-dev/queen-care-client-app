@@ -3,6 +3,7 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/models/consultation.dart';
 import 'package:queen_care/modules/consultation/Widgets/add_new_consultation_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ConsultationDetailsBody extends StatelessWidget {
   const ConsultationDetailsBody(
@@ -25,7 +26,7 @@ class ConsultationDetailsBody extends StatelessWidget {
           children: [
             Text(
               'counseling'.tr(context),
-              style: const TextStyle(fontSize: 17),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               height: h * 0.03,
@@ -38,7 +39,7 @@ class ConsultationDetailsBody extends StatelessWidget {
                     Expanded(
                       child: Text(
                         consultation.question,
-                        style: const TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 15.sp),
                       ),
                     ),
                     const Spacer(),
@@ -64,7 +65,7 @@ class ConsultationDetailsBody extends StatelessWidget {
                     child: Row(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(3.0),
                           child: Text(
                             "doctor_answer".tr(context),
                             style:

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/cart_model.dart';
@@ -11,8 +12,8 @@ class CartWidget2 extends StatelessWidget {
   final List<int> numberOfItems;
   final int productId;
 
-  const CartWidget2({super.key,
-
+  const CartWidget2({
+    super.key,
     required this.cartModel,
     required this.productId,
     required this.numberOfItems,
@@ -59,7 +60,6 @@ class CartWidget2 extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -71,8 +71,8 @@ class CartWidget2 extends StatelessWidget {
                             cartModel.mission.name,
                             textAlign: TextAlign.center,
                             maxLines: 2,
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.black),
+                            style:
+                                TextStyle(fontSize: 12.sp, color: Colors.black),
                           ),
                         ),
                       ),
@@ -86,20 +86,20 @@ class CartWidget2 extends StatelessWidget {
                             Text(
                               cartModel.mission.price,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12, color: kPrimaryColor),
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: kPrimaryColor),
                             ),
-                            const    Text(
+                            Text(
                               ' x  ',
                               textAlign: TextAlign.center,
-                              style:  TextStyle(
-                                  fontSize: 12, color: kPrimaryColor),
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: kPrimaryColor),
                             ),
                             Text(
                               ' ${numberOfItems[productId]}',
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 12, color: kPrimaryColor),
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: kPrimaryColor),
                             ),
                           ],
                         ),
@@ -109,7 +109,6 @@ class CartWidget2 extends StatelessWidget {
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),

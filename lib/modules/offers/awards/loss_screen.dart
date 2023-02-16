@@ -15,7 +15,8 @@ class LossScreen extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Padding(
+      body: Container(
+        decoration: customBoxDecoration,
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
@@ -28,8 +29,8 @@ class LossScreen extends StatelessWidget {
                 Text(
                   'luck'.tr(context),
                   style: const TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: 18,
+                    color: kPrimaryColor,
+                    fontSize: 18,
                   ),
                 ),
               ],
@@ -41,11 +42,9 @@ class LossScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   Text(
-                    'تم إضافة ${double.parse(points).round()} نقطة إلى رصيدك ',
+                    '${double.parse(points).round()}' + "add_to".tr(context),
                     style: const TextStyle(
-                      color: darkGrey2,
                       fontSize: 14,
                     ),
                     textAlign: TextAlign.center,
@@ -72,7 +71,6 @@ class LossScreen extends StatelessWidget {
             SizedBox(
               height: h * 0.03,
             ),
-
           ],
         ),
       ),

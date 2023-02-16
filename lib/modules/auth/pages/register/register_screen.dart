@@ -32,11 +32,10 @@ class Register extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   TitleWidget(text: 'sign_up'.tr(context)),
-
                   const SizedBox(
                     height: 50,
                   ),
-                   BigTitle(
+                  BigTitle(
                     text: 'register_email'.tr(context),
                   ),
                   SizedBox(
@@ -48,12 +47,12 @@ class Register extends StatelessWidget {
                         keyboardType: TextInputType.emailAddress,
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return 'Email is Required ';
+                            return 'required_field'.tr(context);
                           }
                           if (!RegExp(
-                              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                               .hasMatch(value)) {
-                            return 'Please enter a valid Email';
+                            return 'v_email'.tr(context);
                           } else {
                             return null;
                           }
@@ -71,8 +70,8 @@ class Register extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (_) => CompleteRegisterScreen(
-                                  email: emailController.text.trim(),
-                                )));
+                                      email: emailController.text.trim(),
+                                    )));
                           }
                         }),
                   ),
@@ -85,8 +84,8 @@ class Register extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (_) => CompleteRegisterScreen(
-                              email: emailController.text.trim(),
-                            )));
+                                  email: emailController.text.trim(),
+                                )));
                       }
                     },
                     color: kPrimaryColor,

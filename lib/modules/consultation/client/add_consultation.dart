@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
-
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/error_snack_bar.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
+import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/consultation.dart';
 import 'package:queen_care/modules/consultation/Widgets/add_consultation_body.dart';
 import 'package:queen_care/modules/consultation/Widgets/custom_top_widget.dart';
-
 import 'package:queen_care/modules/consultation/client/show_my_consultations.dart';
 import 'package:queen_care/modules/consultation/cubit/consultation_cubit.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
@@ -32,15 +32,16 @@ class AddConsultation extends StatelessWidget {
         child: BlocConsumer<ConsultationCubit, ConsultationState>(
           listener: (context, state) {
             if (state is AddQuestionSuccess) {
-              showToast(text: 'تم إرسال استشارتك بنجاح ', color: Colors.green);
+              showToast(text: 'sent_co_success'.tr(context), color: kBlueGreen);
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (_) => ShowMyConsultations()),
               );
             }
             if (state is AddQuestionError) {
-              showToast(
-                  text: 'حدث خطأ أثناء إرسال الاستشارة \n يرجى المحاولة لاحقاً',
-                  color: Colors.red);
+              showErrorSnackBar(context);
+            }
+            if (state is DeviceNotConnectedToSendState) {
+              showSnackBar(context);
             }
           },
           builder: (context, state) {
@@ -93,33 +94,17 @@ class AddConsultation extends StatelessWidget {
                         width: double.infinity,
                         height: h * 0.795,
                         decoration: customContainerBoxDecoration,
-                        child: Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: state is GetAllQuestionsLoading
-                              ? const LoadingWidget()
-                              : state is AddQuestionLoading
-                                  ? Center(
-                                      child: Column(
-                                        children: [
-                                          const Text(
-                                            'يتم إرسال استشارتك',
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            height: h * 0.05,
-                                          ),
-                                          const CircularProgressIndicator(
-                                            color: kPrimaryColor,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  : AddConsultationBody(
-                                      allConsultationList: allConsultationList,
-                                      w: w,
-                                      h: h,
-                                      questionController: questionController),
-                        ),
+                        child: state is AddQuestionLoading
+                            ? const Center(
+                                child: LoadingWidget()
+                              )
+                            : AddConsultationBody(
+                                allConsultationList: allConsultationList,
+                                w: w,
+                                h: h,
+                                questionController: questionController,
+                                state: state,
+                              ),
                       ),
                     ),
                   ],

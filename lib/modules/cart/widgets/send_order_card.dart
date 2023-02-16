@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/custom_button.dart';
 
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 
@@ -55,42 +57,19 @@ class SendOrderCard extends StatelessWidget {
               ),
             ),
           )
-              : Column(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceAround,
-            children: [
-              const Icon(
-                Icons.arrow_back_ios,
-                color: darkGrey2,
-              ),
-              InkWell(
-                onTap: () {
-                  CartCubit.get(context).addOrder(
-                      note: noteController.text,
-                      address: addressController.text,
-                      list: list);
-                },
-                child: SizedBox(
-                  width: w * 0.4,
-                  height: h * 0.06,
-                  child:  Card(
-                    color: kPrimaryColor,
-                    elevation: 4,
-                    child: Padding(
-                      padding:const EdgeInsets.all(1.0),
-                      child: Center(
-                        child: Text(
-                          'complete_purchases'.tr(context),textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              :
+
+          CustomButton(
+            title: 'complete_purchases'.tr(context),
+            onTap: () {
+              CartCubit.get(context).addOrder(
+                  note: noteController.text,
+                  address: addressController.text,
+                  list: list);
+            },
+            color: kPrimaryColor,
+            width: w * 0.6,
+            height: h * 0.07,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,16 +78,16 @@ class SendOrderCard extends StatelessWidget {
 
               Text(
                 'the_sum'.tr(context),
-                style: const TextStyle(
+                style:  TextStyle(
                     color: Colors.grey,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '$allMoney ليرة',
-                style: const TextStyle(
+                '$allMoney ${"pounds".tr(context)}',
+                style:  TextStyle(
                     color: Colors.black,
-                    fontSize: 10,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.bold),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
@@ -21,9 +22,7 @@ class ShowAdvicesScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AdviceCubit()..getCategoryWithHttp(),
       child: BlocConsumer<AdviceCubit, AdviceState>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           final List<CategoryBlogModel> categoriesList =
               AdviceCubit.get(context).categoriesList;
@@ -58,15 +57,15 @@ class ShowAdvicesScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     'advices'.tr(context),
-                    style: const TextStyle(color: kBlueGreen, fontSize: 17),
+                    style: TextStyle(color: kBlueGreen, fontSize: 17.sp),
                   ),
                 ),
                 SizedBox(
                   height: h * 0.02,
                 ),
-                state is GetCategoriesLoading ||     state is DeviceNotConnectedState
+                state is GetCategoriesLoading ||
+                        state is DeviceNotConnectedState
                     ? Container()
-
                     : Directionality(
                         textDirection: TextDirection.rtl,
                         child: TabBar(
@@ -74,8 +73,7 @@ class ShowAdvicesScreen extends StatelessWidget {
                             debugPrint(index.toString());
                           },
                           labelColor: kPrimaryColor,
-                          labelStyle: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
+                          labelStyle: TextStyle(fontSize: 14.sp),
                           unselectedLabelColor: darkGrey2,
                           tabs: tabList,
                           indicatorColor: kPrimaryColor,
@@ -83,36 +81,33 @@ class ShowAdvicesScreen extends StatelessWidget {
                           isScrollable: true,
                         ),
                       ),
-            const Divider(
-                        color: kPrimaryColor, height: 0, thickness: 2.5),
+                const Divider(color: kPrimaryColor, height: 0, thickness: 2.5),
                 state is GetCategoriesLoading
-                    ? SizedBox(
-                    height: h * 0.65,
-                    child: const LoadingWidget())
+                    ? SizedBox(height: h * 0.65, child: const LoadingWidget())
                     : state is DeviceNotConnectedState
-                    ? NoInternetWidget(
-                  onPressed: () {
-                    AdviceCubit.get(context)
-                        .getCategoryWithHttp();
-                  },
-                )
-                    : state is GetCategoriesError
-                    ? CustomErrorWidget(
-                  onPressed: () {
-                    AdviceCubit.get(context)
-                        .getCategoryWithHttp();
-                  },
-                )
-                    :    Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: SizedBox(
-                    height: h * 0.65,
-                    child: TabBarView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: kTabPages,
-                    ),
-                  ),
-                ),
+                        ? NoInternetWidget(
+                            onPressed: () {
+                              AdviceCubit.get(context).getCategoryWithHttp();
+                            },
+                          )
+                        : state is GetCategoriesError
+                            ? CustomErrorWidget(
+                                onPressed: () {
+                                  AdviceCubit.get(context)
+                                      .getCategoryWithHttp();
+                                },
+                              )
+                            : Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: SizedBox(
+                                  height: h * 0.65,
+                                  child: TabBarView(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: kTabPages,
+                                  ),
+                                ),
+                              ),
               ],
             ),
           );

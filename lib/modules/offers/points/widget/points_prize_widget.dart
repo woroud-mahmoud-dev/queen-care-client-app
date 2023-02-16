@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
+
 class PointsPrizeWidget extends StatelessWidget {
   final String name;
   final double h;
@@ -7,7 +8,8 @@ class PointsPrizeWidget extends StatelessWidget {
   const PointsPrizeWidget({
     Key? key,
     required this.name,
-    this.onTap, required this.h,
+    this.onTap,
+    required this.h,
   }) : super(key: key);
 
   @override
@@ -16,11 +18,8 @@ class PointsPrizeWidget extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         height: h,
-
         child: Card(
           elevation: 5,
-          // alignment: Alignment.topRight,
-          // padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Text(
               name,

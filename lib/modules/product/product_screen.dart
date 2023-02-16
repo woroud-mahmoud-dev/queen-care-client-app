@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
-
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/core/widget/error_snack_bar.dart';
@@ -23,7 +23,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color btColor =
-    CacheHelper.getData(key: 'isFav') == true ? Colors.red : Colors.grey;
+        CacheHelper.getData(key: 'isFav') == true ? Colors.red : Colors.grey;
 
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
@@ -32,28 +32,25 @@ class ProductScreen extends StatelessWidget {
       child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
           if (state is AddToFavoriteSuccessState) {
-
-
             btColor = Colors.red;
-            showToast(
-                text: 'المنتج تمت اضافته إلى المفضلة ', color: kBlueGreen);
+            // showToast(
+            //     text: 'المنتج تمت اضافته إلى المفضلة ', color: kBlueGreen);
           }
           if (state is DeleteFromFavoriteSuccessState) {
             btColor = Colors.grey;
           }
           if (state is AddToCartSuccessState) {
             showToast(
-                text: 'المنتج تمت اضافته إلى السلة بنجاح', color:kBlueGreen);
+                text: 'added_to_the_cart'.tr(context), color: kBlueGreen);
           }
           if (state is AddToCartErrorState) {
-            showToast(
-                text: 'المنتج موجود مسبقاً في السلة', color:kBlueGreen);
+            showToast(text: 'already_in_the_cart'.tr(context), color: kBlueGreen);
           }
           if (state is DeviceNotConnectedState) {
             showSnackBar(context);
           }
           if (state is DeleteFromFavoriteErrorsState ||
-              state is AddToFavoriteErrorState ) {
+              state is AddToFavoriteErrorState) {
             showErrorSnackBar(context);
           }
         },

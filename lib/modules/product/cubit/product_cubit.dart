@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
-
 import 'package:queen_care/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -69,6 +67,9 @@ class ProductCubit extends Cubit<ProductState> {
 
         if (response.statusCode == 200) {
           productsListByType = productModelFromJson(response.body);
+          if (productsListByType.isEmpty) {
+            emit(Empty());
+          }
           debugPrint(response.statusCode.toString());
           debugPrint(productsListByType.toString());
           debugPrint(productsListByType.first.name);
@@ -76,9 +77,11 @@ class ProductCubit extends Cubit<ProductState> {
 
           emit(GetAllProductByTypeSuccess(productsList: productsListByType));
         } else if (response.statusCode == 404) {
-          emit(GetAllProductByTypeError('error'));
+          // emit(GetAllProductByTypeError('error'));
         }
-      } catch (e) {}
+      } catch (e) {
+        // emit(GetAllProductByTypeError('error'));
+      }
     } else {
       emit(DeviceNotConnectedState());
       return null;
@@ -149,7 +152,7 @@ class ProductCubit extends Cubit<ProductState> {
           'token': CacheHelper.getData(key: 'api_token'),
           'mission_id': productId.toString()
         });
-        CacheHelper.saveData(key: 'isFav',value: true);
+        CacheHelper.saveData(key: 'isFav', value: true);
         emit(AddToFavoriteSuccessState(message: "تمت الاإضافة بنجاح"));
       } catch (e) {
         debugPrint(e.toString());
@@ -167,7 +170,7 @@ class ProductCubit extends Cubit<ProductState> {
         await apiBaseHelper.post('delete-favourite', {
           'id': id.toString(),
         });
-        CacheHelper.saveData(key: 'isFav',value: false);
+        CacheHelper.saveData(key: 'isFav', value: false);
         emit(DeleteFromFavoriteSuccessState());
       } catch (e) {
         debugPrint(e.toString());

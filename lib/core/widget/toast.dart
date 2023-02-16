@@ -16,6 +16,6 @@ Future<bool?> showToast(
     backgroundColor: color,
     textColor: textColor ?? Colors.white,
 
-    fontSize: 15.0,
+    fontSize: 13.0,
   );
 }

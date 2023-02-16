@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
@@ -8,7 +9,6 @@ import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/competition.dart';
 import 'package:queen_care/modules/offers/competition/cubit/competition_cubit.dart';
-
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 import 'package:queen_care/modules/offers/competition/widgets/competitions_part.dart';
 
@@ -26,7 +26,7 @@ class DisplayAllCompetitions extends StatelessWidget {
       create: (context) => CompetitionCubit()..getAllCompetitions(),
       child: BlocConsumer<CompetitionCubit, CompetitionState>(
         listener: (context, state) {
-          // TODO: implement listener
+
         },
         builder: (context, state) {
           List<Competition> allCompetitions =
@@ -45,10 +45,9 @@ class DisplayAllCompetitions extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     InkWell(
                       child: const Icon(
-                         Icons.arrow_back,
+                        Icons.arrow_back,
                         color: darkGrey2,
                       ),
                       onTap: () {
@@ -57,45 +56,43 @@ class DisplayAllCompetitions extends StatelessWidget {
                     ),
                     Text(
                       'general_co'.tr(context),
-                      style: const TextStyle(
-                          color: kBlueGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: kBlueGreen,
+                        fontSize: 20.sp,
+                      ),
                     ),
                     SizedBox(
                       width: h * 0.05,
                     ),
-
                   ],
                 ),
-
-                LogoImage(w: w, h: h*0.2),
+                LogoImage(w: w, h: h * 0.2),
                 state is GetAllCompetitionsLoadingState
-                    ? const Expanded(child:  LoadingWidget())
+                    ? const Expanded(child: LoadingWidget())
                     : state is DeviceNotConnectedState
                         ? Expanded(
-                          child: NoInternetWidget(
+                            child: NoInternetWidget(
                               onPressed: () {
                                 CompetitionCubit.get(context)
                                     .getAllCompetitions();
                               },
                             ),
-                        )
+                          )
                         : state is GetAllCompetitionsErrorState
                             ? Expanded(
-                              child: CustomErrorWidget(
+                                child: CustomErrorWidget(
                                   onPressed: () {
                                     CompetitionCubit.get(context)
                                         .getAllCompetitions();
                                   },
                                 ),
-                            )
+                              )
                             : Expanded(
-                              child: CompetitionsPart(
+                                child: CompetitionsPart(
                                   tabController: tabController,
                                   allCompetitions: allCompetitions,
                                 ),
-                            ),
+                              ),
               ],
             ),
           );

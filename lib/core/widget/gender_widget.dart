@@ -53,7 +53,7 @@ class _GenderWidgetState extends State<GenderWidget> {
                   child: Text(
                     widget.name,
                     style: TextStyle(
-                        fontSize: selected ? 16 : 14,
+                        fontSize: selected ? 14 : 13,
                         fontWeight:
                             !selected ? FontWeight.normal : FontWeight.bold,
                         color: kPrimaryColor),

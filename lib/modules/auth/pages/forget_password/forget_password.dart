@@ -20,6 +20,7 @@ class ForgetPassword extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         width: w,
         height: h,
+        decoration: customBoxDecoration,
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -74,8 +75,8 @@ class ForgetPassword extends StatelessWidget {
             AuthButton(
               title: 'تاكيد',
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => ComfirmePassword()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => ConfirmPassword()));
               },
               color: kPrimaryColor,
             ),

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
-
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/go_cart.dart';
-
 import 'package:queen_care/models/consultation.dart';
 import 'package:queen_care/modules/consultation/Widgets/consultation_details_body.dart';
 import 'package:queen_care/modules/consultation/Widgets/custom_top_widget.dart';
-
 import 'package:queen_care/modules/consultation/client/show_my_consultations.dart';
 import 'package:queen_care/modules/consultation/cubit/consultation_cubit.dart';
 
@@ -66,11 +62,13 @@ class ConsultationDetails extends StatelessWidget {
                   SizedBox(
                     height: h * 0.02,
                   ),
-                  ConsultationDetailsBody(
-                    h: h,
-                    w: w,
-                     consultation: consultation,
+                  Expanded(
+                    child: ConsultationDetailsBody(
+                      h: h,
+                      w: w,
+                       consultation: consultation,
 
+                    ),
                   )
                 ],
               ),

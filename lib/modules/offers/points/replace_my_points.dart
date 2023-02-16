@@ -39,10 +39,8 @@ class ReplaceMyPoints extends StatelessWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-
                       Row(
                         children: [
-
                           InkWell(
                             child: const Icon(
                               Icons.arrow_back,

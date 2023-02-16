@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -16,7 +17,8 @@ class AwardAfterFinish extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Padding(
+      body: Container(
+        decoration: customBoxDecoration,
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
@@ -28,11 +30,12 @@ class AwardAfterFinish extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'congratulations'.tr(context)+"  "+ prizeModel.prize,
-                    style: const TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 17,
-              ),
+                    // ignore: prefer_interpolation_to_compose_strings
+                    "${'congratulations'.tr(context)}  " + prizeModel.prize,
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 17.sp,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -56,7 +59,7 @@ class AwardAfterFinish extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (_) => const MainScreen()),
-                          (route) => false);
+                      (route) => false);
                 },
                 color: kPrimaryColor,
                 width: w * 0.7,
@@ -66,8 +69,6 @@ class AwardAfterFinish extends StatelessWidget {
             SizedBox(
               height: h * 0.07,
             ),
-
-          
           ],
         ),
       ),

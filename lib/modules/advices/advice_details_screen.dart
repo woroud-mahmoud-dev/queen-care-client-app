@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:queen_care/core/my_service.dart';
 
@@ -6,15 +7,14 @@ import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 
-// ignore: must_be_immutable
+
 class AdviceScreen extends StatelessWidget {
   AdviceScreen({
     Key? key,
     required this.tabController,
   }) : super(key: key);
   final TabController tabController;
-  // final ProductModel ? product;
-  MyService myService = MyService();
+  final myService = MyService();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -58,7 +58,7 @@ class AdviceScreen extends StatelessWidget {
             myService.getSelectedBlog!.name,
             textAlign: TextAlign.center,
 
-            style: const TextStyle( fontSize: 16),
+            style:  TextStyle( fontSize: 14.sp),
           ),
         ),
         SizedBox(
@@ -81,7 +81,7 @@ class AdviceScreen extends StatelessWidget {
           child: Text(
             myService.getSelectedBlog!.body,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 14, ),
+            style:  TextStyle(fontSize: 14.sp, ),
           ),
         ),
       ],

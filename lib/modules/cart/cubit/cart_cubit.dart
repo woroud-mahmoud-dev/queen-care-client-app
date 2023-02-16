@@ -15,7 +15,7 @@ class CartCubit extends Cubit<CartState> {
   List<CartModel> allCartsProductsList = [];
   MyService myService = MyService();
   int productNumber = 0;
-
+  var allMoney = 0;
   bool refresh = false;
   Map<dynamic, dynamic> priceMap = {};
   final InternetConnectionChecker connectionChecker =
@@ -139,7 +139,6 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  var allMoney = 0;
   dynamic countAllMoney(List<CartModel> allCartsProductsList) {
     List<dynamic> items = List.generate(
         myService.getNumberOfItems!.length,

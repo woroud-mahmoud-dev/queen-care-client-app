@@ -25,6 +25,7 @@ class VerifyCode extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         width: w,
         height: h,
+        decoration: customBoxDecoration,
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -55,7 +56,7 @@ class VerifyCode extends StatelessWidget {
             ),
             const Align(
               alignment: Alignment.center,
-              child:  Text(
+              child: Text(
                 '00:20',
                 style: TextStyle(
                   color: kPrimaryColor,
@@ -114,10 +115,7 @@ class VerifyCode extends StatelessWidget {
             ),
             AuthButton(
               title: 'تأكيد',
-              onTap: () {
-
-
-              },
+              onTap: () {},
               color: kPrimaryColor,
             ),
             SizedBox(

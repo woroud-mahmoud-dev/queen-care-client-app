@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
@@ -13,8 +15,8 @@ class CartWidget extends StatelessWidget {
 
   final int productId;
 
-  const CartWidget({super.key, 
-
+  const CartWidget({
+    super.key,
     required this.cartModel,
     required this.productId,
     required this.numberOfItems,
@@ -78,19 +80,12 @@ class CartWidget extends StatelessWidget {
               child: Center(
                 child: Text(
                   numberOfItems[productId].toString(),
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
                 ),
               ),
             ),
-
-
-
-
             const SizedBox(
-              width: 10,
+              width: 5,
             ),
             Column(
               children: [
@@ -102,7 +97,7 @@ class CartWidget extends StatelessWidget {
                       cartModel.mission.name,
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      style: const TextStyle(fontSize: 12, color: Colors.black),
+                      style: TextStyle(fontSize: 12.sp, color: Colors.black),
                     ),
                   ),
                 ),
@@ -112,9 +107,9 @@ class CartWidget extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    '${cartModel.mission.price} ليرة',
+                    '${cartModel.mission.price} ${"pounds".tr(context)}',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 12, color: kPrimaryColor),
+                    style: TextStyle(fontSize: 12.sp, color: kPrimaryColor),
                   ),
                 ),
                 const SizedBox(
@@ -123,7 +118,7 @@ class CartWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 5.0),
               child: Column(
                 children: [
                   SizedBox(
@@ -133,10 +128,10 @@ class CartWidget extends StatelessWidget {
                       imageUrl: imgUrl + cartModel.mission.image,
                       placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(
-                            backgroundColor: Colors.transparent,
-                            color: kPrimaryColor,
-                            strokeWidth: 0.2,
-                          )),
+                        backgroundColor: Colors.transparent,
+                        color: kPrimaryColor,
+                        strokeWidth: 0.2,
+                      )),
                       errorWidget: (context, url, error) => const Icon(
                         Icons.error,
                         color: kPrimaryColor,
@@ -149,7 +144,6 @@ class CartWidget extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),

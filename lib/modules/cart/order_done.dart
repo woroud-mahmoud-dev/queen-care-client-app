@@ -3,6 +3,7 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderDone extends StatelessWidget {
   const OrderDone({Key? key}) : super(key: key);
@@ -25,11 +26,14 @@ class OrderDone extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'request'.tr(context),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                  Expanded(
+                    child: Text(
+                      'request'.tr(context),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17.sp,
+                      ),
                     ),
                   ),
                 ],
@@ -41,9 +45,9 @@ class OrderDone extends StatelessWidget {
                 children: [
                   Text(
                     'send_package'.tr(context),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: darkGrey2,
-                      fontSize: 18,
+                      fontSize: 17.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),

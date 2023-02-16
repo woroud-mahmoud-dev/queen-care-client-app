@@ -35,9 +35,7 @@ class PeriodQuestions extends StatelessWidget {
             tabController.animateTo(8);
           }
           if (state is CalculateDatesError) {
-            showToast(
-                text: 'تأكدي من إدخال جميع\n المعلومات وبشكل صحيح',
-                color: kPrimaryColor);
+            showToast(text: 'sure'.tr(context), color: kPrimaryColor);
           }
         },
         builder: (context, state) {
@@ -126,7 +124,7 @@ class PeriodQuestions extends StatelessWidget {
                                   CalculatorCubit.get(context)
                                               .selectLastDateIs ==
                                           null
-                                      ? 'select'
+                                      ? 'select'.tr(context)
                                       : CalculatorCubit.get(context)
                                           .selectLastDateIs
                                           .toString(),
@@ -176,7 +174,7 @@ class PeriodQuestions extends StatelessWidget {
                         ),
                         HowManyDaysQuestion(myService: myService),
                         SizedBox(
-                          height: h * 0.1,
+                          height: h * 0.05,
                         ),
                         Center(
                           child: CustomButton(
@@ -185,7 +183,7 @@ class PeriodQuestions extends StatelessWidget {
                               CalculatorCubit.get(context).calculator();
                             },
                             color: kPrimaryColor,
-                            width: w * 0.7,
+                            width: w * 0.72,
                             height: h * 0.07,
                           ),
                         ),

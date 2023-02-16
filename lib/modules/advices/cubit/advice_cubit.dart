@@ -1,7 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:meta/meta.dart';
 import 'package:queen_care/models/blog_model.dart';
 import 'package:queen_care/models/cat_blog_model.dart';
 import 'package:http/http.dart' as http;
@@ -65,7 +63,6 @@ class AdviceCubit extends Cubit<AdviceState> {
         emit(GetBlogsError('Error: $e'));
       }
     } else {
-
       emit(DeviceNotConnectedState());
       return null;
     }

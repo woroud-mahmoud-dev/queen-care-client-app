@@ -1,5 +1,3 @@
-
-
 import 'package:queen_care/models/user.dart';
 
 abstract class ProfileCubitState {}
@@ -20,22 +18,30 @@ class GetProfileError extends ProfileCubitState {
   GetProfileError({required this.error});
 }
 
-
 class EditeProfileLoading extends ProfileCubitState {}
+
 class SelectGenderState extends ProfileCubitState {}
 
-class  EditeProfileSuccess extends ProfileCubitState {
+class EditeProfileSuccess extends ProfileCubitState {
   final UserModel user;
 
   EditeProfileSuccess(this.user);
 }
 
-class  EditeProfileError extends ProfileCubitState {
+class EditeProfileError extends ProfileCubitState {
   final String error;
 
   EditeProfileError({required this.error});
 }
+
 class SelectBirthDayState extends ProfileCubitState {}
-class ConvertToCompanyState extends ProfileCubitState{}
-class ConvertToCompanySuccessState extends ProfileCubitState{}
-class ConvertToCompanyErrorState extends ProfileCubitState{}
+
+class ConvertToCompanyState extends ProfileCubitState {}
+
+class ConvertToCompanySuccessState extends ProfileCubitState {}
+
+class ConvertToCompanyErrorState extends ProfileCubitState {}
+
+class DeviceNotConnectedState extends ProfileCubitState {}
+
+class DeviceNotConnectedToSendState extends ProfileCubitState {}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/widget/custom_button.dart';
 
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/cart_model.dart';
@@ -39,67 +40,43 @@ class CustomBuyCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Icon(
-                Icons.arrow_back_ios,
-                color: darkGrey2,
-              ),
-              InkWell(
-                onTap: () {
-                  if (allProducts.isEmpty) {
-                    showToast(
-                        text: 'cart_empty'.tr(context), color: kBlueGreen);
-                  } else {
-                    if (allMoney > 0) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => CompleteBuyScreen(
+          CustomButton(
+            title: 'complete_purchases'.tr(context),
+            onTap: () {
+              if (allProducts.isEmpty) {
+                showToast(text: 'cart_empty'.tr(context), color: kBlueGreen);
+              } else {
+                if (allMoney > 0) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CompleteBuyScreen(
                                 allProducts: allProducts,
                               )));
-                    } else {
-                      showToast(
-                          text: 'choose_number'.tr(context), color: kBlueGreen);
-                    }
-                  }
-                },
-                child: SizedBox(
-                  width: w * 0.42,
-                  height: h * 0.06,
-                  child: Card(
-                    color: kPrimaryColor,
-                    elevation: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Center(
-                        child: Text(
-                          'complete_purchases'.tr(context),textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                } else {
+                  showToast(
+                      text: 'choose_number'.tr(context), color: kBlueGreen);
+                }
+              }
+            },
+            color: kPrimaryColor,
+            width: w * 0.6,
+            height: h * 0.07,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               //must change this picture
 
-              const Text(
-                'المجموع',
-                style: TextStyle(
+              Text(
+                'the_sum'.tr(context),
+                style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 14,
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '$allMoney ليرة',
+                '$allMoney ${"pounds".tr(context)}',
                 style: const TextStyle(
                     color: Colors.black,
                     fontSize: 10,
@@ -107,7 +84,6 @@ class CustomBuyCard extends StatelessWidget {
               ),
             ],
           ),
-
         ],
       ),
     );

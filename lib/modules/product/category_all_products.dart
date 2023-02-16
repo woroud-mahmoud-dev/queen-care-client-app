@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
@@ -71,14 +71,14 @@ class CategoryAllProducts extends StatelessWidget {
                         children: [
                           Text(
                             myService.getSelectedCategory!.name,
-                            style: const TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: 16.sp),
                           ),
                           const Spacer(),
-                          const Text('4.5'),
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
+                          // // const Text('4.5'),
+                          // const Icon(
+                          //   Icons.star,
+                          //   color: Colors.amber,
+                          // ),
                         ],
                       ),
                     ),
@@ -90,7 +90,10 @@ class CategoryAllProducts extends StatelessWidget {
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(color: Colors.black12, spreadRadius: 2, blurRadius: 5),
+                          BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 2,
+                              blurRadius: 5),
                         ],
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
@@ -113,20 +116,22 @@ class CategoryAllProducts extends StatelessWidget {
                                             .getAllProductsByTypeWithHttp();
                                       },
                                     )
-                                  : ListView.builder(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      itemCount: allProductsByType.length,
-                                      itemBuilder: (context, int index) {
-                                        return ProductItem(
-                                          w: w,
-                                          h: h,
-                                          tabController: tabController,
-                                          productModel:
-                                              allProductsByType[index],
-                                        );
-                                      },
-                                    ),
+                                  : state is Empty
+                                      ? const SizedBox()
+                                      : ListView.builder(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          itemCount: allProductsByType.length,
+                                          itemBuilder: (context, int index) {
+                                            return ProductItem(
+                                              w: w,
+                                              h: h,
+                                              tabController: tabController,
+                                              productModel:
+                                                  allProductsByType[index],
+                                            );
+                                          },
+                                        ),
                     ),
                   ),
                 ],

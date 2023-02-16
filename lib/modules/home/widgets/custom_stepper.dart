@@ -10,7 +10,7 @@ class NumberStepper extends StatelessWidget {
   final Color inactiveColor;
   final double lineWidth;
   const NumberStepper({
-    Key ?key,
+    Key? key,
     required this.width,
     required this.curStep,
     required this.stepCompleteColor,
@@ -24,7 +24,6 @@ class NumberStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-
       width: width,
       child: Row(
         children: _steps(),
@@ -38,7 +37,7 @@ class NumberStepper extends StatelessWidget {
       color = stepCompleteColor;
     } else if (i + 1 == curStep) {
       color = currentStepColor;
-    } else if (i==totalSteps-1) {
+    } else if (i == totalSteps - 1) {
       color = kPrimaryColor;
     } else {
       color = darkGrey2;
@@ -52,7 +51,7 @@ class NumberStepper extends StatelessWidget {
       color = stepCompleteColor;
     } else if (i + 1 == curStep) {
       color = kPrimaryColor;
-    } else if (i==totalSteps-1) {
+    } else if (i == totalSteps - 1) {
       color = kPrimaryColor;
     } else {
       color = inactiveColor;
@@ -62,7 +61,7 @@ class NumberStepper extends StatelessWidget {
   }
 
   getLineColor(i) {
-    var color =darkGrey2;
+    var color = darkGrey2;
 
     return color;
   }

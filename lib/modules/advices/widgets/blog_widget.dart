@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
@@ -22,7 +23,7 @@ class BlogWidget extends StatelessWidget {
         tabController.animateTo(17);
       },
       child: SizedBox(
-        height: h * 0.17,
+        height: h * 0.2,
         width: w,
         child: Card(
           elevation: 5,
@@ -42,19 +43,19 @@ class BlogWidget extends StatelessWidget {
                     children: [
                       Text(
                         blogModel.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
+
+                        style:  TextStyle(
                             color: darkGrey,
-                            fontSize: 15,
+                            fontSize: 13.sp,
                     ),
                       ),
                       Text(
                         blogModel.body,
 
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style:  TextStyle(
 
-                            fontSize: 12,
+                            fontSize: 11.sp,
                  ),
                       ),
                     ],

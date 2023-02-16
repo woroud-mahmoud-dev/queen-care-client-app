@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/home/widgets/main_screen_item_model.dart';
@@ -37,63 +38,60 @@ class Offer extends StatelessWidget {
           iconName: Icons.wine_bar,
           tapId: 13),
     ];
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SearchBar(w: w),
-            ),
-            SizedBox(
-              height: h * 0.05,
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                'offers_and_competition'.tr(context),
-                style: const TextStyle(
-                  color: kBlueGreen,
-                  fontSize: 20,
-                ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SearchBar(w: w),
+          ),
+          SizedBox(
+            height: h * 0.05,
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              'offers_and_competition'.tr(context),
+              style: TextStyle(
+                color: kBlueGreen,
+                fontSize: 20.sp,
               ),
             ),
-            SizedBox(
-              height: h * 0.05,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: GridView.count(
-                padding: const EdgeInsets.all(10.0),
-                physics: const BouncingScrollPhysics(),
-                childAspectRatio: (1 / 0.6),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 30,
-                crossAxisCount: 2,
-                children: List.generate(
-                  myList.length,
-                  (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        myList[index].id != 3
-                            ? tabController.animateTo(myList[index].tapId)
-                            : Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (_) => const QRViewScreen()),
-                              );
-                      },
-                      child: MainCategoryWidget(
-                        text: myList[index].title,
-                        myWidget: const SizedBox(),
-                      ),
-                    );
-                  },
-                ),
+          ),
+          SizedBox(
+            height: h * 0.05,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: GridView.count(
+              padding: const EdgeInsets.all(10.0),
+              physics: const BouncingScrollPhysics(),
+              childAspectRatio: (1 / 0.6),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 30,
+              crossAxisCount: 2,
+              children: List.generate(
+                myList.length,
+                (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      myList[index].id != 3
+                          ? tabController.animateTo(myList[index].tapId)
+                          : Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (_) => const QRViewScreen()),
+                            );
+                    },
+                    child: MainCategoryWidget(
+                      text: myList[index].title,
+                      myWidget: const SizedBox(),
+                    ),
+                  );
+                },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

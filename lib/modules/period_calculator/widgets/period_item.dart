@@ -14,15 +14,11 @@ class PeriodItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
-
         children: [
           Container(
+            margin: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                    color: Colors.grey
-                )
-            ),
+                shape: BoxShape.circle, border: Border.all(color: Colors.grey)),
             child: Center(
               child: Icon(
                 Icons.circle,
@@ -31,10 +27,11 @@ class PeriodItem extends StatelessWidget {
               ),
             ),
           ),
-          Text(name,style: const TextStyle(fontSize: 12,color: darkGrey),),
+          Text(
+            name,
+            style: const TextStyle(fontSize: 12, color: darkGrey),
+          ),
           const Spacer(),
-
-
         ],
       ),
     );

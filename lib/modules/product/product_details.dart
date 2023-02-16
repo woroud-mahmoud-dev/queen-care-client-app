@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/my_service.dart';
-
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
@@ -66,7 +65,7 @@ class ProductDetails extends StatelessWidget {
                 children: [
                   Text(
                     myService.getSelectedProduct!.name,
-                    style: const TextStyle(fontSize: 17),
+                    style: TextStyle(fontSize: 15.sp),
                   ),
                 ],
               ),
@@ -75,13 +74,9 @@ class ProductDetails extends StatelessWidget {
               ),
               Text(
                 myService.getSelectedProduct!.description,
-                style:
-                    const TextStyle(height: 1.2, fontSize: 14, color: darkGrey),
+                style: TextStyle(height: 1.2, fontSize: 14.sp, color: darkGrey),
                 textAlign: TextAlign.center,
               ),
-              // SizedBox(height: h*0.03,),
-              // const Text(      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-              //   style:  TextStyle(fontSize: 16,color: darkGrey),),
             ],
           ),
         )

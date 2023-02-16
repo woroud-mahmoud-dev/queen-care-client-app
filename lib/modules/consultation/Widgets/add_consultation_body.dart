@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
-
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/error_widget.dart';
+import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/consultation.dart';
 import 'package:queen_care/modules/consultation/Widgets/frequently_asked_questions_widget.dart';
 import 'package:queen_care/modules/consultation/Widgets/text_filed.dart';
-
 import 'package:queen_care/modules/consultation/cubit/consultation_cubit.dart';
 
 class AddConsultationBody extends StatelessWidget {
@@ -17,13 +18,14 @@ class AddConsultationBody extends StatelessWidget {
     required this.w,
     required this.h,
     required this.questionController,
+    required this.state,
   }) : super(key: key);
 
   final List<Consultation> allConsultationList;
   final double w;
   final double h;
   final TextEditingController questionController;
-
+  final ConsultationState state;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +33,6 @@ class AddConsultationBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Text(
@@ -40,10 +41,25 @@ class AddConsultationBody extends StatelessWidget {
                 style: const TextStyle(fontSize: 14),
               ),
             ),
+            const Spacer(),
           ],
         ),
-        FrequentlyAskedQuestionsWidget(
-            allConsultationList: allConsultationList),
+        state is GetAllQuestionsError
+            ? Expanded(child: CustomErrorWidget(
+                onPressed: () {
+                  ConsultationCubit.get(context).getAllQuestions();
+                },
+              ))
+            : state is GetAllQuestionsLoading
+                ? const Expanded(child: LoadingWidget())
+                : state is DeviceNotConnectedState
+                    ? Expanded(child: NoInternetWidget(
+                        onPressed: () {
+                          ConsultationCubit.get(context).getAllQuestions();
+                        },
+                      ))
+                    : FrequentlyAskedQuestionsWidget(
+                        allConsultationList: allConsultationList),
         Divider(
           color: darkGrey2,
           thickness: 2,
@@ -56,7 +72,6 @@ class AddConsultationBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Text(
@@ -65,6 +80,7 @@ class AddConsultationBody extends StatelessWidget {
                 style: const TextStyle(fontSize: 14),
               ),
             ),
+            const Spacer(),
           ],
         ),
         SizedBox(
@@ -89,7 +105,7 @@ class AddConsultationBody extends StatelessWidget {
             onTap: () {
               if (questionController.text.trim().isEmpty) {
                 showToast(
-                    text: "يرجى كتابة الاستشارة أولاً", color: kBlueGreen);
+                    text: "اً", color: kBlueGreen);
               } else {
                 ConsultationCubit.get(context)
                     .sendQuestion(question: questionController.text);

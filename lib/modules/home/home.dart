@@ -20,6 +20,7 @@ import 'package:queen_care/modules/period_calculator/period_questions.dart';
 import 'package:queen_care/modules/product/category_all_products.dart';
 import 'package:queen_care/modules/product/product_details.dart';
 import '../product/product_screen.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key, required this.tapId}) : super(key: key);
   final int tapId;
@@ -46,7 +47,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   void handleTabSelection() {
     setState(() {
-
       if (tabController.index < 4) {
         _currentIndexBottomNavigationBarItem = tabController.index;
       }
@@ -124,13 +124,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               unselectedFontSize: 11,
               selectedFontSize: 12,
               currentIndex: _currentIndexBottomNavigationBarItem,
-              items:  [
+              items: [
                 BottomNavigationBarItem(
-                    icon: const Icon(Icons.home_outlined), label: 'main'.tr(context)),
+                    icon: const Icon(Icons.home_outlined),
+                    label: 'main'.tr(context)),
                 BottomNavigationBarItem(
-                    icon: const Icon(Icons.local_offer_outlined), label:'offers'.tr(context)),
+                    icon: const Icon(Icons.local_offer_outlined),
+                    label: 'offers'.tr(context)),
                 BottomNavigationBarItem(
-                    icon: const Icon(Icons.favorite_border), label: 'favorite'.tr(context)),
+                    icon: const Icon(Icons.favorite_border),
+                    label: 'favorite'.tr(context)),
                 BottomNavigationBarItem(
                     icon: const Icon(Icons.person_outline_outlined),
                     label: 'profile'.tr(context)),
@@ -146,14 +149,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void onTapedBottomsNavigationBarItem(int value) {
-
     setState(() {
-
       tabController.animateTo(value);
-
     });
-    if(tabController.index==0){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const Home(tapId: 0)), );
+    if (tabController.index == 0) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const Home(tapId: 0)),
+      );
     }
   }
 }

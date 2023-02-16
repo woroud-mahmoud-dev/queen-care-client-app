@@ -34,15 +34,16 @@ class CouponWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-
             Expanded(
                 flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "get_coupon".tr(context),
-                      style: const TextStyle(color: kBlueGreen, fontSize: 14),
+                    FittedBox(
+                      child: Text(
+                        "get_coupon".tr(context),
+                        style: const TextStyle(color: kBlueGreen, fontSize: 14),
+                      ),
                     ),
                     const Text(
                       '60%  ',
@@ -62,8 +63,6 @@ class CouponWidget extends StatelessWidget {
                   ),
                   child: Center(child: Image.asset('assets/images/copon.png')),
                 )),
-
-
           ],
         ),
       ),

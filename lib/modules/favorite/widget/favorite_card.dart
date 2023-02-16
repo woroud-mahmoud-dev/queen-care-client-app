@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/favoriteModel.dart';
-
 import '../../../../core/utils/constant.dart';
 
 class FavoriteCardWidget extends StatelessWidget {
@@ -21,12 +21,12 @@ class FavoriteCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: h * 0.25,
+      height: h * 0.28,
       width: w * 0.38,
       child: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 4,
             child: Image.network(
               imgUrl + favoriteModel.mission.image,
               height: h * 0.2,
@@ -41,10 +41,9 @@ class FavoriteCardWidget extends StatelessWidget {
               favoriteModel.mission.name,
               textAlign: TextAlign.center,
               maxLines: 3,
-              style: const TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 12.sp),
             ),
           ),
-          const Spacer(),
           Expanded(
             flex: 1,
             child: Row(
@@ -55,7 +54,7 @@ class FavoriteCardWidget extends StatelessWidget {
                   child: Text(
                     '${favoriteModel.mission.price} ليرة',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14, color: kBlueGreen),
+                    style: TextStyle(fontSize: 11.sp, color: kBlueGreen),
                   ),
                 ),
                 Expanded(

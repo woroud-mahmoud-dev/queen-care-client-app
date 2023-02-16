@@ -14,23 +14,30 @@ class Splach extends StatefulWidget {
 class _SplachState extends State<Splach> {
   @override
   void initState() {
-Future.delayed(const Duration(seconds: 2)).then((value) {
-  CacheHelper.getData(key: 'api_token')!=null?
-  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> MainScreen()),(route) => false,):
-
-
-  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_)=> SelectLanguage()),(route) => false,);
-});
-super.initState();
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      CacheHelper.getData(key: 'api_token') != null
+          ? Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const MainScreen()),
+              (route) => false,
+            )
+          : Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => SelectLanguage()),
+              (route) => false,
+            );
+    });
+    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body:Padding(padding: const EdgeInsets.all(70),
-        child:  Center(
-        child: Image.asset('assets/images/logo.png',),
-    ),)
-    );
+        body: Padding(
+      padding: const EdgeInsets.all(70),
+      child: Center(
+        child: Image.asset(
+          'assets/images/logo.png',
+        ),
+      ),
+    ));
   }
 }

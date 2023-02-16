@@ -79,7 +79,9 @@ class GeneralCompetitions extends StatelessWidget {
                           : CompetitionBodyWidget(
                               h: h,
                               stepLength: stepLength,
-                              questionsList: questionsList, w: w,);
+                              questionsList: questionsList,
+                              w: w,
+                            );
         },
       ),
     );

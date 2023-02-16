@@ -21,3 +21,6 @@ class GetAllQuestionsLoading extends ConsultationState {}
 class GetAllQuestionsSuccess extends ConsultationState {}
 class GetAllQuestionsError extends ConsultationState {}
 class AllQuestionsListEmpty extends ConsultationState {}
+///
+class DeviceNotConnectedState  extends ConsultationState {}
+class DeviceNotConnectedToSendState  extends ConsultationState {}

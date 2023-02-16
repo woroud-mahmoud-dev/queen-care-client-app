@@ -5,8 +5,8 @@ import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 
-class ComfirmePassword extends StatelessWidget {
-  ComfirmePassword({Key? key}) : super(key: key);
+class ConfirmPassword extends StatelessWidget {
+  ConfirmPassword({Key? key}) : super(key: key);
 
   final phoneController = TextEditingController();
 
@@ -19,6 +19,7 @@ class ComfirmePassword extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         width: w,
         height: h,
+        decoration: customBoxDecoration,
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
@@ -49,7 +50,9 @@ class ComfirmePassword extends StatelessWidget {
             ),
             customTextField(
                 keyboardType: TextInputType.phone,
-                validate: (v) {},
+                validate: (v) {
+                  return null;
+                },
                 label: 'تأكيد كلمة المرور ',
                 hintText: 'تأكيد كلمة المرور ',
                 isPassword: false,

@@ -1,9 +1,9 @@
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 Widget ConsultationTextField({
-
   required String hintText,
   required double h,
   required double w,
@@ -11,37 +11,25 @@ Widget ConsultationTextField({
   String? Function(String?)? validate,
   required TextEditingController controller,
   context,
-
-
-
-
   Function()? onEditingComplete,
 }) {
   return SizedBox(
     height: h,
     width: w,
-
     child: TextFormField(
       maxLines: maxLines,
       textInputAction: TextInputAction.send,
       keyboardType: TextInputType.text,
-
       onEditingComplete: onEditingComplete,
       controller: controller,
       validator: validate,
-
       decoration: InputDecoration(
-
-        hintText:hintText ,
-
+        hintText: hintText,
         prefixIconColor: kPrimaryColor,
-
-
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: kPrimaryColor),
         ),
-
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: kPrimaryColor),

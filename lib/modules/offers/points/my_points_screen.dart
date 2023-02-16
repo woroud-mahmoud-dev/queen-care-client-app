@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -38,9 +39,9 @@ class MyPoints extends StatelessWidget {
             children: [
               Text(
                 'my_points'.tr(context),
-                style: const TextStyle(
+                style:  TextStyle(
                   color: kBlueGreen,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                 ),
               ),
             ],

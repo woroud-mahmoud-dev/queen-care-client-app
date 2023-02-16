@@ -22,79 +22,78 @@ class HomeTap extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     List<CategoryModel> categoriesList = [];
     return BlocProvider(
-  create: (context) => HomeTapCubit()..getCategoryWithHttp(),
-  child: BlocConsumer<HomeTapCubit, HomeTapState>(
-      listener: (context, state) {
-        if (state is GetCategoriesSuccess) {
-          categoriesList = state.categoriesList;
-        }
-      },
-      builder: (context, state) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const GoCart(),
-                    SearchBar(w: w * 0.8),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                CouponWidget(
-                  h: h,
-                  w: w,
-                  onTap: () {},
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'categories'.tr(context),
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          color: kBlueGreen,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  child: state is GetCategoriesLoading
-                      ? const LoadingWidget()
-                      : state is DeviceNotConnectedState
-                          ? NoInternetWidget(
-                            onPressed: () {
-                              HomeTapCubit.get(context)
-                                  .getCategoryWithHttp();
-                            },
-                          )
-                          : state is GetCategoriesError
-                              ? CustomErrorWidget(
+      create: (context) => HomeTapCubit()..getCategoryWithHttp(),
+      child: BlocConsumer<HomeTapCubit, HomeTapState>(
+        listener: (context, state) {
+          if (state is GetCategoriesSuccess) {
+            categoriesList = state.categoriesList;
+          }
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const GoCart(),
+                      SearchBar(w: w * 0.8),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CouponWidget(
+                    h: h,
+                    w: w,
+                    onTap: () {},
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'categories'.tr(context),
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                            color: kBlueGreen,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    child: state is GetCategoriesLoading
+                        ? const LoadingWidget()
+                        : state is DeviceNotConnectedState
+                            ? NoInternetWidget(
                                 onPressed: () {
                                   HomeTapCubit.get(context)
                                       .getCategoryWithHttp();
                                 },
                               )
-                              : CategoriesPart(
-                                  categoriesList: categoriesList,
-                                  tabController: tabController),
-                )
-              ],
+                            : state is GetCategoriesError
+                                ? CustomErrorWidget(
+                                    onPressed: () {
+                                      HomeTapCubit.get(context)
+                                          .getCategoryWithHttp();
+                                    },
+                                  )
+                                : CategoriesPart(
+                                    categoriesList: categoriesList,
+                                    tabController: tabController),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    ),
-);
+          );
+        },
+      ),
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
@@ -38,21 +39,19 @@ class HowManyDaysQuestion extends StatelessWidget {
         35,
       ]
           .map((e) => DropdownMenuItem(
-        value: e,
-        child: Text(
-          '$eيوم  ',
-          style:
-          const TextStyle(color: kPrimaryColor),
-        ),
-      ))
+                value: e,
+                child: Text(
+                  '$e' " " + "day".tr(context),
+                  style: const TextStyle(color: kPrimaryColor),
+                ),
+              ))
           .toList(),
       onChanged: (value) {
         myService.setHowLongPeriod = value as int;
 
         debugPrint('onChange $value');
         CalculatorCubit.get(context)
-            .selectDurationBetweenOfTowMenstrualCycle(
-            value);
+            .selectDurationBetweenOfTowMenstrualCycle(value);
       },
       value: CalculatorCubit.get(context).howLongPeriod,
     );

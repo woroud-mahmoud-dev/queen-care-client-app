@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/models/category.dart';
-
 part 'home_tap_state.dart';
 
 class HomeTapCubit extends Cubit<HomeTapState> {

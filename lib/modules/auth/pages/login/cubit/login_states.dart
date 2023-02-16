@@ -1,5 +1,3 @@
-
-
 import 'package:queen_care/models/user.dart';
 
 abstract class LoginStates {}
@@ -11,11 +9,9 @@ class LoginLoadingState extends LoginStates {}
 class LoginSuccessState extends LoginStates {
   late final UserModel user;
   LoginSuccessState({required this.user});
-
 }
-class LoginNSuccessState extends LoginStates {
 
-}
+class LoginNSuccessState extends LoginStates {}
 
 class LoginErrorState extends LoginStates {
   final String error;
@@ -23,7 +19,6 @@ class LoginErrorState extends LoginStates {
   LoginErrorState({required this.error});
 }
 
-class ChangeRememberMeState extends LoginStates {
+class ChangeRememberMeState extends LoginStates {}
 
-}
-class DeviceNotConnectedState extends LoginStates{}
+class DeviceNotConnectedState extends LoginStates {}

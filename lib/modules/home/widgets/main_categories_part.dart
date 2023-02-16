@@ -31,26 +31,23 @@ class MainCategoriesPart extends StatelessWidget {
             onTap: () {
               myList[index].id != 3 && myList[index].id != 6
                   ? Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (_) =>
-                        Home(tapId: myList[index].tapId)),
-              )
+                      MaterialPageRoute(
+                          builder: (_) => Home(tapId: myList[index].tapId)),
+                    )
                   : myList[index].id == 3
-                  ? Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (_) => const QRViewScreen()),
-              )
-                  : CacheHelper.getData(key: 'type') == "1"
-                  ? Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (_) =>
-                    const ShowAllConsultations()),
-              )
-                  : Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (_) =>
-                        ShowMyConsultations()),
-              );
+                      ? Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => const QRViewScreen()),
+                        )
+                      : CacheHelper.getData(key: 'type') == "1"
+                          ? Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (_) => const ShowAllConsultations()),
+                            )
+                          : Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (_) => ShowMyConsultations()),
+                            );
             },
             child: MainCategoryWidget(
               text: myList[index].title,

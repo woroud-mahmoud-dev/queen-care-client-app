@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
@@ -64,11 +65,12 @@ class CompleteBuyScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const BackButton(),
-                       Align(
+                      Align(
                         alignment: Alignment.topCenter,
                         child: Text(
                           'complete_purchases'.tr(context),
-                          style:const TextStyle(color: kPrimaryColor, fontSize: 14),
+                          style:
+                              TextStyle(color: kPrimaryColor, fontSize: 14.sp),
                         ),
                       ),
                       SizedBox(
@@ -85,15 +87,18 @@ class CompleteBuyScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                   Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding:const EdgeInsets.all(20),
-                      child: Text(
-                        'purchases'.tr(context),
-                        style: const TextStyle(color: kPrimaryColor, fontSize: 16),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(
+                          'purchases'.tr(context),
+                          style:
+                              TextStyle(color: kPrimaryColor, fontSize: 16.sp),
+                        ),
                       ),
-                    ),
+                      const Spacer(),
+                    ],
                   ),
                   const SizedBox(
                     height: 10,
@@ -109,17 +114,18 @@ class CompleteBuyScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:  [
+                      children: [
                         Text(
                           'address'.tr(context),
-                          style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                          ),
                         ),
                         Text(
                           'edite_address'.tr(context),
-                          style:const TextStyle(
+                          style: TextStyle(
                             color: darkGrey,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ],
@@ -147,12 +153,12 @@ class CompleteBuyScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children:  [
+                      children: [
                         Text(
                           'add_notes'.tr(context),
-                          style:const TextStyle(
+                          style: TextStyle(
                             color: darkGrey,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ],
@@ -167,11 +173,9 @@ class CompleteBuyScreen extends StatelessWidget {
                           keyboardType: TextInputType.text,
                           keyboardAppearance: Brightness.light,
                           controller: noteController,
-                          decoration:  InputDecoration(
-                            hintText:  'add_notes'.tr(context),
+                          decoration: InputDecoration(
+                            hintText: 'add_notes'.tr(context),
                             prefixIconColor: kPrimaryColor,
-
-
                             focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: kPrimaryColor),
                             ),

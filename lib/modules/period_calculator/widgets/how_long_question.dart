@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/period_calculator/cubit/calculator_cubit.dart';
@@ -25,22 +26,19 @@ class HowLongQuestion extends StatelessWidget {
         // ignore: sort_child_properties_last
       ]
           .map((e) => DropdownMenuItem(
-        value: e,
-        child: Text(
-          '$eيوم',
-          style:
-          const TextStyle(color: kPrimaryColor),
-        ),
-      ))
+                value: e,
+                child: Text(
+                  '$e' " " + "day".tr(context),
+                  style: const TextStyle(color: kPrimaryColor),
+                ),
+              ))
           .toList(),
       onChanged: (value) {
         debugPrint('onChange $value');
         myService.setDaysNumber = value as int;
-        CalculatorCubit.get(context)
-            .selectDurationOfTheMenstrualCycle(value);
+        CalculatorCubit.get(context).selectDurationOfTheMenstrualCycle(value);
       },
-      value:
-      CalculatorCubit.get(context).selectedIndexOfDays,
+      value: CalculatorCubit.get(context).selectedIndexOfDays,
     );
   }
 }

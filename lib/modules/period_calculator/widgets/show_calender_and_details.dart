@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -21,7 +23,6 @@ class ShowCalenderAndDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       padding: const EdgeInsets.all(0),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -37,43 +38,42 @@ class ShowCalenderAndDetails extends StatelessWidget {
           SizedBox(
             height: h * 0.03,
           ),
-          const PeriodItem(
-            color: Color(0xff852727),
-            name: 'فترة الدورة',
+          PeriodItem(
+            color: const Color(0xff852727),
+            name: 'cycle_period'.tr(context),
           ),
-          const PeriodItem(
+          PeriodItem(
             color: Colors.deepOrange,
-            name: 'الدورة التالية',
+            name: 'next_period'.tr(context),
           ),
-          const PeriodItem(
+          PeriodItem(
             color: Colors.black,
-            name: 'يوم الامان',
+            name: 'Safety_day'.tr(context),
           ),
-          const PeriodItem(
+          PeriodItem(
             color: Colors.pinkAccent,
-            name: 'يوم الامان',
+            name: 'Safety_day'.tr(context),
           ),
-          const PeriodItem(
+          PeriodItem(
             color: Colors.white,
-            name: 'فترة الخصوبة',
+            name: 'fertile_period'.tr(context),
           ),
-          const PeriodItem(
+          PeriodItem(
             color: Colors.yellow,
-            name: 'يوم التبويض',
+            name: 'ovulation_day'.tr(context),
           ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child:       CustomButton(
-              title: 'طباعة التقويم الخاص بي',
-              onTap: () {
-
-              },
-              color: kPrimaryColor,
-              width: w * 0.55,
-              height: h * 0.065,
-            ),
+          Row(
+            children: [
+              const Spacer(),
+              CustomButton(
+                title: 'print'.tr(context),
+                onTap: () {},
+                color: kPrimaryColor,
+                width: w * 0.65,
+                height: h * 0.065,
+              ),
+            ],
           ),
-
           const Divider(
             thickness: 1,
             endIndent: 15,
@@ -81,38 +81,35 @@ class ShowCalenderAndDetails extends StatelessWidget {
             color: darkGrey2,
           ),
           Row(
-            children:const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "أعراضك",
-                  style: TextStyle(fontSize: 14),
+                  "your_symptoms".tr(context),
+                  style: TextStyle(fontSize: 14.sp),
                 ),
               ),
-              Spacer(),
-
+              const Spacer(),
             ],
           ),
           Row(
-            children:const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "تدفق الحيض",
-                  style: TextStyle(fontSize: 12),
+                  "Menstrual_flow".tr(context),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
               ),
-              Spacer(),
-
+              const Spacer(),
             ],
           ),
-
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ItemWidgetWithIcon(
-                name: 'ضعيف',
+                name: 'scarce'.tr(context),
                 widget2: Row(
                   children: const [
                     Icon(
@@ -128,25 +125,24 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 },
                 groupValue: CalculatorCubit.get(context).groupValueOne,
               ),
-
               ItemWidgetWithIcon(
-                name: 'متوسط',
+                name: 'middle'.tr(context),
                 widget2: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                   ],
                 ),
@@ -157,28 +153,28 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueOne,
               ),
               ItemWidgetWithIcon(
-                name: 'غزير',
+                name: 'superabundant'.tr(context),
                 widget2: Row(
-                  children: const [
+                  children: [
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                     Icon(
                       Icons.water_drop_rounded,
-                      color: Color(0xff852727),
-                      size: 12,
+                      color: const Color(0xff852727),
+                      size: 11.sp,
                     ),
                   ],
                 ),
@@ -188,7 +184,6 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 },
                 groupValue: CalculatorCubit.get(context).groupValueOne,
               ),
-
             ],
           ),
           SizedBox(
@@ -196,23 +191,22 @@ class ShowCalenderAndDetails extends StatelessWidget {
           ),
 
           Row(
-            children:const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "الأعراض",
-                  style: TextStyle(fontSize: 12),
+                  "symptoms".tr(context),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
               ),
-              Spacer(),
-
+              const Spacer(),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ItemWidget(
-                name: 'صداع',
+                name: 'headache'.tr(context),
                 value: 1,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectTow(value);
@@ -220,7 +214,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueTow,
               ),
               ItemWidget(
-                name: 'تشنجات',
+                name: 'cramps'.tr(context),
                 value: 2,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectTow(value);
@@ -228,7 +222,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueTow,
               ),
               ItemWidget(
-                name: 'كل شيء على ما يرام',
+                name: 'All_is_well'.tr(context),
                 value: 3,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectTow(value);
@@ -251,23 +245,22 @@ class ShowCalenderAndDetails extends StatelessWidget {
           ),
 
           Row(
-            children:const [
+            children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "المزاج",
-                  style: TextStyle(fontSize: 12),
+                  "the_mood".tr(context),
+                  style: TextStyle(fontSize: 12.sp),
                 ),
               ),
-              Spacer(),
-
+              const Spacer(),
             ],
-          ), 
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ItemWidget(
-                name: 'توتر',
+                name: 'Nervous'.tr(context),
                 value: 1,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);
@@ -275,7 +268,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueThree,
               ),
               ItemWidget(
-                name: 'تعب واكتآب',
+                name: 'depressed'.tr(context),
                 value: 2,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);
@@ -283,7 +276,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueThree,
               ),
               ItemWidget(
-                name: 'جيد',
+                name: 'good'.tr(context),
                 value: 3,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);
@@ -299,7 +292,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ItemWidget(
-                name: 'حساسية مفرطة',
+                name: 'sensitivity'.tr(context),
                 value: 4,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);
@@ -307,7 +300,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueThree,
               ),
               ItemWidget(
-                name: 'تقلب المزاج',
+                name: 'Swings'.tr(context),
                 value: 5,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);
@@ -315,7 +308,7 @@ class ShowCalenderAndDetails extends StatelessWidget {
                 groupValue: CalculatorCubit.get(context).groupValueThree,
               ),
               ItemWidget(
-                name: 'غضب وانفعال',
+                name: 'Anger_and_Agitation'.tr(context),
                 value: 6,
                 onChanged: (value) {
                   CalculatorCubit.get(context).selectThree(value);

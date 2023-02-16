@@ -25,32 +25,6 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(ChangeRememberMeState());
   }
 
-  // void UserLogin({
-  //   required String phone,
-  //   required String password,
-  // }) {
-  //   emit(LoginLoadingState());
-  //   DioHelper.postData(url: login, data: {
-  //     'phone': phone,
-  //     'password': password,
-  //   }).then((value) {
-  //     debugPrint(value!.data);
-  //
-  //     user = UserModel.fromJson(value.data);
-  //
-  //     CacheHelper.saveData(key: 'name', value: user.firstName);
-  //     CacheHelper.saveData(key: 'address', value: user.address);
-  //     CacheHelper.saveData(key: 'email', value: user.email);
-  //     CacheHelper.saveData(key: 'api_token', value: user.apiToken);
-  //     CacheHelper.saveData(key: 'type', value: user.type);
-  //
-  //     debugPrint(CacheHelper.getData(key: 'type'));
-  //     emit(LoginSuccessState(user: user));
-  //   }).catchError((error) {
-  //     debugPrint(error.toString());
-  //     emit(LoginErrorState(error: ''));
-  //   });
-  // }
   Future<UserModel?> login({
     required String password,
     required String phone,
@@ -85,30 +59,39 @@ class LoginCubit extends Cubit<LoginStates> {
     required String phone,
   }) async {
     emit(LoginLoadingState());
-    var myUrl =
-        Uri.parse("https://karam-app.com/celo/queencare/public/api/login");
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl =
+            Uri.parse("https://karam-app.com/celo/queencare/public/api/login");
 
-    final response = await http.post(myUrl, body: {
-      'phone': phone,
-      "password": password,
-    });
+        final response = await http.post(myUrl, body: {
+          'phone': phone,
+          "password": password,
+        });
 
-    var data = json.decode(response.body);
-    debugPrint(response.body);
+        var data = json.decode(response.body);
+        debugPrint(response.body);
 
-    if (response.statusCode == 200) {
-      UserModel user = UserModel.fromJson(data);
-      CacheHelper.saveData(key: 'address', value: user.address);
+        if (response.statusCode == 200) {
+          UserModel user = UserModel.fromJson(data);
+          CacheHelper.saveData(key: 'address', value: user.address);
 
-      CacheHelper.saveData(key: 'name', value: user.firstName);
-      CacheHelper.saveData(key: 'email', value: user.email);
-      CacheHelper.saveData(key: 'api_token', value: user.apiToken);
-      CacheHelper.saveData(key: 'type', value: user.type);
-      debugPrint(CacheHelper.getData(key: 'type'));
+          CacheHelper.saveData(key: 'name', value: user.firstName);
+          CacheHelper.saveData(key: 'email', value: user.email);
+          CacheHelper.saveData(key: 'api_token', value: user.apiToken);
+          CacheHelper.saveData(key: 'type', value: user.type);
+          debugPrint(CacheHelper.getData(key: 'type'));
 
-      emit(LoginSuccessState(user: user));
-    } else if (response.statusCode == 404) {
-      emit(LoginErrorState(error: 'Error'));
+          emit(LoginSuccessState(user: user));
+        } else if (response.statusCode == 404) {
+          emit(LoginErrorState(error: 'Error'));
+        }
+      } catch (e) {
+        emit(LoginErrorState(error: 'Error'));
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+      return null;
     }
   }
 }

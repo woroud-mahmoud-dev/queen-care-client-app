@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
@@ -9,7 +11,8 @@ import 'package:queen_care/modules/auth/pages/profile/cubit/convert_to_company_c
 import 'package:queen_care/modules/auth/pages/profile/widgets/custom_radio_button.dart';
 
 class ConvertToCompany extends StatefulWidget {
-  ConvertToCompany({Key? key, required this.tabController}) : super(key: key);
+  const ConvertToCompany({Key? key, required this.tabController})
+      : super(key: key);
   final TabController tabController;
 
   @override
@@ -17,11 +20,11 @@ class ConvertToCompany extends StatefulWidget {
 }
 
 class _ConvertToCompanyState extends State<ConvertToCompany> {
-  TextEditingController addressController = TextEditingController();
+  final addressController = TextEditingController();
 
-  TextEditingController idNumberController = TextEditingController();
+  final idNumberController = TextEditingController();
 
-  TextEditingController idNumberController2 = TextEditingController();
+  final idNumberController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
       child: BlocConsumer<ConvertToCompanyCubit, ConvertToCompanyState>(
         listener: (context, state) {
           if (state is ConvertToCompanySuccess) {
-            showToast(text: 'تم التحويل إلى شركة بنجاح', color: Colors.green);
+            showToast(text: 'converted'.tr(context), color: kBlueGreen);
             widget.tabController.animateTo(3);
           }
         },
@@ -43,6 +46,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                 padding: const EdgeInsets.all(20),
                 width: w,
                 height: h,
+                decoration: customBoxDecoration,
                 child: Column(
                   children: [
                     Row(
@@ -50,20 +54,22 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                       children: [
                         const BackButton(),
                         SizedBox(
-                          width: w * 0.2,
+                          width: w * 0.14,
                         ),
-                        const TitleWidget(text: 'التحويل إلى شركة'),
+                        TitleWidget(
+                          text: 'Transfer_to_company'.tr(context),
+                        ),
                         const Spacer(),
                       ],
                     ),
                     const SizedBox(
                       height: 50,
                     ),
-                    const Align(
+                    Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        'اختر النوع ',
-                        style: TextStyle(fontSize: 14),
+                        'Choose_Type'.tr(context),
+                        style: TextStyle(fontSize: 14.sp),
                       ),
                     ),
                     DropdownButton(
@@ -96,10 +102,12 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                         ? Column(
                             children: [
                               customTextField(
-                                  validate: (value) {},
+                                  validate: (value) {
+                                    return null;
+                                  },
                                   keyboardType: TextInputType.name,
-                                  label: 'العنوان',
-                                  hintText: 'أدخل عنوان الشركة',
+                                  label: 'address'.tr(context),
+                                  hintText: 'address'.tr(context),
                                   isPassword: false,
                                   icon: const Icon(
                                     Icons.location_on,
@@ -111,14 +119,16 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                               SizedBox(height: h * 0.03),
                               customTextField(
                                   keyboardType: TextInputType.phone,
-                                  label: 'رقم السجل التجاري',
-                                  hintText: 'ادخل رقم سجلك التجاري',
+                                  label: 'Comm'.tr(context),
+                                  hintText: 'Comm'.tr(context),
                                   isPassword: false,
                                   icon: const Icon(
                                     Icons.numbers,
                                     color: kPrimaryColor,
                                   ),
-                                  validate: (value) {},
+                                  validate: (value) {
+                                    return null;
+                                  },
                                   controller: idNumberController,
                                   context: context,
                                   onEditingComplete: () {}),
@@ -126,13 +136,16 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                           )
                         : Column(
                             children: [
-                              const Text('هل لديك سجل تجاري ؟'),
+                              Text(
+                                'have_Commercial'.tr(context),
+                                style: TextStyle(fontSize: 15.sp),
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   CustomRadioButton(
-                                    name: 'نعم',
+                                    name: 'yes'.tr(context),
                                     value: 1,
                                     onChanged: (val) {
                                       ConvertToCompanyCubit.get(context)
@@ -143,7 +156,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                                             .hasRegister,
                                   ),
                                   CustomRadioButton(
-                                    name: 'لا',
+                                    name: 'no'.tr(context),
                                     value: 0,
                                     onChanged: (val) {
                                       ConvertToCompanyCubit.get(context)
@@ -160,8 +173,8 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                                       1
                                   ? customTextField(
                                       keyboardType: TextInputType.number,
-                                      label: 'رقم السجل التجاري',
-                                      hintText: 'ادخل رقم سجلك التجاري',
+                                      label: 'Comm'.tr(context),
+                                      hintText: 'Comm'.tr(context),
                                       isPassword: false,
                                       icon: const Icon(
                                         Icons.numbers,
@@ -182,7 +195,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                             color: kPrimaryColor,
                           ))
                         : AuthButton(
-                            title: 'حفظ',
+                            title: 'save'.tr(context),
                             onTap: () {
                               ConvertToCompanyCubit.get(context)
                                   .registerCompany(

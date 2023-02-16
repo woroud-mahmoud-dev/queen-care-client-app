@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
-
 import 'package:queen_care/modules/home/main_screen.dart';
 
 class ReplaceDoneWidget extends StatelessWidget {
@@ -20,7 +18,6 @@ class ReplaceDoneWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,9 +38,8 @@ class ReplaceDoneWidget extends StatelessWidget {
             title: 'Back'.tr(context),
             onTap: () {
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                      builder: (_) => const MainScreen()),
-                      (route) => false);
+                  MaterialPageRoute(builder: (_) => const MainScreen()),
+                  (route) => false);
             },
             color: kPrimaryColor,
             width: w * 0.7,

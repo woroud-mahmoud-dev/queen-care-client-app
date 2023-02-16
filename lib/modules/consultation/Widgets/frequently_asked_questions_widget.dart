@@ -13,36 +13,30 @@ class FrequentlyAskedQuestionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics:
-            const BouncingScrollPhysics(),
-            itemCount:
-            allConsultationList.length,
-            itemBuilder:
-                (BuildContext context,
-                int index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) =>
-                              ConsultationDetails(
-                                  consultation:
-                                  allConsultationList[
-                                  index])));
-                },
-                child: Padding(
-                  padding:
-                  const EdgeInsets.all(
-                      5.0),
-                  child: Text(
-                      '- ${allConsultationList[index].question}',
-                      maxLines: 3),
-                ),
-              );
-            }));
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Expanded(
+          child: ListView.builder(
+              shrinkWrap: true,
+              clipBehavior: Clip.antiAlias,
+              physics: const BouncingScrollPhysics(),
+              itemCount: allConsultationList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => ConsultationDetails(
+                                consultation: allConsultationList[index])));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text('- ${allConsultationList[index].question}',
+                        maxLines: 3),
+                  ),
+                );
+              })),
+    );
   }
 }

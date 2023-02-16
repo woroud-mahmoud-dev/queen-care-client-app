@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-
-import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/models/consultation.dart';
 
 class AnswersWidget extends StatelessWidget {
@@ -22,25 +19,15 @@ class AnswersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index2) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: w * 0.05,
-              decoration: const BoxDecoration(
-                  border: Border(
-                    // right: BorderSide(
-                    //   color: darkGrey2,
-                    // ),
-                    bottom: BorderSide(
-                      color: darkGrey2,
-                    ),
-                  )),
-            ),
             Expanded(
               child: Text(
-                allConsultationsList[index].answer![index2].answer!,
+                // ignore: prefer_interpolation_to_compose_strings
+                '_'" " + allConsultationsList[index].answer![index2].answer!,
                 style: const TextStyle(fontSize: 12),
                 maxLines: 5,
               ),

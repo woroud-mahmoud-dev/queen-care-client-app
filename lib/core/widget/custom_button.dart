@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 class GeneralButton extends StatelessWidget {
@@ -36,7 +37,7 @@ class GeneralButton extends StatelessWidget {
               Text(
                 title,
                 style:
-                    TextStyle(color: textColor ?? Colors.white, fontSize: 16),
+                    TextStyle(color: textColor ?? Colors.white, fontSize: 15.sp),
               ),
             ],
           ),
@@ -89,9 +90,9 @@ class AuthButton extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                style:  TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.normal),
               ),
             ],
@@ -147,9 +148,10 @@ class CustomButton extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
+                maxLines: 2,
+                style:  TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.normal),
               ),
             ],
@@ -307,12 +309,14 @@ class AuthButton1 extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal),
+                FittedBox(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal),
+                  ),
                 ),
               ],
             ),

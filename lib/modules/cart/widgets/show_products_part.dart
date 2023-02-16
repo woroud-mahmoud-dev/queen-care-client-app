@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/widgets/cart_widget.dart';
@@ -8,7 +7,7 @@ class ShowCartProducts extends StatelessWidget {
   const ShowCartProducts({
     Key? key,
     required this.allOrders,
-   required this.numberOfItems,
+    required this.numberOfItems,
   }) : super(key: key);
 
   final List<CartModel> allOrders;
@@ -17,35 +16,30 @@ class ShowCartProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height* 0.7,
-      child: ListView.builder(clipBehavior: Clip.hardEdge,
-          physics:const BouncingScrollPhysics(),
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: ListView.builder(
+          clipBehavior: Clip.hardEdge,
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(15),
-
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int int) {
-
-
             return CartWidget(
               productId: int,
-
-              cartModel: allOrders[int], numberOfItems: numberOfItems,
-
-
-
+              cartModel: allOrders[int],
+              numberOfItems: numberOfItems,
             );
           },
-
-          itemCount:allOrders.length// clientList.length//
-      ),
+          itemCount: allOrders.length // clientList.length//
+          ),
     );
   }
 }
+
 class ShowCartProducts2 extends StatelessWidget {
   const ShowCartProducts2({
     Key? key,
     required this.allOrders,
- required this.numberOfItems,
+    required this.numberOfItems,
   }) : super(key: key);
 
   final List<CartModel> allOrders;
@@ -54,27 +48,20 @@ class ShowCartProducts2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: MediaQuery.of(context).size.height* 0.7,
-      child: ListView.builder(clipBehavior: Clip.hardEdge,
-          physics:const BouncingScrollPhysics(),
+      child: ListView.builder(
+          clipBehavior: Clip.hardEdge,
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(15),
-
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int int) {
-
-
             return CartWidget2(
               productId: int,
-
-              cartModel: allOrders[int], numberOfItems: numberOfItems,
-
-
-
+              cartModel: allOrders[int],
+              numberOfItems: numberOfItems,
             );
           },
-
-          itemCount:allOrders.length// clientList.length//
-      ),
+          itemCount: allOrders.length // clientList.length//
+          ),
     );
   }
 }

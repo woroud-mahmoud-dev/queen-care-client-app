@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -27,7 +28,6 @@ class MyPointsBalance extends StatelessWidget {
               children: [
                 Row(
                   children: [
-
                     InkWell(
                       child: const Icon(
                         Icons.arrow_back,
@@ -40,7 +40,6 @@ class MyPointsBalance extends StatelessWidget {
                     const Spacer(),
                   ],
                 ),
-
                 SizedBox(
                   height: h * 0.01,
                 ),
@@ -49,9 +48,9 @@ class MyPointsBalance extends StatelessWidget {
                   children: [
                     Text(
                       'my_points_balance'.tr(context),
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: kBlueGreen,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                       ),
                     ),
                   ],
@@ -71,18 +70,18 @@ class MyPointsBalance extends StatelessWidget {
                           )
                         : state is DeviceNotConnectedState
                             ? Expanded(
-                              child: NoInternetWidgetWithoutImage(
+                                child: NoInternetWidgetWithoutImage(
                                   onPressed: () {
                                     PointsCubit.get(context).getMyPoints();
                                   },
                                 ),
-                            )
+                              )
                             : Row(
                                 children: [
                                   Text(
                                     '${"my_current_balance".tr(context)} : ${PointsCubit.get(context).myPoints == '' ? '0' : double.parse(PointsCubit.get(context).myPoints).round()}  ${"point".tr(context)}',
-                                    style: const TextStyle(
-                                      fontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
                                     ),
                                   ),
                                   const Spacer(),
@@ -99,7 +98,6 @@ class MyPointsBalance extends StatelessWidget {
                   },
                   title: 'replace'.tr(context),
                 ),
-
                 Center(
                   child: Image.asset(
                     'assets/images/logo.png',

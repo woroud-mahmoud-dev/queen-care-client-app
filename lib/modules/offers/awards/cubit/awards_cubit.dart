@@ -39,14 +39,13 @@ class AwardsCubit extends Cubit<AwardsState> {
                 createdAt: e.createdAt,
                 updatedAt: e.updatedAt))
             .toList();
-        myPointsPrizes=allData.pointsPrize
+        myPointsPrizes = allData.pointsPrize
             .map((e) => PointsPrize(
-            id: e.id,
-            userId: e.userId,
-
-            prize: e.prize,
-            createdAt: e.createdAt,
-            updatedAt: e.updatedAt))
+                id: e.id,
+                userId: e.userId,
+                prize: e.prize,
+                createdAt: e.createdAt,
+                updatedAt: e.updatedAt))
             .toList();
         debugPrint(myPrizes.toString());
 

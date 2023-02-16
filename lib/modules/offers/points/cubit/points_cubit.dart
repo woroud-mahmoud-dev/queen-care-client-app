@@ -14,12 +14,16 @@ class PointsCubit extends Cubit<PointsState> {
   static PointsCubit get(context) => BlocProvider.of(context);
   dynamic myPoints;
   List<String> myPointsPrizeList = [];
+
+  final InternetConnectionChecker connectionChecker =
+      InternetConnectionChecker();
+  ApiBaseHelper apiBaseHelper = ApiBaseHelper();
   Future<dynamic> getMyPoints() async {
     emit(GetMyPointsLoading());
 
-    try{
+    try {
       var myUrl =
-      Uri.parse("https://karam-app.com/celo/queencare/public/api/my_point");
+          Uri.parse("https://karam-app.com/celo/queencare/public/api/my_point");
 
       final response = await http.post(myUrl, body: {
         'token': CacheHelper.getData(key: 'api_token'),
@@ -38,21 +42,16 @@ class PointsCubit extends Cubit<PointsState> {
         // emit(GetMyPointsError(error: 'Error'));
         debugPrint('500 Internal Server Error');
       }
-
-    }catch(e){
+    } catch (e) {
       emit(GetMyPointsError(error: 'Error:$e'));
-
     }
-    if(await connectionChecker.hasConnection){}else{
+    if (await connectionChecker.hasConnection) {
+    } else {
       emit(DeviceNotConnectedState());
     }
 
     return myPoints;
   }
-
-  final InternetConnectionChecker connectionChecker =
-      InternetConnectionChecker();
-  ApiBaseHelper apiBaseHelper = ApiBaseHelper();
 
   Future<List<String>> getMyPointsPrize() async {
     emit(GetMyPointsPrizeLoadingState());

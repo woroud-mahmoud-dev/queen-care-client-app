@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/utils/constant.dart';
@@ -12,11 +11,11 @@ class ProfileItem extends StatelessWidget {
   final void Function()? onTap;
   const ProfileItem(
       {Key? key,
-        this.img,
-        required this.text,
-        required this.onTap,
-        this.iconNotImage,
-        this.iconData})
+      this.img,
+      required this.text,
+      required this.onTap,
+      this.iconNotImage,
+      this.iconData})
       : super(key: key);
 
   @override
@@ -32,8 +31,6 @@ class ProfileItem extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-
-
             Text(text),
             const Spacer(),
             const SizedBox(
@@ -41,13 +38,11 @@ class ProfileItem extends StatelessWidget {
             ),
             iconNotImage == true
                 ? Icon(
-              iconData!,
-              size: 30,
-              color: kPrimaryColor,
-            )
+                    iconData!,
+                    size: 30,
+                    color: kPrimaryColor,
+                  )
                 : SvgPicture.asset(img!),
-
-
           ],
         ),
       ),

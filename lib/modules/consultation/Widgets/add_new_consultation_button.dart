@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
@@ -22,8 +21,7 @@ class AddNewConsultation extends StatelessWidget {
         title: 'add_consulting'.tr(context),
         onTap: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-                builder: (_) => AddConsultation()),
+            MaterialPageRoute(builder: (_) => AddConsultation()),
           );
         },
         color: kPrimaryColor,

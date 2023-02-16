@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HowToGetPoints extends StatelessWidget {
   final TabController tabController;
@@ -39,9 +40,9 @@ class HowToGetPoints extends StatelessWidget {
             children: [
               Text(
                 'points_ways'.tr(context),
-                style: const TextStyle(
+                style:  TextStyle(
                     color: kPrimaryColor,
-                    fontSize: 18,
+                    fontSize: 18.sp,
                 ),
               ),
             ],
@@ -53,8 +54,8 @@ class HowToGetPoints extends StatelessWidget {
             children: [
               Text(
                 'get_points'.tr(context),
-                style: const TextStyle(
-                    color: darkGrey2, fontSize: 14, ),
+                style:  TextStyle(
+                    color: darkGrey2, fontSize: 14.sp, ),
               ),
               const Spacer(),
             ],
@@ -64,7 +65,7 @@ class HowToGetPoints extends StatelessWidget {
           ),
           GeneralButton(
             onTap: () {
-              tabController.animateTo(9);
+              tabController.animateTo(15);
             },
             title: 'general_co'.tr(context),
             margin: const EdgeInsets.symmetric(horizontal: 15),

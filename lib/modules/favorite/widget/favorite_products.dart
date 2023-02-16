@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:queen_care/models/favoriteModel.dart';
 import 'package:queen_care/modules/favorite/cubit/favorite_cubit.dart';
 import 'package:queen_care/modules/favorite/widget/favorite_card.dart';
+
 class FavoriteProducts extends StatelessWidget {
   const FavoriteProducts({
     Key? key,
@@ -23,18 +23,17 @@ class FavoriteProducts extends StatelessWidget {
       crossAxisSpacing: 15,
       mainAxisSpacing: 15,
       crossAxisCount: 2,
-      children: List.generate(favoriteProductsList.length,
-              (int index) {
-            return FavoriteCardWidget(
-              h: h,
-              w: w,
-              onPressed: () {
-                FavoriteCubit.get(context).deleteFromFavorite(
-                    favoriteProductsList[index].mission.id);
-              },
-              favoriteModel: favoriteProductsList[index],
-            );
-          }),
+      children: List.generate(favoriteProductsList.length, (int index) {
+        return FavoriteCardWidget(
+          h: h,
+          w: w,
+          onPressed: () {
+            FavoriteCubit.get(context)
+                .deleteFromFavorite(favoriteProductsList[index].mission.id);
+          },
+          favoriteModel: favoriteProductsList[index],
+        );
+      }),
     );
   }
 }

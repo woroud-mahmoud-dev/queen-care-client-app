@@ -8,7 +8,7 @@ import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
 class Profile extends StatefulWidget {
-   const Profile({Key? key, required this.tabController}) : super(key: key);
+  const Profile({Key? key, required this.tabController}) : super(key: key);
   final TabController tabController;
 
   @override
@@ -31,14 +31,16 @@ class _ProfileState extends State<Profile> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Spacer(),
-              CustomTitleWidget(text: 'الحساب الشخصي'),
-              Spacer(),
+            children: [
+              const Spacer(),
+              CustomTitleWidget(
+                text: 'Personal_account'.tr(context),
+              ),
+              const Spacer(),
             ],
           ),
-           SizedBox(
-            height: h*0.1,
+          SizedBox(
+            height: h * 0.1,
           ),
           Align(
             alignment: Alignment.center,
@@ -69,7 +71,7 @@ class _ProfileState extends State<Profile> {
           ProfileItem(
             iconNotImage: true,
             iconData: Icons.person,
-            text: 'profile'.tr(context),
+            text: 'edite_profile'.tr(context),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => EditeProfile()));
@@ -79,7 +81,7 @@ class _ProfileState extends State<Profile> {
             height: h * 0.05,
           ),
           ProfileItem(
-            iconData:Icons.compare_arrows,
+            iconData: Icons.compare_arrows,
             iconNotImage: true,
             text: 'Transfer_to_company'.tr(context),
             onTap: () {
@@ -116,4 +118,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-

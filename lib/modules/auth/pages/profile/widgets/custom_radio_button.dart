@@ -1,24 +1,25 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
 // ignore: must_be_immutable
 class CustomRadioButton extends StatefulWidget {
   final int value;
-  final  String name;
-
+  final String name;
   var groupValue;
-
   final void Function(int) onChanged;
   CustomRadioButton(
       {Key? key,
-        required this.value,
-        required this.name,
-
-        required this.groupValue,
-        required this.onChanged})
+      required this.value,
+      required this.name,
+      required this.groupValue,
+      required this.onChanged})
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomRadioButtonState createState() => _CustomRadioButtonState();
 }
 
@@ -45,31 +46,26 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child:  Text(
+                  child: Text(
                     widget.name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: selected ? 14 : 12,
+                        fontSize: selected ? 14.sp : 12.sp,
                         fontWeight:
-                        !selected ? FontWeight.bold : FontWeight.bold,
-                        color:  selected ?kPrimaryColor :darkGrey2),
+                            !selected ? FontWeight.bold : FontWeight.bold,
+                        color: selected ? kPrimaryColor : darkGrey2),
                   ),
                 ),
               ),
-
               Container(
                 margin: const EdgeInsets.all(5),
                 width: 20,
                 height: 20,
                 decoration: BoxDecoration(
-                    color: selected?kPrimaryColor:Colors.white,
+                    color: selected ? kPrimaryColor : Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(
-                        color: kPrimaryColor
-                    )
-                ),
+                    border: Border.all(color: kPrimaryColor)),
               )
-
             ],
           ),
         ),

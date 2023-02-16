@@ -14,10 +14,11 @@ import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
 
+// ignore: must_be_immutable
 class CompleteRegisterScreen extends StatelessWidget {
   CompleteRegisterScreen({Key? key, required this.email}) : super(key: key);
   final String email;
-
+  String? formattedDate;
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -29,7 +30,7 @@ class CompleteRegisterScreen extends StatelessWidget {
   final areaController = TextEditingController();
   final myService = MyService();
   final formKey = GlobalKey<FormState>();
-  final dateTime = DateTime.now();
+  DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -40,22 +41,20 @@ class CompleteRegisterScreen extends StatelessWidget {
         child: BlocConsumer<RegisterCubit, RegisterStates>(
           listener: (context, state) {
             if (state is RegisterSuccessState) {
-              showToast(text: ' تم انشاء الحساب بنجاح', color: Colors.green);
+              // showToast(text: ' تم انشاء الحساب بنجاح', color: Colors.green);
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => MainScreen()),
+                  MaterialPageRoute(builder: (_) => const MainScreen()),
                   (route) => false);
             }
 
             if (state is RegisterErrorState) {
-              showToast(text: state.error, color: Colors.red);
+              showToast(text: state.error, color: kBlueGreen);
             }
             if (state is NumberUsedState) {
-              showToast(text: state.error, color: Colors.amber);
+              showToast(text: state.error, color: kBlueGreen);
             }
           },
           builder: (context, state) {
-            String? formattedDate;
-
             return Container(
               padding: const EdgeInsets.all(20),
               width: w,
@@ -86,7 +85,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'First Name is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -108,7 +107,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Last Name is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -130,7 +129,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.phone,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Phone is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -152,7 +151,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Country is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -174,7 +173,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'City is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -196,7 +195,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Area is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -218,7 +217,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.name,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Address is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -240,9 +239,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Password is Required ';
+                                  return 'required_field'.tr(context);
                                 } else if (value.length < 6) {
-                                  return 'Password must be 6 characters at least';
+                                  return 'l_password'.tr(context);
                                 } else {
                                   return null;
                                 }
@@ -264,11 +263,11 @@ class CompleteRegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.text,
                               validate: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Confirm Password is Required ';
+                                  return 'required_field'.tr(context);
                                 } else {
                                   if (passwordController.text.trim() !=
                                       confirmPasswordController.text.trim()) {
-                                    return 'Password  and confirm password do not match ';
+                                    return 'c_password'.tr(context);
                                   } else {
                                     return null;
                                   }
@@ -294,7 +293,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                             validator: (input) {
                               if (RegisterCubit.get(context).birthdayDateTime ==
                                   null) {
-                                return 'BirthDate is  Required ';
+                                return 'required_field'.tr(context);
                               } else {
                                 return null;
                               }
@@ -323,7 +322,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                     const BorderSide(color: kPrimaryColor),
                               ),
                               labelStyle: const TextStyle(
-                                  color: Colors.white, fontSize: 17),
+                                  color: Colors.black12, fontSize: 17),
                               suffix: GestureDetector(
                                 onTap: () async {
                                   DateTime? newDate = await showDatePicker(
@@ -382,7 +381,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                 groupValue:
                                     RegisterCubit.get(context).genderGroupValue,
                                 icon: Icons.man,
-                                name: 'Male',
+                                name: 'male'.tr(context),
                                 value: 1,
                                 onChanged: (val) {
                                   RegisterCubit.get(context).selectGender(val);
@@ -392,7 +391,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                 groupValue:
                                     RegisterCubit.get(context).genderGroupValue,
                                 icon: Icons.woman,
-                                name: 'Female',
+                                name: 'female'.tr(context),
                                 value: 0,
                                 onChanged: (val) {
                                   RegisterCubit.get(context).selectGender(val);
@@ -405,9 +404,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                             children: [
                               Visibility(
                                   visible: RegisterCubit.get(context).visible,
-                                  child: const Text(
-                                    'please select your gender',
-                                    style: TextStyle(
+                                  child: Text(
+                                    'required_field'.tr(context),
+                                    style: const TextStyle(
                                         color: Color.fromARGB(255, 205, 35, 23),
                                         fontSize: 10),
                                   )),

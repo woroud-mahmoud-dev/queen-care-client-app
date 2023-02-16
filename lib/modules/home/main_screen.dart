@@ -10,26 +10,28 @@ import 'package:queen_care/modules/home/widgets/search_bar.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-
     final List<MainScreenItemModel> myList = [
       MainScreenItemModel(
-          title: 'products'.tr(context), id: 1, iconName: Icons.card_giftcard, tapId: 0),
+          title: 'products'.tr(context),
+          id: 1,
+          iconName: Icons.card_giftcard,
+          tapId: 0),
       MainScreenItemModel(
           title: 'calculator'.tr(context),
           id: 2,
           iconName: Icons.calendar_month_sharp,
           tapId: 7),
-      MainScreenItemModel(title: 'QR', id: 3, iconName: Icons.qr_code, tapId: 3),
+      MainScreenItemModel(
+          title: 'QR', id: 3, iconName: Icons.qr_code, tapId: 3),
       MainScreenItemModel(
           title: 'offers_and_competition'.tr(context),
           id: 4,
           iconName: Icons.local_offer_outlined,
           tapId: 1),
       MainScreenItemModel(
-          title: 'blogging'.tr(context),
+          title: 'advices'.tr(context),
           id: 5,
           iconName: Icons.corporate_fare_rounded,
           tapId: 16),
@@ -63,4 +65,3 @@ class MainScreen extends StatelessWidget {
     );
   }
 }
-

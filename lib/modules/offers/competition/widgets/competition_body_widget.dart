@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -34,9 +35,9 @@ class CompetitionBodyWidget extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: Text(
             'general_co'.tr(context),
-            style: const TextStyle(
+            style: TextStyle(
               color: kBlueGreen,
-              fontSize: 18,
+              fontSize: 18.sp,
             ),
           ),
         ),
@@ -47,8 +48,8 @@ class CompetitionBodyWidget extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: Text(
             'answer_questions_'.tr(context),
-            style: const TextStyle(
-              fontSize: 14,
+            style: TextStyle(
+              fontSize: 14.sp,
             ),
           ),
         ),
@@ -71,8 +72,8 @@ class CompetitionBodyWidget extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Text(
             questionsList[CompetitionCubit.get(context).indexQ].ques,
-            style: const TextStyle(
-              fontSize: 14,
+            style: TextStyle(
+              fontSize: 14.sp,
             ),
             textAlign: TextAlign.center,
           ),

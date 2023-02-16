@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/models/competition.dart';
@@ -26,9 +27,8 @@ class CompetitionWidget extends StatelessWidget {
         height: h * 0.17,
         width: w,
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 5,
           margin: const EdgeInsets.symmetric(vertical: 5),
           child: Stack(
@@ -36,7 +36,7 @@ class CompetitionWidget extends StatelessWidget {
             children: [
               Positioned(
                 top: 0,
-                right: 10,
+                right: 5,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: kPrimaryColor,
@@ -51,45 +51,45 @@ class CompetitionWidget extends StatelessWidget {
                       bottomLeft: Radius.circular(7),
                     ),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: h * 0.06,
-                  width: w * 0.29,
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                  height: h * 0.07,
+                  width: w * 0.35,
                   child: Center(
-                    child: Text(
-                      competition.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
+                    child: FittedBox(
+                      child: Text(
+                        competition.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
                       ),
                     ),
                   ),
                 ),
               ),
               Positioned(
-                top: 10,
-                left: 20,
+                top: 15,
+                left: 5,
                 child: SizedBox(
                   child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: Text(
                       ' مستمرة حتى  ${competition.endDate.day}/ ${competition.endDate.year}/${competition.endDate.month}',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: darkGrey, fontSize: 12),
+                      style: TextStyle(color: Colors.black, fontSize: 11.sp),
                     ),
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 30,
-                right: 20,
-                child: SizedBox(
-                  child: Text(
-                    ' ${competition.description}  ',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.black, fontSize: 10),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   bottom: 30,
+              //   right: 20,
+              //   child: SizedBox(
+              //     child: Text(
+              //       ' ${competition.description}  ',
+              //       textAlign: TextAlign.center,
+              //       style:  TextStyle(color: Colors.black, fontSize: 11.sp),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

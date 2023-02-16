@@ -8,7 +8,6 @@ import 'package:queen_care/models/competition.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/models/points_result_model.dart';
 import 'package:queen_care/models/prize_model.dart';
-import 'package:queen_care/models/profile.dart';
 import 'package:queen_care/models/question.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:queen_care/network/remote/http_helper.dart';
@@ -120,7 +119,6 @@ class CompetitionCubit extends Cubit<CompetitionState> {
       emit(DeviceNotConnectedState());
     }
 
-
     return prizeModel;
   }
 
@@ -218,8 +216,3 @@ class CompetitionCubit extends Cubit<CompetitionState> {
     }
   }
 }
-// if (await connectionChecker.hasConnection) {
-// try{}catch(e){}
-// }else{
-// emit(DeviceNotConnectedState());
-// }

@@ -34,15 +34,15 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
-        name: json["name"],
-        image: json["image"],
-        price: json["price"],
-        type: json["type"],
-        description: json["description"],
-        cases: json["cases"],
-        state: json["state"],
-        isfav: json["isfav"],
-        iscart: json["iscart"],
+        name: json["name"]??"",
+        image: json["image"]??"",
+        price: json["price"]??"",
+        type: json["type"]??"",
+        description: json["description"]??"",
+        cases: json["cases"]??"",
+        state: json["state"]??"",
+        isfav: json["isfav"]??"",
+        iscart: json["iscart"]??"",
       );
 
   Map<String, dynamic> toJson() => {
