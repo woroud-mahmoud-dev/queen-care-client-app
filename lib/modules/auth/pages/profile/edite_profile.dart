@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
@@ -14,6 +13,7 @@ import 'package:queen_care/core/widget/error_widget.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
@@ -103,31 +103,11 @@ class EditeProfile extends StatelessWidget {
                                 const SizedBox(
                                   height: 50,
                                 ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: SizedBox(
-                                    height: h * 0.18,
-                                    width: h * 0.18,
-                                    child: Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Container(
-                                            decoration: BoxDecoration(
-                                                color: const Color(0xffCCCCCC),
-                                                borderRadius:
-                                                    BorderRadius.circular(5))),
-                                        Positioned(
-                                            right: -10,
-                                            bottom: -10,
-                                            child: GestureDetector(
-                                              child: SvgPicture.asset(
-                                                  'assets/icons/camera_icon.svg'),
-                                            )),
-                                      ],
-                                    ),
-                                  ),
+                                LogoImage(
+                                  w: w * 0.5,
+                                  h: h * 0.2,
                                 ),
-                                SizedBox(height: h * 0.1),
+                                SizedBox(height: h * 0.03),
                                 customTextField(
                                     keyboardType: TextInputType.name,
                                     label: 'f_name'.tr(context),

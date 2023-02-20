@@ -6,9 +6,11 @@ import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
+import 'package:queen_care/core/widget/error_snack_bar.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
+import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
@@ -52,6 +54,12 @@ class CompleteRegisterScreen extends StatelessWidget {
             }
             if (state is NumberUsedState) {
               showToast(text: state.error, color: kBlueGreen);
+            }
+            if (state is DeviceNotConnectedState) {
+              showSnackBar(context);
+            }
+            if (state is ErrorState) {
+              showErrorSnackBar(context);
             }
           },
           builder: (context, state) {

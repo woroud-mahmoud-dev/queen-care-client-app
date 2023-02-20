@@ -101,12 +101,14 @@ class Awards extends StatelessWidget {
                           : (myPrizesList.isEmpty)
                               ? SizedBox(
                                   height: h * 0.5,
-                                  child: Text(
-                                    'no_prizes'.tr(context),
-                                    style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.bold),
+                                  child: Center(
+                                    child: Text(
+                                      'no_prizes'.tr(context),
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 )
                               : Column(

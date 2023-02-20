@@ -34,6 +34,7 @@ class PointsCubit extends Cubit<PointsState> {
         myPoints = response.body;
 
         debugPrint('myPHints$myPoints');
+        debugPrint(myPoints.runtimeType.toString());
 
         emit(GetMyPointsLoaded(myPoints!));
       } else if (response.statusCode == 404) {
@@ -60,7 +61,7 @@ class PointsCubit extends Cubit<PointsState> {
       try {
         var point = await getMyPoints();
         var data = await apiBaseHelper.post('redeem', {
-          'point': point,
+          'point': point.toString().isEmpty?"0":point,
         });
         myPointsPrizeList = MyPointsPrizeModel.fromJson(data).prize;
 

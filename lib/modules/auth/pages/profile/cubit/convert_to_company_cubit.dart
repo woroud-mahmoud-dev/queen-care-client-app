@@ -48,6 +48,7 @@ class ConvertToCompanyCubit extends Cubit<ConvertToCompanyState> {
       debugPrint(response.body);
 
       debugPrint('register company done !!!');
+      CacheHelper.saveData(key: 'RoleId', value: '4');
 
       emit(ConvertToCompanySuccess());
     } else if (response.statusCode == 404) {

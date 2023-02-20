@@ -11,6 +11,5 @@ class InternetChecker implements NetworkInfo {
 
 
   @override
-  // TODO: implement isConnected
   Future<bool> get isConnected => connectionChecker.hasConnection;
 }

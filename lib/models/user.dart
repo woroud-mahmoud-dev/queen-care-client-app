@@ -19,7 +19,6 @@ class UserModel {
     required this.type,
     required this.birthday,
     required this.apiToken,
-   
     required this.id,
   });
 
@@ -41,39 +40,37 @@ class UserModel {
   int id;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    gender: json["gender"],
-    city: json["city"],
-    area: json["area"],
-    country: json["country"],
-    address: json["address"],
-    phone: json["phone"],
-    roleId: json["role_id"],
-    type: json["type"]??"0",
-    birthday: DateTime.parse(json["birthday"]),
-    apiToken: json["api_token"],
-
-    id: json["id"],
-  );
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        gender: json["gender"],
+        city: json["city"],
+        area: json["area"],
+        country: json["country"],
+        address: json["address"],
+        phone: json["phone"],
+        roleId: json["role_id"],
+        type: json["type"] ?? "0",
+        birthday: DateTime.parse(json["birthday"]),
+        apiToken: json["api_token"],
+        id: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "gender": gender,
-    "city": city,
-    "area": area,
-    "country": country,
-    "address": address,
-    "phone": phone,
-    "role_id": roleId,
-    "type": type,
-    "birthday": "${birthday.year.toString().padLeft(4, '0')}-${birthday.month.toString().padLeft(2, '0')}-${birthday.day.toString().padLeft(2, '0')}",
-
-    "api_token": apiToken,
-
-    "id": id,
-  };
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "gender": gender,
+        "city": city,
+        "area": area,
+        "country": country,
+        "address": address,
+        "phone": phone,
+        "role_id": roleId,
+        "type": type,
+        "birthday":
+            "${birthday.year.toString().padLeft(4, '0')}-${birthday.month.toString().padLeft(2, '0')}-${birthday.day.toString().padLeft(2, '0')}",
+        "api_token": apiToken,
+        "id": id,
+      };
 }

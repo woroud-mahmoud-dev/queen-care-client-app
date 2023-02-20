@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';

@@ -38,6 +38,8 @@ class LoginCubit extends Cubit<LoginStates> {
           "password": password,
         });
         UserModel user = UserModel.fromJson(data);
+        CacheHelper.saveData(key: 'RoleId', value: user.roleId);
+
         CacheHelper.saveData(key: 'address', value: user.address);
         CacheHelper.saveData(key: 'api_token', value: user.apiToken);
         CacheHelper.saveData(key: 'type', value: user.type);
@@ -80,6 +82,8 @@ class LoginCubit extends Cubit<LoginStates> {
           CacheHelper.saveData(key: 'email', value: user.email);
           CacheHelper.saveData(key: 'api_token', value: user.apiToken);
           CacheHelper.saveData(key: 'type', value: user.type);
+          CacheHelper.saveData(key: 'RoleId', value: user.roleId);
+
           debugPrint(CacheHelper.getData(key: 'type'));
 
           emit(LoginSuccessState(user: user));

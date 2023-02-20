@@ -6,6 +6,7 @@ import 'package:queen_care/modules/advices/show_all_advices_screen.dart';
 import 'package:queen_care/modules/auth/pages/profile/convert_to_company.dart';
 import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/favorite/favorite_tap.dart';
+import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
 import 'package:queen_care/modules/home/home_tap.dart';
 import 'package:queen_care/modules/offers/awards/awards.dart';
 import 'package:queen_care/modules/offers/competition/display_all_competitions.dart';
@@ -33,7 +34,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _currentIndexBottomNavigationBarItem = 0;
 
   late TabController tabController;
-
+  late HomeTapCubit homeTabCubit;
   @override
   void initState() {
     super.initState();
@@ -46,11 +47,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void handleTabSelection() {
-    setState(() {
-      if (tabController.index < 4) {
-        _currentIndexBottomNavigationBarItem = tabController.index;
-      }
-    });
+    int tabIndex = tabController.index;
+//    switch (tabIndex) {
+//
+//      // HomeTapCubit
+//      case 0:
+//        homeTabCubit.getCategoryWithHttp();
+//        break;
+//    }
   }
 
   @override
@@ -148,15 +152,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
   }
 
-  void onTapedBottomsNavigationBarItem(int value) {
+  void onTapedBottomsNavigationBarItem(int tabIndex) {
+    tabController.animateTo(tabIndex);
     setState(() {
-      tabController.animateTo(value);
+      _currentIndexBottomNavigationBarItem = tabIndex;
     });
-    if (tabController.index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const Home(tapId: 0)),
-      );
-    }
   }
 }

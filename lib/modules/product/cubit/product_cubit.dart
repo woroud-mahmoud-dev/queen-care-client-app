@@ -77,10 +77,10 @@ class ProductCubit extends Cubit<ProductState> {
 
           emit(GetAllProductByTypeSuccess(productsList: productsListByType));
         } else if (response.statusCode == 404) {
-          // emit(GetAllProductByTypeError('error'));
+           emit(GetAllProductByTypeError('error'));
         }
       } catch (e) {
-        // emit(GetAllProductByTypeError('error'));
+         emit(GetAllProductByTypeError('error'));
       }
     } else {
       emit(DeviceNotConnectedState());
@@ -104,44 +104,34 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-  // addToFavorite(int productId) async {
-  //   emit(AddToFavoriteLoadingState());
-  //
-  //   var myUrl = Uri.parse(
-  //       "https://karam-app.com/celo/queencare/public/api/add_to_favourite");
-  //
-  //   final response = await http.post(myUrl, body: {
-  //     'token': CacheHelper.getData(key: 'api_token'),
-  //     'mission_id': productId.toString()
-  //   });
-  //   debugPrint(response.statusCode.toString());
-  //   debugPrint(response.body.toString());
-  //
-  //   if (response.statusCode == 200) {
-  //     emit(AddToFavoriteSuccessState(message: "تمت الاإضافة بنجاح"));
-  //   } else if (response.statusCode == 404) {
-  //     emit(AddToFavoriteErrorState(error: response.body.toString()));
-  //   }
-  // }
 
   addToCart({required int productId, required int amount}) async {
     emit(AddToCartLoadingState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/add_to_cart");
 
-    var myUrl = Uri.parse(
-        "https://karam-app.com/celo/queencare/public/api/add_to_cart");
+        final response = await http.post(myUrl, body: {
+          'token': CacheHelper.getData(key: 'api_token'),
+          'mission_id': productId.toString(),
+          'amount': amount.toString(),
+        });
+        debugPrint(response.statusCode.toString());
+        debugPrint(response.body.toString());
 
-    final response = await http.post(myUrl, body: {
-      'token': CacheHelper.getData(key: 'api_token'),
-      'mission_id': productId.toString(),
-      'amount': amount.toString(),
-    });
-    debugPrint(response.statusCode.toString());
-    debugPrint(response.body.toString());
-
-    if (response.statusCode == 200) {
-      emit(AddToCartSuccessState(message: "تمت الاإضافة  إلى السلة بنجاح"));
-    } else if (response.statusCode == 404) {
-      emit(AddToCartErrorState(error: response.body.toString()));
+        if (response.statusCode == 200) {
+          emit(AddToCartSuccessState(message: "تمت الاإضافة  إلى السلة بنجاح"));
+        } else if (response.statusCode == 404) {
+          emit(AddToCartErrorState(error: response.body.toString()));
+        }
+      } catch (e) {
+        debugPrint(e.toString());
+        emit(AddToCartErrorState(error: ''));
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+      return null;
     }
   }
 

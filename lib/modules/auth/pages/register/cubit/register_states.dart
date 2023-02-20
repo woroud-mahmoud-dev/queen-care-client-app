@@ -29,3 +29,5 @@ class SelectGenderState extends RegisterStates {}
 
 class Cheeked extends RegisterStates {}
 class SelectBirthDayState extends RegisterStates {}
+class DeviceNotConnectedState extends RegisterStates {}
+class ErrorState extends RegisterStates {}

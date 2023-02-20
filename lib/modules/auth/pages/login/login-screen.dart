@@ -124,7 +124,7 @@ class Login extends StatelessWidget {
                         ],
                       )),
                   SizedBox(
-                    height: h * 0.12,
+                    height: h * 0.07,
                   ),
                   Row(
                     children: [

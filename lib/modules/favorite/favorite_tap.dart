@@ -41,6 +41,7 @@ class Favorite extends StatelessWidget {
                   ),
                   const Spacer(),
                   const GoCart(),
+                  SizedBox(width: w * 0.015),
                 ],
               ),
               Row(

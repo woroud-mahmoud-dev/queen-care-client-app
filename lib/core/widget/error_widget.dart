@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart  ';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
@@ -9,20 +10,26 @@ class CustomErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           'error_message'.tr(context),
           style: const TextStyle(
-            // color: kPrimaryColor,
+              // color: kPrimaryColor,
               color: kBlueGreen,
-            fontSize: 14
-          ),
+              fontSize: 14),
         ),
-        IconButton(onPressed: onPressed, icon: const Icon(Icons.refresh,
-          // color: kPrimaryColor,
+        SizedBox(
+          height: 30.sp,
+        ),
+        IconButton(
+            onPressed: onPressed,
+            icon: const Icon(
+              Icons.refresh,
+              // color: kPrimaryColor,
 
-          color: kBlueGreen,        )),
+              color: kBlueGreen,
+            )),
       ],
     );
   }

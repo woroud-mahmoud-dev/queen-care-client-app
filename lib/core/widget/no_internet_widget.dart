@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart  ';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
+
 
 class NoInternetWidget extends StatelessWidget {
   const NoInternetWidget({Key? key, required this.onPressed}) : super(key: key);
@@ -12,11 +14,11 @@ class NoInternetWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
+        Center(
           child: Image.asset(
             'assets/images/no_internet.png',
             fit: BoxFit.contain,
-            height: h * 0.4,
+            height: h * 0.38.sp,
             width: w,
           ),
         ),

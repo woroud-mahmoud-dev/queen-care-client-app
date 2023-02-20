@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
@@ -23,11 +24,12 @@ class _ProfileState extends State<Profile> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.sp),
       width: w,
       height: h,
       child: ListView(
         physics: const BouncingScrollPhysics(),
+        clipBehavior: Clip.none,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,33 +42,14 @@ class _ProfileState extends State<Profile> {
             ],
           ),
           SizedBox(
-            height: h * 0.1,
+            height: h * 0.1.sp,
           ),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              height: h * 0.2,
-              width: h * 0.2,
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffCCCCCC),
-                          borderRadius: BorderRadius.circular(5))),
-                  Positioned(
-                      right: -10,
-                      bottom: -10,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: SvgPicture.asset('assets/icons/camera_icon.svg'),
-                      )),
-                ],
-              ),
-            ),
+          LogoImage(
+            w: w * 0.5,
+            h: h * 0.2,
           ),
           SizedBox(
-            height: h * 0.15,
+            height: h * 0.05,
           ),
           ProfileItem(
             iconNotImage: true,
@@ -77,17 +60,21 @@ class _ProfileState extends State<Profile> {
                   .push(MaterialPageRoute(builder: (_) => EditeProfile()));
             },
           ),
-          SizedBox(
-            height: h * 0.05,
-          ),
-          ProfileItem(
-            iconData: Icons.compare_arrows,
-            iconNotImage: true,
-            text: 'Transfer_to_company'.tr(context),
-            onTap: () {
-              widget.tabController.animateTo(18);
-            },
-          ),
+          CacheHelper.getData(key: 'RoleId') == '4'
+              ? const SizedBox()
+              : SizedBox(
+                  height: h * 0.05,
+                ),
+          CacheHelper.getData(key: 'RoleId') == '4'
+              ? const SizedBox()
+              : ProfileItem(
+                  iconData: Icons.compare_arrows,
+                  iconNotImage: true,
+                  text: 'Transfer_to_company'.tr(context),
+                  onTap: () {
+                    widget.tabController.animateTo(18);
+                  },
+                ),
           SizedBox(
             height: h * 0.05,
           ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/core/failure/failures.dart';
 
@@ -26,7 +27,9 @@ class ApiBaseHelper {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
-        print(responseJson);
+        if (kDebugMode) {
+          print(responseJson);
+        }
         return responseJson;
       case 201:
         var responseJson = json.decode(response.body.toString());
