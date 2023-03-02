@@ -6,6 +6,7 @@ import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
+import 'package:queen_care/modules/convert_user_to_company/convert_to_company.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
 class Profile extends StatefulWidget {
@@ -57,24 +58,22 @@ class _ProfileState extends State<Profile> {
             text: 'edite_profile'.tr(context),
             onTap: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => EditeProfile()));
+                  .push(MaterialPageRoute(builder: (_) => EditProfile()));
             },
           ),
-          CacheHelper.getData(key: 'RoleId') == '4'
-              ? const SizedBox()
-              : SizedBox(
-                  height: h * 0.05,
-                ),
-          CacheHelper.getData(key: 'RoleId') == '4'
-              ? const SizedBox()
-              : ProfileItem(
-                  iconData: Icons.compare_arrows,
-                  iconNotImage: true,
-                  text: 'Transfer_to_company'.tr(context),
-                  onTap: () {
-                    widget.tabController.animateTo(18);
-                  },
-                ),
+          SizedBox(
+            height: h * 0.05,
+          ),
+          ProfileItem(
+            iconData: Icons.compare_arrows,
+            iconNotImage: true,
+            text: 'Transfer_to_company'.tr(context),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const ConvertToCompany()));
+
+            },
+          ),
           SizedBox(
             height: h * 0.05,
           ),

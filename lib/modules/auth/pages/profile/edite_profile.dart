@@ -21,8 +21,8 @@ import 'package:queen_care/models/user.dart';
 import 'package:queen_care/modules/auth/pages/profile/cubit/profile_cubit.dart';
 import 'package:queen_care/modules/auth/pages/profile/cubit/profile_states.dart';
 
-class EditeProfile extends StatelessWidget {
-  EditeProfile({Key? key}) : super(key: key);
+class EditProfile extends StatelessWidget {
+  EditProfile({Key? key}) : super(key: key);
   UserModel? user;
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();

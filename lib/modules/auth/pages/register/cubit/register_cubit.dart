@@ -71,7 +71,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
           'country': country,
           'address': address,
           'birthday': birthdayDateTime.toString(),
-          'role_id': '2', //1-> ادمن 2->مستخدم 3->مندوب 4->تاجر(شركة)
           'fcm,': 'fcm',
         });
 
@@ -93,6 +92,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           CacheHelper.saveData(key: 'email', value: user.email);
           CacheHelper.saveData(key: 'api_token', value: user.apiToken);
           CacheHelper.saveData(key: 'type', value: user.type);
+
 
           emit(RegisterSuccessState(user: user));
         } else if (response.statusCode == 403) {

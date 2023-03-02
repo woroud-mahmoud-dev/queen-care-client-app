@@ -12,11 +12,13 @@ const kGreen = Color(0xFF7ed958);
 
 const customBoxDecoration = BoxDecoration(
   image: DecorationImage(
+      colorFilter: ColorFilter.mode(Colors.white, BlendMode.softLight),
       image: AssetImage(
         'assets/images/background.png',
       ),
       fit: BoxFit.fill),
 );
+
 const customContainerBoxDecoration = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.vertical(

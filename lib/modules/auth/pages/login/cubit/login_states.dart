@@ -22,3 +22,4 @@ class LoginErrorState extends LoginStates {
 class ChangeRememberMeState extends LoginStates {}
 
 class DeviceNotConnectedState extends LoginStates {}
+class UserDataInvalid extends LoginStates {}

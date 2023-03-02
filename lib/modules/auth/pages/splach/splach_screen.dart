@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/auth/pages/select_lan/select_lang.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
@@ -34,8 +35,9 @@ class _SplachState extends State<Splach> {
         body: Padding(
       padding: const EdgeInsets.all(70),
       child: Center(
-        child: Image.asset(
-          'assets/images/logo.png',
+        child: LogoImage(
+          h: MediaQuery.of(context).size.height * 0.3,
+          w: MediaQuery.of(context).size.height * 0.3,
         ),
       ),
     ));

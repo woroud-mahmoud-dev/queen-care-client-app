@@ -1,0 +1,71 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/utils/constant.dart';
+
+// ignore: must_be_immutable
+class CustomRadioButton extends StatefulWidget {
+  final String value;
+  final String name;
+  var groupValue;
+  final void Function(String) onChanged;
+  CustomRadioButton(
+      {Key? key,
+      required this.value,
+      required this.name,
+      required this.groupValue,
+      required this.onChanged})
+      : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _CustomRadioButtonState createState() => _CustomRadioButtonState();
+}
+
+class _CustomRadioButtonState extends State<CustomRadioButton> {
+  @override
+  Widget build(BuildContext context) {
+    bool selected = (widget.value == widget.groupValue);
+
+    return InkWell(
+      onTap: () => widget.onChanged(widget.value),
+      child: SizedBox(
+        width:MediaQuery.of(context).size.width * 0.42,
+        height: MediaQuery.of(context).size.height * 0.07,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    widget.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: selected ? 12.sp : 12.sp,
+                        fontWeight:
+                            !selected ? FontWeight.bold : FontWeight.bold,
+                        color: selected ? kPrimaryColor : darkGrey2),
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(5),
+                width: 20.sp,
+                height: 20.sp,
+                decoration: BoxDecoration(
+                    color: selected ? kPrimaryColor : Colors.white,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: kPrimaryColor)),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

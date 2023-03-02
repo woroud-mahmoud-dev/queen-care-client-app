@@ -9,7 +9,7 @@ Widget customTextField({
   context,
   bool? isPassword,
   required TextInputType keyboardType,
-  required Widget icon,
+   Widget? icon,
   Function()? onEditingComplete,
 }) {
   double h = MediaQuery.of(context).size.height;

@@ -34,45 +34,42 @@ class ShowMyConsultations extends StatelessWidget {
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
               decoration: customBoxDecoration,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    CustomTopWidget(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => const MainScreen()),
-                        );
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'consultation'.tr(context),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14.sp),
-                          ),
+              child: Column(
+                children: [
+                  CustomTopWidget(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => const MainScreen()),
+                      );
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'consultation'.tr(context),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14.sp),
                         ),
-                        LogoImage(
-                          w: w * 0.22,
-                          h: h * 0.11,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: h * 0.02,
-                    ),
-                    AllMyConsultationsWidget(
-                      state: state,
-                      w: w,
-                      h: h,
-                      myConsultationsList: myConsultationsList,
-                    ),
-                  ],
-                ),
+                      ),
+                      LogoImage(
+                        w: w * 0.22,
+                        h: h * 0.11,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: h * 0.02,
+                  ),
+                  AllMyConsultationsWidget(
+                    state: state,
+                    w: w,
+                    h: h,
+                    myConsultationsList: myConsultationsList,
+                  ),
+                ],
               ),
             );
           },

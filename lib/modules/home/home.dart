@@ -3,7 +3,6 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/advices/advice_details_screen.dart';
 import 'package:queen_care/modules/advices/show_all_advices_screen.dart';
-import 'package:queen_care/modules/auth/pages/profile/convert_to_company.dart';
 import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/favorite/favorite_tap.dart';
 import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
@@ -39,7 +38,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(
-        length: 19,
+        length: 18,
         vsync: this,
         initialIndex: widget.tapId,
         animationDuration: const Duration(milliseconds: 10));
@@ -47,14 +46,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void handleTabSelection() {
-    int tabIndex = tabController.index;
-//    switch (tabIndex) {
-//
-//      // HomeTapCubit
-//      case 0:
-//        homeTabCubit.getCategoryWithHttp();
-//        break;
-//    }
+   //  int tabIndex = tabController.index;
+   // switch (tabIndex) {
+   //
+   //   // HomeTapCubit
+   //   case 0:
+   //     homeTabCubit.getCategoryWithHttp();
+   //     break;
+   // }
   }
 
   @override
@@ -103,7 +102,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             DisplayAllCompetitions(tabController: tabController), //15
             ShowAdvicesScreen(tabController: tabController), //16
             AdviceScreen(tabController: tabController), //17
-            ConvertToCompany(tabController: tabController), //18
+
           ],
         ),
       ),

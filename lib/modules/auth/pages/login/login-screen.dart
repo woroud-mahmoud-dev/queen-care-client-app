@@ -36,11 +36,13 @@ class Login extends StatelessWidget {
             }
 
             if (state is LoginErrorState) {
-              showToast(
-                  text: "كلمة السر او رقم الهاتف غلط", color: kPrimaryColor);
+              showToast(text: "Incorrect".tr(context), color: kPrimaryColor);
             }
             if (state is DeviceNotConnectedState) {
               showSnackBar(context);
+            }
+            if (state is UserDataInvalid) {
+              showToast(text: "no_log_in".tr(context), color: kPrimaryColor);
             }
           },
           builder: (context, state) {

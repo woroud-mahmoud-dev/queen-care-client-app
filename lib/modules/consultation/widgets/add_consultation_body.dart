@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
@@ -67,7 +68,7 @@ class AddConsultationBody extends StatelessWidget {
           indent: w * 0.02,
         ),
         SizedBox(
-          height: h * 0.02,
+          height: h * 0.02.sp,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,12 +85,12 @@ class AddConsultationBody extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: h * 0.02,
+          height: h * 0.02.sp,
         ),
         Center(
           child: ConsultationTextField(
             maxLines: 4,
-            h: h * 0.2,
+            h: h * 0.2.sp,
             w: w * 0.8,
             hintText: 'enter_consultation'.tr(context),
             controller: questionController,
@@ -97,7 +98,7 @@ class AddConsultationBody extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: h * 0.01,
+          height: h * 0.02.sp,
         ),
         Center(
           child: CustomButton(
@@ -117,7 +118,7 @@ class AddConsultationBody extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: h * 0.03,
+          height: h * 0.02.sp,
         ),
       ],
     );
