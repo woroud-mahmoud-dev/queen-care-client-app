@@ -1,5 +1,5 @@
 
-import 'package:queen_care/models/user.dart';
+import 'package:queen_care/models/register_model.dart';
 
 abstract class RegisterStates {}
 
@@ -8,7 +8,7 @@ class RegisterInitialState extends RegisterStates {}
 class RegisterLoadinglState extends RegisterStates {}
 
 class RegisterSuccessState extends RegisterStates {
-  late final UserModel user;
+   final RegisterUserModel user;
   RegisterSuccessState({required this.user});
 
 

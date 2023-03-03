@@ -286,35 +286,6 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                     ],
                   ),
                   SizedBox(height: h * 0.01.sp),
-                  // DropdownButton(
-                  //   icon: const Icon(
-                  //     Icons.arrow_drop_down_circle,
-                  //     color: kPrimaryColor,
-                  //   ),
-                  //   isExpanded: true,
-                  //   elevation: 20,
-                  //   // isDense: false,
-                  //
-                  //   alignment: Alignment.center,
-                  //   menuMaxHeight: 200,
-                  //   items: RegisterCompanyCubit.get(context)
-                  //       .typesList
-                  //       .map((e) => DropdownMenuItem(
-                  //             value: e,
-                  //             child: Center(
-                  //               child: Text(
-                  //                 e,
-                  //                 style: const TextStyle(color: kPrimaryColor),
-                  //               ),
-                  //             ),
-                  //           ))
-                  //       .toList(),
-                  //   onChanged: (value) {
-                  //     RegisterCompanyCubit.get(context)
-                  //         .completeCompanyInfo(value.toString());
-                  //   },
-                  //   value: RegisterCompanyCubit.get(context).type,
-                  // ),
                   SizedBox(height: h * 0.01.sp),
                   CompanyInfoForm(
                     nameController: nameController,
@@ -324,30 +295,32 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                     formKey: companyFormKey,
                   ),
                   SizedBox(height: h * 0.02.sp),
-
-                  if (state is CompleteCompanyInfoLoading)
-                    const Center(
-                        child: CircularProgressIndicator(
-                      color: kPrimaryColor,
-                    )),
-                  CustomButton(
-                    title: 'save'.tr(context),
-                    onTap: () {
-                      if (RegisterCompanyCubit.get(context).type == null) {
-                        showMissingInfoSnackBar(context);
-                      } else {
-                        if (companyFormKey.currentState!.validate()) {
-                          RegisterCompanyCubit.get(context).registerCompany(
-                              idNumber: idNumberController.text.toString(),
-                              address: addressController.text,
-                              name: nameController.text);
-                        }
-                      }
-                    },
-                    color: kPrimaryColor,
-                    width: w * 0.5,
-                    height: h * 0.07,
-                  ),
+                  state is CompleteCompanyInfoLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: kPrimaryColor,
+                        ))
+                      : CustomButton(
+                          title: 'save'.tr(context),
+                          onTap: () {
+                            if (RegisterCompanyCubit.get(context).type ==
+                                null) {
+                              showMissingInfoSnackBar(context);
+                            } else {
+                              if (companyFormKey.currentState!.validate()) {
+                                RegisterCompanyCubit.get(context)
+                                    .registerCompany(
+                                        idNumber:
+                                            idNumberController.text.toString(),
+                                        address: addressController.text,
+                                        name: nameController.text);
+                              }
+                            }
+                          },
+                          color: kPrimaryColor,
+                          width: w * 0.5,
+                          height: h * 0.07,
+                        ),
                 ],
               ),
             ),

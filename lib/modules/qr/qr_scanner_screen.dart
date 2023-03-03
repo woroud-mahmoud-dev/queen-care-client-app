@@ -119,11 +119,9 @@ class _QRViewScreenState extends State<QRViewScreen> {
     setState(() {
       this.controller = controller;
     });
-
+    controller.resumeCamera();
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        controller.pauseCamera();
-
         result = scanData;
       });
       QrCubit.get(context).setScanning(true, scanData);

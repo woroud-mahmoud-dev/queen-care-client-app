@@ -154,6 +154,7 @@
   "sure" :"Make sure you entered\n all the information correctly",
   "select": "select",
   "day": "day",
+  "missing_info": "There is information missing",
   "pounds": "pounds",
   "no_prizes": "There are no prizes",
   "added_to_the_cart": "The product has been added to the cart successfully",
@@ -162,7 +163,6 @@
   "Incorrect": "Incorrect password or phone number",
   "convert_message": "Your account has been successfully converted  into a company account",
   "convert_message2": "Please download the QueenCare  Company app to be able to manage your account.",
-
   "company_name": "Company name",
   "company_logo": "Add company logo",
   "company_account": "Company Account",

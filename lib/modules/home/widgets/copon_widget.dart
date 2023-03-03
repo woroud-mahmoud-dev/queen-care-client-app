@@ -45,10 +45,7 @@ class CouponWidget extends StatelessWidget {
                         style: const TextStyle(color: kBlueGreen, fontSize: 14),
                       ),
                     ),
-                    const Text(
-                      '60%  ',
-                      style: TextStyle(color: kBlueGreen, fontSize: 14),
-                    ),
+
                   ],
                 )),
             const Spacer(),

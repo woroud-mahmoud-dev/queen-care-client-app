@@ -33,6 +33,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
         var data = json.decode(response.body);
 
         if (response.statusCode == 200) {
+          debugPrint(data.toString());
           debugPrint(response.statusCode.toString());
           user = UserModel.fromJson(data);
           genderGroupValue = int.parse(user!.gender);
@@ -45,6 +46,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
           emit(GetProfileError(error: 'Error'));
         }
       } catch (e) {
+        debugPrint(e.toString());
         emit(GetProfileError(error: 'Error'));
       }
     } else {
@@ -102,9 +104,8 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
         debugPrint(response.statusCode.toString());
 
         if (response.statusCode == 200) {
-          var data = json.decode(response.body);
-          user = UserModel.fromJson(data);
-          debugPrint('data : ${data["api_token"]}');
+
+
           debugPrint('update user done !!!');
 
           emit(EditeProfileSuccess(user!));

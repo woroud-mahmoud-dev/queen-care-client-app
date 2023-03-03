@@ -128,38 +128,38 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: h * 0.07,
                   ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: LoginCubit.get(context).rememberMe,
-                          checkColor: kPrimaryColor,
-                          activeColor: Colors.grey,
-                          fillColor: MaterialStateProperty.all(Colors.black12),
-                          onChanged: (onChanged) {
-                            LoginCubit.get(context).remember();
-                          }),
-                      Text(
-                        'remember_me'.tr(context),
-                        style: const TextStyle(
-                          color: darkGrey,
-                        ),
-                      ),
-                      const Spacer(),
-                      // TextButton(
-                      //     onPressed: () {
-                      //       // Navigator.of(context).push(MaterialPageRoute(
-                      //       //     builder: (_) => ForgetPassword()));
-                      //     },
-                      //     child: FittedBox(
-                      //       child: Text(
-                      //         'forget_password'.tr(context),
-                      //         style: const TextStyle(
-                      //             color: darkGrey,
-                      //             decoration: TextDecoration.underline),
-                      //       ),
-                      //     )),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Checkbox(
+                  //         value: LoginCubit.get(context).rememberMe,
+                  //         checkColor: kPrimaryColor,
+                  //         activeColor: Colors.grey,
+                  //         fillColor: MaterialStateProperty.all(Colors.black12),
+                  //         onChanged: (onChanged) {
+                  //           LoginCubit.get(context).remember();
+                  //         }),
+                  //     Text(
+                  //       'remember_me'.tr(context),
+                  //       style: const TextStyle(
+                  //         color: darkGrey,
+                  //       ),
+                  //     ),
+                  //     const Spacer(),
+                  //     // TextButton(
+                  //     //     onPressed: () {
+                  //     //       // Navigator.of(context).push(MaterialPageRoute(
+                  //     //       //     builder: (_) => ForgetPassword()));
+                  //     //     },
+                  //     //     child: FittedBox(
+                  //     //       child: Text(
+                  //     //         'forget_password'.tr(context),
+                  //     //         style: const TextStyle(
+                  //     //             color: darkGrey,
+                  //     //             decoration: TextDecoration.underline),
+                  //     //       ),
+                  //     //     )),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: h * 0.04,
                   ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
-import 'package:queen_care/models/user.dart';
+import 'package:queen_care/models/register_model.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
@@ -37,7 +37,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(Cheeked());
   }
 
-  late UserModel user;
+  late RegisterUserModel user;
 
   registerUser({
     required String firstName,
@@ -79,7 +79,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
         if (response.statusCode == 200) {
           debugPrint(response.statusCode.toString());
-          UserModel user = userModelFromJson(response.body);
+
+           user = RegisterUserModel.fromJson(data);
           debugPrint(user.firstName);
           debugPrint(user.email);
           debugPrint(user.phone);
@@ -87,11 +88,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
           debugPrint(user.toString());
           debugPrint(user.apiToken);
           CacheHelper.saveData(key: 'name', value: user.firstName);
-          CacheHelper.saveData(key: 'RoleId', value: user.roleId);
           CacheHelper.saveData(key: 'address', value: user.address);
-          CacheHelper.saveData(key: 'email', value: user.email);
           CacheHelper.saveData(key: 'api_token', value: user.apiToken);
-          CacheHelper.saveData(key: 'type', value: user.type);
+          CacheHelper.saveData(key: 'type', value: '0');
 
 
           emit(RegisterSuccessState(user: user));
@@ -101,6 +100,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
           emit(RegisterErrorState(error: data['body']));
         }
       } catch (e) {
+        print(e);
         emit(ErrorState());
       }
     } else {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
@@ -61,13 +60,7 @@ class PeriodQuestions extends StatelessWidget {
                           )),
                       const Spacer(),
                       const GoCart(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: SvgPicture.asset(
-                          'assets/icons/list.svg',
-                          height: 20,
-                        ),
-                      ),
+
                     ],
                   ),
                 ),

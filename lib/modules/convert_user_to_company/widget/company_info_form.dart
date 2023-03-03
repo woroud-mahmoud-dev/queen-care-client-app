@@ -122,7 +122,7 @@ class CompanyInfoForm extends StatelessWidget {
                 context: context,
                 validate: (value) {
                   if (value!.isEmpty) {
-                    return 'required_field'.tr(context);
+                    return null;
                   } else {
                     return null;
                   }

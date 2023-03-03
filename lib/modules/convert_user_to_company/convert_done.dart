@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
 
 class ConvertDone extends StatelessWidget {

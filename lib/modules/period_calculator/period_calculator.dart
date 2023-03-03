@@ -45,13 +45,7 @@ class PeriodCalculator extends StatelessWidget {
                         )),
                     const Spacer(),
                     const GoCart(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: SvgPicture.asset(
-                        'assets/icons/list.svg',
-                        height: 20,
-                      ),
-                    ),
+
                   ],
                 ),
               ),

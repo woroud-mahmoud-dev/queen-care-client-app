@@ -58,7 +58,7 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
           'address': address,
           'Id_number': idNumber,
           'name': name,
-          'image': 'selected',
+          // 'image': 'selected',
         });
 
         if (response.statusCode == 201) {
