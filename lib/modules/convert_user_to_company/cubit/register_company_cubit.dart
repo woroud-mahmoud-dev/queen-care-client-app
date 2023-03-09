@@ -4,6 +4,9 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+
+import 'dart:io' as io;
 part 'register_company_state.dart';
 
 class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
@@ -14,14 +17,30 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
   String? type;
-
+  String? imageName;
+  String? img64;
+  bool addImage = false;
   final ImagePicker picker = ImagePicker();
+
   XFile? selectedImage;
   void selectLogo({required ImageSource source}) async {
     selectedImage = await picker.pickImage(
       source: source,
     );
     if (selectedImage!.path.isNotEmpty) {
+      final bytes = io.File(selectedImage!.path).readAsBytesSync();
+      img64 = base64Encode(bytes);
+      imageName = selectedImage!.name;
+      addImage = true;
+      if (kDebugMode) {
+        print('imageName : $imageName');
+      }
+      if (kDebugMode) {
+        print('base64 : $img64');
+      }
+      if (kDebugMode) {
+        print('bytes : $bytes');
+      }
       emit(AddImageSuccess());
     } else {
       emit(AddImageError());
@@ -52,14 +71,25 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
       try {
         var myUrl = Uri.parse(
             "https://karam-app.com/celo/queencare/public/api/registercompany");
-        final response = await http.post(myUrl, body: {
-          'token': CacheHelper.getData(key: 'api_token'),
-          'type': type,
-          'address': address,
-          'Id_number': idNumber,
-          'name': name,
-          // 'image': 'selected',
-        });
+        final Map<String, dynamic> body = addImage
+            ? {
+                'token': CacheHelper.getData(key: 'api_token'),
+                'type': type,
+                'address': address,
+                'Id_number': idNumber,
+                'name': name,
+                'image': img64,
+                'imagename': imageName
+              }
+            : {
+                'token': CacheHelper.getData(key: 'api_token'),
+                'type': type,
+                'address': address,
+                'Id_number': idNumber,
+                'name': name,
+              };
+
+        final response = await http.post(myUrl, body: body);
 
         if (response.statusCode == 201) {
           CacheHelper.saveData(key: 'isCompany', value: true);

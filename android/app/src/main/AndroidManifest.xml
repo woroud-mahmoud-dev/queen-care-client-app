@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
 
    <application
-        android:label="queen_care"
+        android:label="كوين كير"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

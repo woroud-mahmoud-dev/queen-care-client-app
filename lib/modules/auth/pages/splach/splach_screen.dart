@@ -17,7 +17,8 @@ class _SplachState extends State<Splach> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      if (CacheHelper.getData(key: 'api_token') != null&&CacheHelper.getData(key: 'isCompany') == null) {
+      if (CacheHelper.getData(key: 'api_token') != null &&
+          CacheHelper.getData(key: 'isCompany') == null) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const MainScreen()),
           (route) => false,
