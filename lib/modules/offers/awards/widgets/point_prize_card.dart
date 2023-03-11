@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/models/prize_model.dart';
 
-class PrizeCard extends StatelessWidget {
-  const PrizeCard({
+
+class PointsPrizeCard extends StatelessWidget {
+  const PointsPrizeCard({
     super.key,
-    required this.competitionPrize,
+    required this.pointsPrize,
     required this.width,
     required this.height,
   });
-  final CompetitionPrize competitionPrize;
+  final PointsPrize pointsPrize;
   final double width;
   final double height;
   @override
@@ -35,16 +35,13 @@ class PrizeCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  competitionPrize.prize,
-                  style: TextStyle(fontSize: 14.sp),
-                ),
+                Text(pointsPrize.prize),
                 const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  '${competitionPrize.createdAt.year}/${competitionPrize.createdAt.month}/${competitionPrize.createdAt.day}',
-                  style: TextStyle(color: darkGrey, fontSize: 12.sp),
+                  '${pointsPrize.createdAt.year}/${pointsPrize.createdAt.month}/${pointsPrize.createdAt.day}',
+                  style: const TextStyle(color: darkGrey, fontSize: 12),
                 ),
               ],
             ),

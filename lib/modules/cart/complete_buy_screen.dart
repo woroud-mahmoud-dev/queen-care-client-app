@@ -11,7 +11,7 @@ import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 import 'package:queen_care/modules/cart/order_done.dart';
 import 'package:queen_care/modules/cart/widgets/send_order_card.dart';
-import 'package:queen_care/modules/cart/widgets/show_products_part.dart';
+import 'package:queen_care/modules/cart/widgets/show_purchases_products.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
 class CompleteBuyScreen extends StatelessWidget {
@@ -103,7 +103,7 @@ class CompleteBuyScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  ShowCartProducts2(
+                  ShowPurchasesProducts(
                     allOrders: allProducts,
                     numberOfItems: myService.getNumberOfItems!,
                   ),

@@ -7,12 +7,12 @@ import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 
-class CartWidget2 extends StatelessWidget {
+class CartPurchases extends StatelessWidget {
   final CartModel cartModel;
   final List<int> numberOfItems;
   final int productId;
 
-  const CartWidget2({
+  const CartPurchases({
     super.key,
     required this.cartModel,
     required this.productId,

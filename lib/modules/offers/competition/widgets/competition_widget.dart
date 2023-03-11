@@ -79,17 +79,7 @@ class CompetitionWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              // Positioned(
-              //   bottom: 30,
-              //   right: 20,
-              //   child: SizedBox(
-              //     child: Text(
-              //       ' ${competition.description}  ',
-              //       textAlign: TextAlign.center,
-              //       style:  TextStyle(color: Colors.black, fontSize: 11.sp),
-              //     ),
-              //   ),
-              // ),
+
             ],
           ),
         ),

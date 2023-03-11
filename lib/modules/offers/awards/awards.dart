@@ -9,6 +9,7 @@ import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/prize_model.dart';
 import 'package:queen_care/modules/offers/awards/cubit/awards_cubit.dart';
+import 'package:queen_care/modules/offers/awards/widgets/point_prize_card.dart';
 import 'package:queen_care/modules/offers/awards/widgets/prize_card.dart';
 
 class Awards extends StatelessWidget {

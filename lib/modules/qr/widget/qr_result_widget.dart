@@ -46,7 +46,7 @@ class ResultWidget extends StatelessWidget {
                       (route) => false);
             },
             color: kPrimaryColor,
-            width: 200.sp,
+            width: 200.w,
             height: 60,
           ),
         ),

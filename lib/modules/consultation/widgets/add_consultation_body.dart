@@ -68,7 +68,7 @@ class AddConsultationBody extends StatelessWidget {
           indent: w * 0.02,
         ),
         SizedBox(
-          height: h * 0.02.sp,
+          height: h * 0.02,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,12 +85,12 @@ class AddConsultationBody extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: h * 0.02.sp,
+          height: h * 0.02,
         ),
         Center(
           child: ConsultationTextField(
             maxLines: 4,
-            h: h * 0.2.sp,
+            h: h * 0.2,
             w: w * 0.8,
             hintText: 'enter_consultation'.tr(context),
             controller: questionController,
@@ -98,7 +98,7 @@ class AddConsultationBody extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: h * 0.02.sp,
+          height: h * 0.02,
         ),
         Center(
           child: CustomButton(
@@ -118,7 +118,7 @@ class AddConsultationBody extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: h * 0.02.sp,
+          height: h * 0.02,
         ),
       ],
     );

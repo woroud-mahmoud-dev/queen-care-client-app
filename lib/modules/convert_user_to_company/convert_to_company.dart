@@ -61,7 +61,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                   TitleWidget(
                     text: 'Transfer_to_company'.tr(context),
                   ),
-                  SizedBox(height: h * 0.03.sp),
+                  SizedBox(height: h * 0.03),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -72,8 +72,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                       const Spacer(),
                     ],
                   ),
-                  SizedBox(height: h * 0.01.sp),
-                  SizedBox(height: h * 0.01.sp),
+                  SizedBox(height: h * 0.02),
                   CompanyInfoForm(
                     nameController: nameController,
                     h: h,
@@ -81,7 +80,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
                     idNumberController: idNumberController,
                     formKey: companyFormKey,
                   ),
-                  SizedBox(height: h * 0.02.sp),
+                  SizedBox(height: h * 0.02),
                   state is CompleteCompanyInfoLoading
                       ? const Center(
                           child: CircularProgressIndicator(

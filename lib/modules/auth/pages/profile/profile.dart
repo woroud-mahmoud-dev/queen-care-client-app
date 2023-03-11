@@ -25,7 +25,7 @@ class _ProfileState extends State<Profile> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.all(20.sp),
+      padding: EdgeInsets.all(20),
       width: w,
       height: h,
       child: ListView(
@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
             ],
           ),
           SizedBox(
-            height: h * 0.1.sp,
+            height: h * 0.1.h,
           ),
           LogoImage(
             w: w * 0.5,
