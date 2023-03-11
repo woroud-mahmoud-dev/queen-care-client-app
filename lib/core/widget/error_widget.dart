@@ -20,7 +20,7 @@ class CustomErrorWidget extends StatelessWidget {
               fontSize: 14),
         ),
         SizedBox(
-          height: 30.sp,
+          height: 30.h,
         ),
         IconButton(
             onPressed: onPressed,

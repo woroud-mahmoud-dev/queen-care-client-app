@@ -6,7 +6,7 @@ import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
-import 'package:queen_care/core/widget/no_internet_widget.dart';
+import 'package:queen_care/core/widget/no_internet_without_img.dart';
 import 'package:queen_care/modules/offers/points/cubit/points_cubit.dart';
 
 class MyPointsBalance extends StatelessWidget {
