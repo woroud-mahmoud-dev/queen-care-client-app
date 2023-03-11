@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
-
-
-class CustomButton extends StatelessWidget {
+class AuthButton extends StatelessWidget {
   final GestureTapCallback onTap;
   final String title;
-  final Color? color;
-  final double width;
-  final double height;
-  const CustomButton({
+  final Color color;
+  const AuthButton({
     Key? key,
     required this.onTap,
     required this.title,
-     this.color,
-    required this.width,
-    required this.height,
+    required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: height,
-        width:width ,
+        height: h * 0.085,
+        width: w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: const LinearGradient(
@@ -49,10 +43,9 @@ class CustomButton extends StatelessWidget {
             children: [
               Text(
                 title,
-                maxLines: 2,
                 style:  TextStyle(
                     color: Colors.white,
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.normal),
               ),
             ],
@@ -62,9 +55,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

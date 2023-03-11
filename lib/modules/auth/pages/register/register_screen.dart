@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/auth_button.dart';
+import 'package:queen_care/core/widget/description.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
+
 import 'package:queen_care/core/widget/custom_text_field.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/title_widget.dart';
 import 'package:queen_care/modules/auth/pages/register/complete_register_screen.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
@@ -35,7 +38,7 @@ class Register extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  BigTitle(
+                  ScreenTitle(
                     text: 'register_email'.tr(context),
                   ),
                   SizedBox(
@@ -93,7 +96,9 @@ class Register extends StatelessWidget {
                   SizedBox(
                     height: h * 0.05,
                   ),
-                  Description12(
+                  Description(
+                    fontSize: 10,
+
                     text: 'c'.tr(context),
                   )
                 ],

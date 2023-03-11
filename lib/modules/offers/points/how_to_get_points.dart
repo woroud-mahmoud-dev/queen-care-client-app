@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/widget/general_button.dart';
 
 class HowToGetPoints extends StatelessWidget {
   final TabController tabController;

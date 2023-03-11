@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/auth_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/description.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/modules/auth/pages/forget_password/confirm_password.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 
@@ -31,20 +32,22 @@ class ForgetPassword extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const CustomTitleWidget(text: 'نسيت رمز الدخول'),
+                const ScreenTitle(text: 'نسيت رمز الدخول'),
                 const Spacer(),
               ],
             ),
             const SizedBox(
               height: 50,
             ),
-            const BigTitle(
+            const ScreenTitle(
               text: 'نسيت رمز الدخول',
             ),
             const SizedBox(
               height: 10,
             ),
-            const Description1(
+            const Description(
+              fontSize: 13,
+
                 text:
                     'أدخل رقم الهاتف أدناه وسنرسل إليك \n رسالة نصية تحوي على رمز التحقق \nلتغيير كلمة المرور الخاصة بك  '),
             SizedBox(

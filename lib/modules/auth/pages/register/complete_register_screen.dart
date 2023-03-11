@@ -4,13 +4,17 @@ import 'package:intl/intl.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/auth_button.dart';
+import 'package:queen_care/core/widget/description.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
+
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/error_snack_bar.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
+import 'package:queen_care/core/widget/title_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
@@ -75,13 +79,14 @@ class CompleteRegisterScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  BigTitle(
+                  ScreenTitle(
                     text: 'register_account'.tr(context),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Description1(text: 'complete_details'.tr(context)),
+                  Description(
+                      fontSize: 13, text: 'complete_details'.tr(context)),
                   SizedBox(
                     height: h * 0.03,
                   ),
@@ -459,8 +464,8 @@ class CompleteRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: h * 0.05,
                   ),
-                  Description12(
-                    text: 'c'.tr(context),
+                  Description(
+                    text: 'c'.tr(context), fontSize: 10,
                   ),
                   SizedBox(
                     height: h * 0.05,

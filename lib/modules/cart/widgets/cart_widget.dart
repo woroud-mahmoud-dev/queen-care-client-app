@@ -5,7 +5,9 @@ import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
+import 'package:queen_care/core/widget/circle_button.dart';
 import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/half_circle_button.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
 
@@ -46,7 +48,7 @@ class CartWidget extends StatelessWidget {
             ),
             Column(
               children: [
-                HalfCircleButton1(
+                HalfCircleButton(
                   onTap: () {
                     CartCubit.get(context).increaseProductNumber(productId);
                   },

@@ -28,7 +28,7 @@ class AllMyConsultationsWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         width: double.infinity,
-        height: h * 0.76.spMax,
+        height: h * 0.76,
         decoration: customContainerBoxDecoration,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

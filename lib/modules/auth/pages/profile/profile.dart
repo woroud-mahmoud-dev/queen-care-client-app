@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const Spacer(),
-              CustomTitleWidget(
+              ScreenTitle(
                 text: 'Personal_account'.tr(context),
               ),
               const Spacer(),

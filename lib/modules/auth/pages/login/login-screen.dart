@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/auth_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/description.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
+import 'package:queen_care/core/widget/title_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/modules/auth/pages/login/cubit/login_cubit.dart';
 import 'package:queen_care/modules/auth/pages/login/cubit/login_states.dart';
@@ -68,13 +70,16 @@ class Login extends StatelessWidget {
                   SizedBox(
                     height: h * 0.03,
                   ),
-                  BigTitle(
+                  ScreenTitle(
                     text: 'welcome_back'.tr(context),
                   ),
                   SizedBox(
                     height: h * 0.01,
                   ),
-                  Description1(text: 'login_message'.tr(context)),
+                  Description(
+                    fontSize: 13,
+
+                      text: 'login_message'.tr(context)),
                   SizedBox(
                     height: h * 0.03,
                   ),

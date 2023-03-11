@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
+import 'package:queen_care/core/widget/auth_button.dart';
 import 'package:queen_care/core/widget/custom_text_field.dart';
-import 'package:queen_care/core/widget/global_widgets.dart';
+import 'package:queen_care/core/widget/description.dart';
+import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/modules/auth/pages/register/register_screen.dart';
 
 class ConfirmPassword extends StatelessWidget {
@@ -30,20 +31,21 @@ class ConfirmPassword extends StatelessWidget {
                 SizedBox(
                   width: w * 0.2,
                 ),
-                const CustomTitleWidget(text: 'تاكيد رمز الدخول '),
+                const ScreenTitle(text: 'تاكيد رمز الدخول '),
                 const Spacer(),
               ],
             ),
             const SizedBox(
               height: 50,
             ),
-            const BigTitle(
+            const ScreenTitle(
               text: 'تاكيد رمز الدخول ',
             ),
             const SizedBox(
               height: 10,
             ),
-            const Description1(
+            const Description(
+              fontSize: 13,
                 text: 'الرجاء إدخال كلمة المرور الجديدة الخاصة بك'),
             SizedBox(
               height: h * 0.2,
