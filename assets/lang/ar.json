@@ -23,14 +23,14 @@
   "enter_name": "سجل اسمك",
   "male": "ذكر",
   "female": "أنثى",
-  "country": "البلد",
-  "register_country": "سجل اسم بلدك",
+  "country": "المحافظة",
+  "register_country": "اختر  محافظتك",
   "city":  "المدينة",
   "area":  "المنطقة",
   "address":  "العنوان",
   "register_address": "سجل عنوانك",
-  "register_area": "سجل اسم منطقتك",
-  "register_city": "سجل اسم مدينتك",
+  "register_area": "اختر  منطقتك",
+  "register_city": "اختر  مدينتك",
   "choose_birt_date": "اختر تاريخ ميلادك",
   "birt_date": " تاريخ الميلاد",
   "c": " من خلال الستمرار تأكيد موافقتك مع شروطنا",
@@ -172,7 +172,8 @@
   "supermarket":"سوبر ماركت",
   "mall":"مول",
   "shop":"محل تجاري",
-  "company":"شركة"
+  "company":"شركة",
+  "valid_number":"الرقم المدخل غير صالح"
 
 
 

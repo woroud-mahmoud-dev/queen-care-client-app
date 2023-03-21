@@ -23,14 +23,14 @@
   "f_name": "First name",
   "l_name": "Last name",
   "enter_name": "Register your name",
-  "country": "Country",
-  "register_country": "Register your country",
+  "country": "Governorate",
+  "register_country": "Select your Governorate",
   "city":  "City",
   "area":  "Area",
   "address":  "Address",
   "register_address": "Register your address",
-  "register_area": "Register your area",
-  "register_city": "Register your city",
+  "register_area": "Select your area",
+  "register_city": "Select your city",
   "choose_birt_date": "Choose your date of birth",
   "birt_date": "The date of birth",
   "c": "Confirm your agreement with our terms",
@@ -169,8 +169,8 @@
   "supermarket":"supermarket",
   "mall":"mall",
   "shop":"shop",
-  "company":"company"
-
+  "company":"company",
+"valid_number": "Enter a valid number"
 
 
 

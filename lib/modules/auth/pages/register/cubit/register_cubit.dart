@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -9,6 +10,10 @@ import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dar
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../../models/area.dart';
+import '../../../../../models/city.dart';
+import '../../../../../models/country.dart';
+
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
 
@@ -16,6 +21,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
   int? genderGroupValue;
   DateTime? birthdayDateTime;
   final myService = MyService();
+  final cityController = TextEditingController();
+  final countryController = TextEditingController();
+  final areaController = TextEditingController();
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
   void selectBirthdayDateTime(DateTime time) {
@@ -32,12 +40,49 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }
 
   bool visible = false;
+  List<Country> countries = [];
+  List<City> cities = [];
+  List<Area> areas = [];
+  late RegisterUserModel user;
+  Country? selectedCountry;
+  City? selectedCity;
+  Area? selectedArea;
   void check() {
     visible = true;
     emit(Cheeked());
   }
 
-  late RegisterUserModel user;
+  selectCountry(Country country) {
+    selectedCountry = country;
+    cities = [];
+    areas = [];
+    selectedCity = null;
+    selectedArea = null;
+    cityController.text = '';
+    areaController.text = '';
+    countryController.text = country.name;
+
+    emit(SelectCountryState(country));
+    getCities(countryId: country.id);
+  }
+
+  selectCity(City city) {
+    selectedCity = city;
+    areas = [];
+    selectedArea = null;
+    cityController.text = city.name;
+    areaController.text = '';
+    emit(SelectCityState());
+    getAreas(cityId: city.id);
+  }
+
+  selectArea(Area area) {
+    selectedArea = area;
+
+    areaController.text = area.name;
+
+    emit(SelectAreaState());
+  }
 
   registerUser({
     required String firstName,
@@ -45,19 +90,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String email,
     required String password,
     required String gender,
-    required String city,
-    required String area,
-    required String country,
     required String address,
     required String phone,
   }) async {
-    emit(RegisterLoadinglState());
+    emit(RegisterLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
         var myUrl = Uri.parse(
             "https://karam-app.com/celo/queencare/public/api/Register");
         debugPrint('birthday is');
-        debugPrint(birthdayDateTime.toString());
+        // debugPrint(birthdayDateTime.toString());
+        // debugPrint(countryController.text);
+        // debugPrint(cityController.text);
+        // debugPrint(areaController.text);
+
+        debugPrint(selectedCountry!.name);
+        debugPrint(selectedCity!.name);
+        debugPrint(selectedArea!.name);
 
         final response = await http.post(myUrl, body: {
           'firstName': firstName,
@@ -66,9 +115,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
           'phone': phone,
           'password': password,
           'gender': gender,
-          'city': city,
-          'area': area,
-          'country': country,
+          'city': selectedCity!.name,
+          'area': selectedArea!.name,
+          'country': selectedCountry!.name,
           'address': address,
           'birthday': birthdayDateTime.toString(),
           'fcm,': 'fcm',
@@ -80,7 +129,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         if (response.statusCode == 200) {
           debugPrint(response.statusCode.toString());
 
-           user = RegisterUserModel.fromJson(data);
+          user = RegisterUserModel.fromJson(data);
           debugPrint(user.firstName);
           debugPrint(user.email);
           debugPrint(user.phone);
@@ -92,7 +141,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
           CacheHelper.saveData(key: 'api_token', value: user.apiToken);
           CacheHelper.saveData(key: 'type', value: '0');
 
-
           emit(RegisterSuccessState(user: user));
         } else if (response.statusCode == 403) {
           emit(NumberUsedState(error: data['body']));
@@ -100,11 +148,101 @@ class RegisterCubit extends Cubit<RegisterStates> {
           emit(RegisterErrorState(error: data['body']));
         }
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e.toString());
+        }
         emit(ErrorState());
       }
     } else {
       emit(DeviceNotConnectedState());
     }
+  }
+
+  Future<List<Country>> getCountries() async {
+    emit(LoadingState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse(
+            "https://karam-app.com/celo/queencare/public/api/country");
+
+        final response = await http.get(
+          myUrl,
+        );
+
+        if (response.statusCode == 200) {
+          countries = countryFromJson(response.body);
+          emit(LoadedSuccess());
+        } else if (response.statusCode == 404) {
+          emit(LoadingErrorState());
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        emit(LoadingErrorState());
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+    }
+    return countries;
+  }
+
+  Future<List<City>> getCities({required int countryId}) async {
+    emit(LoadingState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl =
+            Uri.parse("https://karam-app.com/celo/queencare/public/api/city");
+
+        final response =
+            await http.post(myUrl, body: {'country_id': countryId.toString()});
+
+        if (response.statusCode == 200) {
+          cities = cityFromJson(response.body);
+          if (kDebugMode) {
+            print(cities);
+          }
+          emit(LoadedSuccess());
+        } else if (response.statusCode == 404) {
+          emit(LoadingErrorState());
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        emit(LoadingErrorState());
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+    }
+    return cities;
+  }
+
+  Future<List<Area>> getAreas({required int cityId}) async {
+    emit(LoadingState());
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl =
+            Uri.parse("https://karam-app.com/celo/queencare/public/api/area");
+
+        final response =
+            await http.post(myUrl, body: {'city_id': cityId.toString()});
+
+        if (response.statusCode == 200) {
+          areas = areaFromJson(response.body);
+          emit(LoadedSuccess());
+        } else if (response.statusCode == 404) {
+          emit(LoadingErrorState());
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        emit(LoadingErrorState());
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+    }
+    return areas;
   }
 }

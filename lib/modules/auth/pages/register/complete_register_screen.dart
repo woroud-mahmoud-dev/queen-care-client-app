@@ -16,6 +16,9 @@ import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/title_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
+import 'package:queen_care/models/area.dart';
+import 'package:queen_care/models/city.dart';
+import 'package:queen_care/models/country.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
@@ -31,9 +34,7 @@ class CompleteRegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final addressController = TextEditingController();
-  final cityController = TextEditingController();
-  final countryController = TextEditingController();
-  final areaController = TextEditingController();
+
   final myService = MyService();
   final formKey = GlobalKey<FormState>();
   DateTime dateTime = DateTime.now();
@@ -43,7 +44,7 @@ class CompleteRegisterScreen extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: BlocProvider(
-        create: (context) => RegisterCubit(),
+        create: (context) => RegisterCubit()..getCountries(),
         child: BlocConsumer<RegisterCubit, RegisterStates>(
           listener: (context, state) {
             if (state is RegisterSuccessState) {
@@ -143,7 +144,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'required_field'.tr(context);
-                                } else {
+                                } else if(value.length<9) {
+                                  return 'valid_number'.tr(context);
+                                }else{
                                   return null;
                                 }
                               },
@@ -172,11 +175,24 @@ class CompleteRegisterScreen extends StatelessWidget {
                               label: 'country'.tr(context),
                               hintText: 'register_country'.tr(context),
                               isPassword: false,
-                              icon: const Icon(
-                                Icons.location_city,
-                                color: kPrimaryColor,
+                              icon: DropdownButton<Country>(
+                                underline: const SizedBox(),
+                                isExpanded: true,
+                                items: RegisterCubit.get(context)
+                                    .countries
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(e.name),
+                                        ))
+                                    .toList(),
+                                onChanged: (c) {
+                                  RegisterCubit.get(context).selectCountry(c!);
+                                },
+                                value:
+                                    RegisterCubit.get(context).selectedCountry,
                               ),
-                              controller: countryController,
+                              controller:
+                                  RegisterCubit.get(context).countryController,
                               context: context,
                               onEditingComplete: () {}),
                           SizedBox(
@@ -194,11 +210,23 @@ class CompleteRegisterScreen extends StatelessWidget {
                               label: 'city'.tr(context),
                               hintText: 'register_city'.tr(context),
                               isPassword: false,
-                              icon: const Icon(
-                                Icons.location_city,
-                                color: kPrimaryColor,
+                              icon: DropdownButton<City>(
+                                underline: const SizedBox(),
+                                isExpanded: true,
+                                items: RegisterCubit.get(context)
+                                    .cities
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(e.name),
+                                        ))
+                                    .toList(),
+                                onChanged: (c) {
+                                  RegisterCubit.get(context).selectCity(c!);
+                                },
+                                value: RegisterCubit.get(context).selectedCity,
                               ),
-                              controller: cityController,
+                              controller:
+                                  RegisterCubit.get(context).cityController,
                               context: context,
                               onEditingComplete: () {}),
                           SizedBox(
@@ -207,7 +235,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                           customTextField(
                               keyboardType: TextInputType.name,
                               validate: (value) {
-                                if (value!.isEmpty) {
+                                if (value!.isEmpty&&RegisterCubit.get(context).areas.isNotEmpty) {
                                   return 'required_field'.tr(context);
                                 } else {
                                   return null;
@@ -216,11 +244,23 @@ class CompleteRegisterScreen extends StatelessWidget {
                               label: 'area'.tr(context),
                               hintText: 'register_area'.tr(context),
                               isPassword: false,
-                              icon: const Icon(
-                                Icons.location_city,
-                                color: kPrimaryColor,
+                              icon:  DropdownButton<Area>(
+                                underline: const SizedBox(),
+                                isExpanded: true,
+                                items: RegisterCubit.get(context)
+                                    .areas
+                                    .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.name),
+                                ))
+                                    .toList(),
+                                onChanged: (area) {
+                                  RegisterCubit.get(context).selectArea(area!);
+                                },
+                                value: RegisterCubit.get(context).selectedArea,
                               ),
-                              controller: areaController,
+                              controller:
+                                  RegisterCubit.get(context).areaController,
                               context: context,
                               onEditingComplete: () {}),
                           SizedBox(
@@ -430,7 +470,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: h * 0.03,
                   ),
-                  state is! RegisterLoadinglState
+                  state is! RegisterLoadingState
                       ? AuthButton(
                           title: 'confirm'.tr(context),
                           onTap: () {
@@ -446,9 +486,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                                 firstName: firstNameController.text.trim(),
                                 lastName: lastNameController.text.trim(),
                                 address: addressController.text.trim(),
-                                area: areaController.text.trim(),
-                                country: countryController.text.trim(),
-                                city: cityController.text.trim(),
+                                // area: areaController.text.trim(),
+                                // country: countryController.text.trim(),
+                                // city: cityController.text.trim(),
                                 phone: phoneController.text.trim(),
                                 password: passwordController.text.trim(),
                                 email: email,
@@ -465,7 +505,8 @@ class CompleteRegisterScreen extends StatelessWidget {
                     height: h * 0.05,
                   ),
                   Description(
-                    text: 'c'.tr(context), fontSize: 10,
+                    text: 'c'.tr(context),
+                    fontSize: 10,
                   ),
                   SizedBox(
                     height: h * 0.05,
