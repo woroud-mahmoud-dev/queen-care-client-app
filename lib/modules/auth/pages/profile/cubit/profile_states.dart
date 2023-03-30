@@ -1,3 +1,4 @@
+import 'package:queen_care/models/country.dart';
 import 'package:queen_care/models/user.dart';
 
 abstract class ProfileCubitState {}
@@ -45,3 +46,15 @@ class ConvertToCompanyErrorState extends ProfileCubitState {}
 class DeviceNotConnectedState extends ProfileCubitState {}
 
 class DeviceNotConnectedToSendState extends ProfileCubitState {}
+class LoadingState extends ProfileCubitState {}
+
+class LoadedSuccess extends ProfileCubitState {}
+
+class LoadingErrorState extends ProfileCubitState {}
+class SelectCountryState extends ProfileCubitState {
+  final Country country;
+
+  SelectCountryState(this.country);
+}
+class SelectCityState extends ProfileCubitState {}
+class SelectAreaState extends ProfileCubitState {}

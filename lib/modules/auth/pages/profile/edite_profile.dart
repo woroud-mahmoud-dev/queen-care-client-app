@@ -11,13 +11,15 @@ import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/error_snack_bar.dart';
 import 'package:queen_care/core/widget/error_widget.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
-import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/core/widget/title_widget.dart';
 import 'package:queen_care/core/widget/toast.dart';
+import 'package:queen_care/models/area.dart';
+import 'package:queen_care/models/city.dart';
+import 'package:queen_care/models/country.dart';
 import 'package:queen_care/models/user.dart';
 import 'package:queen_care/modules/auth/pages/profile/cubit/profile_cubit.dart';
 import 'package:queen_care/modules/auth/pages/profile/cubit/profile_states.dart';
@@ -32,9 +34,7 @@ class EditProfile extends StatelessWidget {
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
   final addressController = TextEditingController();
-  final cityController = TextEditingController();
-  final countryController = TextEditingController();
-  final areaController = TextEditingController();
+
   final myService = MyService();
   DateTime dateTime = DateTime.now();
   String? formattedDate;
@@ -57,12 +57,15 @@ class EditProfile extends StatelessWidget {
             if (state is DeviceNotConnectedToSendState) {
               showSnackBar(context);
             }
+            if (state is GetProfileLoaded) {
+              ProfileCubit.get(context).getCountries();
+            }
           },
           builder: (context, state) {
             user = ProfileCubit.get(context).user;
-            if( state is GetProfileLoading){
+            if (state is GetProfileLoading) {
               return const Center(child: LoadingWidget());
-            }else if(state is GetProfileError){
+            } else if (state is GetProfileError) {
               return Center(
                 child: CustomErrorWidget(
                   onPressed: () {
@@ -70,35 +73,32 @@ class EditProfile extends StatelessWidget {
                   },
                 ),
               );
-            }else if (state is DeviceNotConnectedState){
-              return  Center(
+            } else if (state is DeviceNotConnectedState) {
+              return Center(
                 child: NoInternetWidget(
                   onPressed: () {
-                    ProfileCubit.get(context)
-                        .getProfileWithHttp();
+                    ProfileCubit.get(context).getProfileWithHttp();
                   },
                 ),
               );
-            }else{
+            } else {
               return Container(
                 padding: const EdgeInsets.all(20),
                 width: w,
                 height: h,
                 decoration: customBoxDecoration,
-                child:ListView(
+                child: ListView(
                   physics: const BouncingScrollPhysics(),
                   clipBehavior: Clip.none,
                   children: [
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         const BackButton(),
                         SizedBox(
                           width: w * 0.15,
                         ),
-                        TitleWidget(
-                            text: 'edite_profile'.tr(context)),
+                        TitleWidget(text: 'edite_profile'.tr(context)),
                         const Spacer(),
                       ],
                     ),
@@ -172,14 +172,33 @@ class EditProfile extends StatelessWidget {
                     ),
                     customTextField(
                         keyboardType: TextInputType.name,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'required_field'.tr(context);
+                          } else {
+                            return null;
+                          }
+                        },
                         label: 'country'.tr(context),
                         hintText: user!.country,
                         isPassword: false,
-                        icon: const Icon(
-                          Icons.location_city,
-                          color: kPrimaryColor,
+                        icon: DropdownButton<Country>(
+                          underline: const SizedBox(),
+                          isExpanded: true,
+                          items: ProfileCubit.get(context)
+                              .countries
+                              .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e.name),
+                                  ))
+                              .toList(),
+                          onChanged: (c) {
+                            ProfileCubit.get(context).selectCountry(c!);
+                          },
+                          hint: Text(user!.country),
+                          value: ProfileCubit.get(context).selectedCountry,
                         ),
-                        controller: countryController,
+                        controller: ProfileCubit.get(context).countryController,
                         context: context,
                         onEditingComplete: () {}),
                     SizedBox(
@@ -187,14 +206,32 @@ class EditProfile extends StatelessWidget {
                     ),
                     customTextField(
                         keyboardType: TextInputType.name,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'required_field'.tr(context);
+                          } else {
+                            return null;
+                          }
+                        },
                         label: 'city'.tr(context),
                         hintText: user!.city,
                         isPassword: false,
-                        icon: const Icon(
-                          Icons.location_city,
-                          color: kPrimaryColor,
+                        icon: DropdownButton<City>(
+                          underline: const SizedBox(),
+                          isExpanded: true,
+                          items: ProfileCubit.get(context)
+                              .cities
+                              .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e.name),
+                                  ))
+                              .toList(),
+                          onChanged: (c) {
+                            ProfileCubit.get(context).selectCity(c!);
+                          },
+                          value: ProfileCubit.get(context).selectedCity,
                         ),
-                        controller: cityController,
+                        controller: ProfileCubit.get(context).cityController,
                         context: context,
                         onEditingComplete: () {}),
                     SizedBox(
@@ -202,14 +239,33 @@ class EditProfile extends StatelessWidget {
                     ),
                     customTextField(
                         keyboardType: TextInputType.name,
+                        validate: (value) {
+                          if (value!.isEmpty &&
+                              ProfileCubit.get(context).areas.isNotEmpty) {
+                            return 'required_field'.tr(context);
+                          } else {
+                            return null;
+                          }
+                        },
                         label: 'area'.tr(context),
                         hintText: user!.area,
                         isPassword: false,
-                        icon: const Icon(
-                          Icons.location_city,
-                          color: kPrimaryColor,
+                        icon: DropdownButton<Area>(
+                          underline: const SizedBox(),
+                          isExpanded: true,
+                          items: ProfileCubit.get(context)
+                              .areas
+                              .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(e.name),
+                                  ))
+                              .toList(),
+                          onChanged: (area) {
+                            ProfileCubit.get(context).selectArea(area!);
+                          },
+                          value: ProfileCubit.get(context).selectedArea,
                         ),
-                        controller: areaController,
+                        controller: ProfileCubit.get(context).areaController,
                         context: context,
                         onEditingComplete: () {}),
                     SizedBox(
@@ -236,35 +292,29 @@ class EditProfile extends StatelessWidget {
                       readOnly: true,
                       decoration: InputDecoration(
                         enabled: false,
-                        hintText: ProfileCubit.get(context)
-                            .birthdayDateTime ==
-                            null
+                        hintText: ProfileCubit.get(context).birthdayDateTime ==
+                                null
                             ? '${user!.birthday.year}-${user!.birthday.month}-${user!.birthday.day}'
                             : '${ProfileCubit.get(context).birthdayDateTime!.year}-${ProfileCubit.get(context).birthdayDateTime!.month}-${ProfileCubit.get(context).birthdayDateTime!.day}',
-                        hintStyle:
-                        const TextStyle(color: Colors.black),
+                        hintStyle: const TextStyle(color: Colors.black),
                         prefixIconColor: kPrimaryColor,
                         label: Text(
                           'birt_date'.tr(context),
-                          style:
-                          const TextStyle(color: kPrimaryColor),
+                          style: const TextStyle(color: kPrimaryColor),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: kPrimaryColor),
+                          borderSide: const BorderSide(color: kPrimaryColor),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: kPrimaryColor),
+                          borderSide: const BorderSide(color: kPrimaryColor),
                         ),
-                        labelStyle: const TextStyle(
-                            color: Colors.white, fontSize: 17),
+                        labelStyle:
+                            const TextStyle(color: Colors.white, fontSize: 17),
                         suffix: GestureDetector(
                           onTap: () async {
-                            DateTime? newDate =
-                            await showDatePicker(
+                            DateTime? newDate = await showDatePicker(
                               context: context,
                               initialDate: dateTime,
                               firstDate: DateTime(1990, 1, 1),
@@ -272,20 +322,15 @@ class EditProfile extends StatelessWidget {
                               builder: (context, child) {
                                 return Theme(
                                   data: Theme.of(context).copyWith(
-                                    colorScheme:
-                                    const ColorScheme.light(
-                                      primary:
-                                      kPrimaryColor, // <-- SEE HERE
-                                      onPrimary: Colors
-                                          .black, // <-- SEE HERE
-                                      onSurface: Colors
-                                          .black, // <-- SEE HERE
+                                    colorScheme: const ColorScheme.light(
+                                      primary: kPrimaryColor, // <-- SEE HERE
+                                      onPrimary: Colors.black, // <-- SEE HERE
+                                      onSurface: Colors.black, // <-- SEE HERE
                                     ),
-                                    textButtonTheme:
-                                    TextButtonThemeData(
+                                    textButtonTheme: TextButtonThemeData(
                                       style: TextButton.styleFrom(
-                                        foregroundColor: Colors
-                                            .grey, // button text color
+                                        foregroundColor:
+                                            Colors.grey, // button text color
                                       ),
                                     ),
                                   ),
@@ -298,8 +343,7 @@ class EditProfile extends StatelessWidget {
                                 .selectBirthdayDateTime(newDate!);
                             if (newDate != null) {
                               formattedDate =
-                                  DateFormat('yyyy-MM-dd')
-                                      .format(newDate);
+                                  DateFormat('yyyy-MM-dd').format(newDate);
                               debugPrint(
                                   formattedDate); //formatted date output using intl package =>  2021-03-16
 
@@ -313,29 +357,26 @@ class EditProfile extends StatelessWidget {
                       ),
                     ),
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GenderWidget(
-                          groupValue: ProfileCubit.get(context)
-                              .genderGroupValue,
+                          groupValue:
+                              ProfileCubit.get(context).genderGroupValue,
                           icon: Icons.man,
                           name: 'male'.tr(context),
                           value: 1,
                           onChanged: (val) {
-                            ProfileCubit.get(context)
-                                .selectGender(val);
+                            ProfileCubit.get(context).selectGender(val);
                           },
                         ),
                         GenderWidget(
-                          groupValue: ProfileCubit.get(context)
-                              .genderGroupValue,
+                          groupValue:
+                              ProfileCubit.get(context).genderGroupValue,
                           icon: Icons.woman,
                           name: 'female'.tr(context),
                           value: 0,
                           onChanged: (val) {
-                            ProfileCubit.get(context)
-                                .selectGender(val);
+                            ProfileCubit.get(context).selectGender(val);
                           },
                         ),
                       ],
@@ -344,13 +385,11 @@ class EditProfile extends StatelessWidget {
                       height: h * 0.05,
                     ),
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'notifications'.tr(context),
-                          style: const TextStyle(
-                              color: darkGrey, fontSize: 16),
+                          style: const TextStyle(color: darkGrey, fontSize: 16),
                         ),
                         Switch(
                           value: true,
@@ -368,37 +407,29 @@ class EditProfile extends StatelessWidget {
                     ),
                     state is EditeProfileLoading
                         ? const Center(
-                        child: CircularProgressIndicator(
-                          color: kPrimaryColor,
-                        ))
+                            child: CircularProgressIndicator(
+                            color: kPrimaryColor,
+                          ))
                         : AuthButton(
-                      title: 'save'.tr(context),
-                      onTap: () {
-                        ProfileCubit.get(context)
-                            .editeProfileWithHttp(
-                          city: cityController.text.trim(),
-                          country:
-                          countryController.text.trim(),
-                          area: areaController.text.trim(),
-                          address:
-                          addressController.text.trim(),
-                          gender: ProfileCubit.get(context)
-                              .genderGroupValue
-                              .toString(),
-                          firstName: firstNameController.text,
-                          lastName: lastNameController.text,
-                          phone: phoneController.text,
-                          email: emailController.text,
-                        );
-                      },
-                      color: kPrimaryColor,
-                    ),
+                            title: 'save'.tr(context),
+                            onTap: () {
+                              ProfileCubit.get(context).editeProfileWithHttp(
+                                address: addressController.text.trim(),
+                                gender: ProfileCubit.get(context)
+                                    .genderGroupValue
+                                    .toString(),
+                                firstName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                phone: phoneController.text,
+                                email: emailController.text,
+                              );
+                            },
+                            color: kPrimaryColor,
+                          ),
                   ],
                 ),
               );
             }
-
-
           },
         ),
       ),
