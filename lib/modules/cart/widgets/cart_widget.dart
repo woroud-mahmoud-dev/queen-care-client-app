@@ -6,10 +6,10 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/core/widget/circle_button.dart';
-import 'package:queen_care/core/widget/custom_button.dart';
 import 'package:queen_care/core/widget/half_circle_button.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:queen_care/modules/cart/cubit/cart_cubit.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class CartWidget extends StatelessWidget {
   final CartModel cartModel;
@@ -96,7 +96,9 @@ class CartWidget extends StatelessWidget {
                   child: SizedBox(
                     width: w * 0.4,
                     child: Text(
-                      cartModel.mission.name,
+                      CacheHelper.getData(key: 'LOCALE') == "en"
+                          ? cartModel.mission.enName
+                          : cartModel.mission.name,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       style: TextStyle(fontSize: 12.sp, color: Colors.black),

@@ -43,7 +43,7 @@ class ProductItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    productModel.name,
+                    CacheHelper.getData(key: 'LOCALE') == "en"?productModel.enName:     productModel.name,
                     style: TextStyle(color: Colors.black54, fontSize: 14.sp),
                     textAlign: TextAlign.center,
                   ),

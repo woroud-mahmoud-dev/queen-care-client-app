@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/favoriteModel.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 import '../../../../core/utils/constant.dart';
 
 class FavoriteCardWidget extends StatelessWidget {
@@ -38,7 +39,9 @@ class FavoriteCardWidget extends StatelessWidget {
           SizedBox(
             width: w * 0.3,
             child: Text(
-              favoriteModel.mission.name,
+              CacheHelper.getData(key: 'LOCALE') == "en"
+                  ? favoriteModel.mission.enName
+                  : favoriteModel.mission.name,
               textAlign: TextAlign.center,
               maxLines: 3,
               style: TextStyle(fontSize: 12.sp),

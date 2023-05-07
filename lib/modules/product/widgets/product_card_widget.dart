@@ -4,10 +4,12 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/utils/strings.dart';
 
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/widgets/counter_widget.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class ProductCardWidget extends StatelessWidget {
   const ProductCardWidget({
@@ -41,7 +43,9 @@ class ProductCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  myService.getSelectedCategory!.name,
+                  CacheHelper.getData(key: 'LOCALE') == "en"
+                      ? myService.getSelectedCategory!.enName
+                      : myService.getSelectedCategory!.name,
                   style: TextStyle(fontSize: 16.sp),
                 ),
                 const Spacer(),
@@ -83,7 +87,9 @@ class ProductCardWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Text(
-                      myService.getSelectedProduct!.name,
+                      CacheHelper.getData(key: 'LOCALE') == "en"
+                          ? myService.getSelectedProduct!.enName
+                          : myService.getSelectedProduct!.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black54, fontSize: 14.sp),
                     ),

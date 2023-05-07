@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:queen_care/models/cart_model.dart';
+
 List<FavoriteModel> favoriteModelFromJson(String str) =>
     List<FavoriteModel>.from(
         json.decode(str).map((x) => FavoriteModel.fromJson(x)));
@@ -37,46 +39,4 @@ class FavoriteModel {
       };
 }
 
-class Mission {
-  Mission({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.price,
-    required this.type,
-    required this.description,
-    required this.cases,
-    required this.state,
-  });
 
-  final int id;
-  final String name;
-  final String image;
-  final String price;
-  final String type;
-  final String description;
-  final String cases;
-  final String state;
-
-  factory Mission.fromJson(Map<String, dynamic> json) => Mission(
-        id: json["id"],
-        name: json["name"],
-        image: json["image"],
-        price: json["price"],
-        type: json["type"],
-        description: json["description"],
-        cases: json["cases"],
-        state: json["state"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "image": image,
-        "price": price,
-        "type": type,
-        "description": description,
-        "cases": cases,
-        "state": state,
-      };
-}

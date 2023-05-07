@@ -40,11 +40,11 @@ class ProductScreen extends StatelessWidget {
             btColor = Colors.grey;
           }
           if (state is AddToCartSuccessState) {
-            showToast(
-                text: 'added_to_the_cart'.tr(context), color: kBlueGreen);
+            showToast(text: 'added_to_the_cart'.tr(context), color: kBlueGreen);
           }
           if (state is AddToCartErrorState) {
-            showToast(text: 'already_in_the_cart'.tr(context), color: kBlueGreen);
+            showToast(
+                text: 'already_in_the_cart'.tr(context), color: kBlueGreen);
           }
           if (state is DeviceNotConnectedState) {
             showSnackBar(context);

@@ -5,6 +5,7 @@ import 'package:queen_care/core/widget/screen_title.dart';
 import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/modules/auth/pages/profile/edite_profile.dart';
 import 'package:queen_care/modules/auth/pages/profile/widgets/profile_list_item.dart';
+import 'package:queen_care/modules/auth/pages/select_lan/change_app_language.dart';
 import 'package:queen_care/modules/auth/pages/splach/splach_screen.dart';
 import 'package:queen_care/modules/convert_user_to_company/convert_to_company.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -69,9 +70,8 @@ class _ProfileState extends State<Profile> {
             iconNotImage: true,
             text: 'Transfer_to_company'.tr(context),
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const ConvertToCompany()));
-
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const ConvertToCompany()));
             },
           ),
           SizedBox(
@@ -83,6 +83,18 @@ class _ProfileState extends State<Profile> {
             text: 'period_calculator'.tr(context),
             onTap: () {
               widget.tabController.animateTo(7);
+            },
+          ),
+          SizedBox(
+            height: h * 0.05,
+          ),
+          ProfileItem(
+            iconNotImage: true,
+            iconData: Icons.language,
+            text: 'change_lan'.tr(context),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => ChangeLanguage()));
             },
           ),
           SizedBox(

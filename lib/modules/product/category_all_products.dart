@@ -11,6 +11,7 @@ import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/product.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/widgets/product_item.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class CategoryAllProducts extends StatelessWidget {
   CategoryAllProducts({Key? key, required this.tabController})
@@ -70,7 +71,7 @@ class CategoryAllProducts extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            myService.getSelectedCategory!.name,
+                            CacheHelper.getData(key: 'LOCALE') == "en"?myService.getSelectedCategory!.enName:       myService.getSelectedCategory!.name,
                             style: TextStyle(fontSize: 16.sp),
                           ),
                           const Spacer(),

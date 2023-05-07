@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:queen_care/core/utils/strings.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:queen_care/network/local/language_cache_helper.dart';
 
 part 'locale_state.dart';
@@ -17,6 +19,7 @@ class LocaleCubit extends Cubit<ChangeLocaleState> {
 
   Future<void> changeLanguage(String languageCode) async {
     await LanguageCacheHelper().cacheLanguageCode(languageCode);
+
     emit(ChangeLocaleState(locale: Locale(languageCode)));
   }
 }

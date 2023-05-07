@@ -47,6 +47,11 @@ class Mission {
     required this.description,
     required this.cases,
     required this.state,
+    required this.enName,
+    required this.enType,
+    required this.enDescription,
+    required this.enCases,
+    required this.unitMission,
   });
 
   int id;
@@ -59,15 +64,25 @@ class Mission {
   String cases;
   String state;
 
+  String enName;
+  String enType;
+  String enDescription;
+  String enCases;
+  String unitMission;
   factory Mission.fromJson(Map<String, dynamic> json) => Mission(
         id: json["id"],
-        name: json["name"],
-        image: json["image"],
-        price: json["price"],
-        type: json["type"],
-        description: json["description"],
-        cases: json["cases"],
-        state: json["state"],
+        name: json["name"] ?? "",
+        image: json["image"] ?? "",
+        price: json["price"] ?? "10",
+        type: json["type"] ?? "1",
+        description: json["description"] ?? "",
+        cases: json["cases"] ?? "",
+        state: json["state"] ?? "",
+        enName: json["en_name"] ?? "",
+        enType: json["en_type"] ?? "1",
+        enDescription: json["en_description"] ?? "",
+        enCases: json["en_cases"] ?? "",
+        unitMission: json["unit_mission"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -79,5 +94,10 @@ class Mission {
         "description": description,
         "cases": cases,
         "state": state,
+        "en_name": enName,
+        "en_type": enType,
+        "en_description": enDescription,
+        "en_cases": enCases,
+        "unit_mission": unitMission,
       };
 }

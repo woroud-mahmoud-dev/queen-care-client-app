@@ -10,6 +10,7 @@ const black = Color(0xff333333);
 const kSecondaryColor = Color(0xFFffdb57);
 const kGreen = Color(0xFF7ed958);
 
+
 const customBoxDecoration = BoxDecoration(
   image: DecorationImage(
       colorFilter: ColorFilter.mode(Colors.white, BlendMode.softLight),

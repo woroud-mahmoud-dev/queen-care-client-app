@@ -4,6 +4,7 @@ import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/core/widget/go_cart.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 // ignore: must_be_immutable
 class ProductDetails extends StatelessWidget {
@@ -64,7 +65,9 @@ class ProductDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    myService.getSelectedProduct!.name,
+                    CacheHelper.getData(key: 'LOCALE') == "en"
+                        ? myService.getSelectedProduct!.enName
+                        : myService.getSelectedProduct!.name,
                     style: TextStyle(fontSize: 15.sp),
                   ),
                 ],
@@ -73,7 +76,9 @@ class ProductDetails extends StatelessWidget {
                 height: h * 0.03,
               ),
               Text(
-                myService.getSelectedProduct!.description,
+                CacheHelper.getData(key: 'LOCALE') == "en"
+                    ? myService.getSelectedProduct!.enDescription
+                    : myService.getSelectedProduct!.description,
                 style: TextStyle(height: 1.2, fontSize: 14.sp, color: darkGrey),
                 textAlign: TextAlign.center,
               ),

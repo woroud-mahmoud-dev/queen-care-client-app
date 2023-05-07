@@ -5,6 +5,7 @@ import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/category.dart';
+import 'package:queen_care/network/local/cache_helper.dart';
 
 class CategoryWidget extends StatelessWidget {
   final CategoryModel category;
@@ -54,7 +55,7 @@ class CategoryWidget extends StatelessWidget {
                 height: h * 0.06,
                 width: w * 0.3,
                 child: Text(
-                  category.name,
+                  CacheHelper.getData(key: 'LOCALE') == "en"? category.enName : category.name,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: kBlueGreen, fontSize: 13.sp),
                 ),
