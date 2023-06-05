@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -17,76 +18,10 @@ class ProductCubit extends Cubit<ProductState> {
   Color? btColor;
   int productNumber = 0;
   List<ProductModel> productsListByType = [];
-
   List<ProductModel> productsList = [];
   final apiBaseHelper = ApiBaseHelper();
-
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
-
-  getAllProductsWithHttp() async {
-    emit(GetAllProductByTypeLoading());
-
-    if (await connectionChecker.hasConnection) {
-      try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/mission");
-
-        final response = await http.get(myUrl);
-
-        if (response.statusCode == 200) {
-          productsList = productModelFromJson(response.body);
-
-          emit(GetAllProductSuccess(allProductsList: productsList));
-        }
-      } catch (e) {
-        emit(GetAllProductError('Error'));
-      }
-    } else {
-      emit(DeviceNotConnectedState());
-      return null;
-    }
-  }
-
-  void getAllProductsByTypeWithHttp() async {
-    emit(GetAllProductByTypeLoading());
-    if (await connectionChecker.hasConnection) {
-      try {
-        debugPrint(
-            'the id is :${myService.getSelectedCategory!.id.toString()}');
-
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/show");
-
-        final response = await http.post(myUrl, body: {
-          'id': myService.getSelectedCategory!.id.toString(),
-          'token': CacheHelper.getData(key: 'api_token'),
-        });
-
-        // List<dynamic> data = json.decode(response.body);
-
-        if (response.statusCode == 200) {
-          productsListByType = productModelFromJson(response.body);
-          if (productsListByType.isEmpty) {
-            emit(Empty());
-          }
-          debugPrint(response.statusCode.toString());
-          debugPrint(productsListByType.toString());
-          debugPrint(productsListByType.first.name);
-          debugPrint(productsListByType.first.description);
-
-          emit(GetAllProductByTypeSuccess(productsList: productsListByType));
-        } else if (response.statusCode == 404) {
-           emit(GetAllProductByTypeError('error'));
-        }
-      } catch (e) {
-         emit(GetAllProductByTypeError('error'));
-      }
-    } else {
-      emit(DeviceNotConnectedState());
-      return null;
-    }
-  }
 
   void increaseProductNumber() {
     if (productNumber >= 0) {
@@ -105,12 +40,72 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
 
-  addToCart({required int productId, required int amount}) async {
+  Future<void> getAllProductsWithHttp() async {
+    emit(GetAllProductByTypeLoading());
+
+    if (await connectionChecker.hasConnection) {
+      try {
+        var myUrl = Uri.parse("$baseUrl/mission");
+
+        final response = await http.get(myUrl);
+
+        if (response.statusCode == 200) {
+          productsList = productModelFromJson(response.body);
+
+          emit(GetAllProductSuccess(allProductsList: productsList));
+        }
+      } catch (e) {
+        emit(GetAllProductError('Error'));
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+      return;
+    }
+  }
+
+  Future<void> getAllProductsByTypeWithHttp() async {
+    emit(GetAllProductByTypeLoading());
+    if (await connectionChecker.hasConnection) {
+      try {
+        debugPrint(
+            'the id is :${myService.getSelectedCategory!.id.toString()}');
+
+        var myUrl = Uri.parse("$baseUrl/show");
+
+        final response = await http.post(myUrl, body: {
+          'id': myService.getSelectedCategory!.id.toString(),
+          'token': CacheHelper.getData(key: 'api_token'),
+        });
+
+        if (response.statusCode == 200) {
+          productsListByType = productModelFromJson(response.body);
+          if (productsListByType.isEmpty) {
+            emit(Empty());
+          }
+          debugPrint(response.statusCode.toString());
+          debugPrint(productsListByType.toString());
+          debugPrint(productsListByType.first.name);
+          debugPrint(productsListByType.first.description);
+
+          emit(GetAllProductByTypeSuccess(productsList: productsListByType));
+        } else if (response.statusCode == 404) {
+          emit(GetAllProductByTypeError('error'));
+        }
+      } catch (e) {
+        emit(GetAllProductByTypeError('error'));
+      }
+    } else {
+      emit(DeviceNotConnectedState());
+      return;
+    }
+  }
+
+
+  Future<void> addToCart({required int productId, required int amount}) async {
     emit(AddToCartLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/add_to_cart");
+        var myUrl = Uri.parse("$baseUrl/add_to_cart");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -131,11 +126,11 @@ class ProductCubit extends Cubit<ProductState> {
       }
     } else {
       emit(DeviceNotConnectedState());
-      return null;
+      return;
     }
   }
 
-  addToFavorite(int productId) async {
+  Future<void> addToFavorite(int productId) async {
     if (await connectionChecker.hasConnection) {
       try {
         await apiBaseHelper.post('add_to_favourite', {
@@ -150,11 +145,11 @@ class ProductCubit extends Cubit<ProductState> {
       }
     } else {
       emit(DeviceNotConnectedState());
-      return null;
+      return;
     }
   }
 
-  deleteFromFavorite(int id) async {
+  Future<void> deleteFromFavorite(int id) async {
     if (await connectionChecker.hasConnection) {
       try {
         await apiBaseHelper.post('delete-favourite', {
@@ -168,7 +163,8 @@ class ProductCubit extends Cubit<ProductState> {
       }
     } else {
       emit(DeviceNotConnectedState());
-      return null;
+      return;
     }
   }
+
 }

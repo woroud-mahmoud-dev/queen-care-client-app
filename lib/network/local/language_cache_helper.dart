@@ -1,6 +1,7 @@
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class LanguageCacheHelper {
   Future<void> cacheLanguageCode(String languageCode) async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -13,6 +14,7 @@ class LanguageCacheHelper {
     if (cachedLanguageCode != null) {
       return cachedLanguageCode;
     } else {
+      sharedPreferences.setString("LOCALE", 'en');
       return "en";
     }
   }

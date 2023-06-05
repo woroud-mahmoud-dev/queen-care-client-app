@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/points_prize_model.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:queen_care/network/remote/http_helper.dart';
@@ -22,8 +23,7 @@ class PointsCubit extends Cubit<PointsState> {
     emit(GetMyPointsLoading());
 
     try {
-      var myUrl =
-          Uri.parse("https://karam-app.com/celo/queencare/public/api/my_point");
+      var myUrl = Uri.parse("$baseUrl/my_point");
 
       final response = await http.post(myUrl, body: {
         'token': CacheHelper.getData(key: 'api_token'),
@@ -61,7 +61,7 @@ class PointsCubit extends Cubit<PointsState> {
       try {
         var point = await getMyPoints();
         var data = await apiBaseHelper.post('redeem', {
-          'point': point.toString().isEmpty?"0":point,
+          'point': point.toString().isEmpty ? "0" : point,
         });
         myPointsPrizeList = MyPointsPrizeModel.fromJson(data).prize;
 
@@ -79,12 +79,11 @@ class PointsCubit extends Cubit<PointsState> {
     return myPointsPrizeList;
   }
 
-  replacePointWithPrize({required String prize}) async {
+  Future<void> replacePointWithPrize({required String prize}) async {
     emit(ReplacePointLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/prize_point");
+        var myUrl = Uri.parse("$baseUrl/prize_point");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),

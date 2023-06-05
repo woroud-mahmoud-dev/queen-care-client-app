@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:queen_care/core/failure/failures.dart';
 
 class ApiBaseHelper {
-  final String baseUrl = "https://karam-app.com/celo/queencare/public/api/";
+  final String baseUrl = "https://queencare.net/queencare/public/api/";
 
   Future<dynamic> get(String url) async {
     var myUrl = Uri.parse(baseUrl + url);

@@ -4,6 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'dart:convert';
 import 'package:queen_care/core/my_service.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/cart_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -24,8 +25,7 @@ class CartCubit extends Cubit<CartState> {
     emit(GetAllProductsLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/show_cart");
+        var myUrl = Uri.parse("$baseUrl/show_cart");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -56,12 +56,11 @@ class CartCubit extends Cubit<CartState> {
     return allCartsProductsList;
   }
 
-  deleteFromCart(int id) async {
+  Future<void> deleteFromCart(int id) async {
     debugPrint(id.toString());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/delete-cart");
+        var myUrl = Uri.parse("$baseUrl/delete-cart");
 
         final response = await http.post(myUrl, body: {
           'id': id.toString(),
@@ -81,17 +80,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  void increaseProductNumber(int productId) {
-    debugPrint(
-        'numberOfItems[productId] is :${myService.getNumberOfItems![productId]}');
-    if (myService.getNumberOfItems![productId] >= 0) {
-      myService.getNumberOfItems![productId]++;
-
-      emit(IncreaseProductNumberState(allMoney: 0000));
-    } else {}
-  }
-
-  void addOrder({
+  Future<void> addOrder({
     required List<Map<String, dynamic>> list,
     required String address,
     required String note,
@@ -99,8 +88,7 @@ class CartCubit extends Cubit<CartState> {
     emit(AddOrderLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/addorder");
+        var myUrl = Uri.parse("$baseUrl/addorder");
         var body = json.encode({
           'token': CacheHelper.getData(key: 'api_token'),
           'id': list,
@@ -127,6 +115,16 @@ class CartCubit extends Cubit<CartState> {
     } else {
       emit(DeviceNotConnectedToSendOrderState());
     }
+  }
+
+  void increaseProductNumber(int productId) {
+    debugPrint(
+        'numberOfItems[productId] is :${myService.getNumberOfItems![productId]}');
+    if (myService.getNumberOfItems![productId] >= 0) {
+      myService.getNumberOfItems![productId]++;
+
+      emit(IncreaseProductNumberState(allMoney: 0000));
+    } else {}
   }
 
   void decreaseProductNumber(int productId) {

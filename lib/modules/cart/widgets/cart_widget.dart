@@ -48,7 +48,7 @@ class CartWidget extends StatelessWidget {
             ),
             Column(
               children: [
-                HalfCircleButton(
+                HalfCircleButtonTop(
                   onTap: () {
                     CartCubit.get(context).increaseProductNumber(productId);
                   },
@@ -108,14 +108,14 @@ class CartWidget extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
-                    '${cartModel.mission.price} ${"pounds".tr(context)}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12.sp, color: kPrimaryColor),
-                  ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.symmetric(vertical: 5),
+                //   child: Text(
+                //     '${cartModel.mission.price} ${"pounds".tr(context)}',
+                //     textAlign: TextAlign.center,
+                //     style: TextStyle(fontSize: 12.sp, color: kPrimaryColor),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 5,
                 ),

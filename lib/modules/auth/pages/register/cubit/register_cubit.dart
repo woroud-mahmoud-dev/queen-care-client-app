@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/register_model.dart';
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -18,14 +19,23 @@ class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
+  final InternetConnectionChecker connectionChecker =
+      InternetConnectionChecker();
   int? genderGroupValue;
   DateTime? birthdayDateTime;
   final myService = MyService();
   final cityController = TextEditingController();
   final countryController = TextEditingController();
   final areaController = TextEditingController();
-  final InternetConnectionChecker connectionChecker =
-      InternetConnectionChecker();
+
+  bool visible = false;
+  List<Country> countries = [];
+  List<City> cities = [];
+  List<Area> areas = [];
+  late RegisterUserModel user;
+  Country? selectedCountry;
+  City? selectedCity;
+  Area? selectedArea;
   void selectBirthdayDateTime(DateTime time) {
     birthdayDateTime = time;
 
@@ -39,14 +49,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit((SelectGenderState()));
   }
 
-  bool visible = false;
-  List<Country> countries = [];
-  List<City> cities = [];
-  List<Area> areas = [];
-  late RegisterUserModel user;
-  Country? selectedCountry;
-  City? selectedCity;
-  Area? selectedArea;
   void check() {
     visible = true;
     emit(Cheeked());
@@ -96,13 +98,8 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(RegisterLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/Register");
+        var myUrl = Uri.parse("$baseUrl/Register");
         debugPrint('birthday is');
-        // debugPrint(birthdayDateTime.toString());
-        // debugPrint(countryController.text);
-        // debugPrint(cityController.text);
-        // debugPrint(areaController.text);
 
         debugPrint(selectedCountry!.name);
         debugPrint(selectedCity!.name);
@@ -162,8 +159,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/country");
+        var myUrl = Uri.parse("$baseUrl/country");
 
         final response = await http.get(
           myUrl,
@@ -191,8 +187,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/city");
+        var myUrl = Uri.parse("$baseUrl/city");
 
         final response =
             await http.post(myUrl, body: {'country_id': countryId.toString()});
@@ -222,8 +217,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/area");
+        var myUrl = Uri.parse("$baseUrl/area");
 
         final response =
             await http.post(myUrl, body: {'city_id': cityId.toString()});

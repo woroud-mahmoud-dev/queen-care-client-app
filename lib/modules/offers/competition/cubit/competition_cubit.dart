@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/core/widget/toast.dart';
 import 'package:queen_care/models/competition.dart';
 import 'package:http/http.dart' as http;
@@ -35,8 +36,7 @@ class CompetitionCubit extends Cubit<CompetitionState> {
 
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/quiz");
+        var myUrl = Uri.parse("$baseUrl/quiz");
 
         final response = await http.get(myUrl);
 
@@ -60,8 +60,7 @@ class CompetitionCubit extends Cubit<CompetitionState> {
     emit(GetAllQuestionsLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/Question");
+        var myUrl = Uri.parse("$baseUrl/Question");
 
         final response = await http.post(myUrl, body: {
           "id": myService.getSelectedComp!.id.toString(),
@@ -91,8 +90,7 @@ class CompetitionCubit extends Cubit<CompetitionState> {
     emit(SendResultStateLoading());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/prize");
+        var myUrl = Uri.parse("$baseUrl/prize");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -126,8 +124,7 @@ class CompetitionCubit extends Cubit<CompetitionState> {
     emit(SendResultStateLoading());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/prize");
+        var myUrl = Uri.parse("$baseUrl/prize");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),

@@ -84,18 +84,18 @@ class CartPurchases extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         child: Row(
                           children: [
-                            Text(
-                              cartModel.mission.price,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: kPrimaryColor),
-                            ),
-                            Text(
-                              ' x  ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 12.sp, color: kPrimaryColor),
-                            ),
+                            // Text(
+                            //   cartModel.mission.price,
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(
+                            //       fontSize: 12.sp, color: kPrimaryColor),
+                            // ),
+                            // Text(
+                            //   ' x  ',
+                            //   textAlign: TextAlign.center,
+                            //   style: TextStyle(
+                            //       fontSize: 12.sp, color: kPrimaryColor),
+                            // ),
                             Text(
                               ' ${numberOfItems[productId]}',
                               textAlign: TextAlign.center,

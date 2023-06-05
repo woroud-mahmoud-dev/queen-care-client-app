@@ -101,24 +101,24 @@ class ProductCardWidget extends StatelessWidget {
           SizedBox(
             height: h * 0.02,
           ),
-          SizedBox(
-            width: w * 0.8,
-            height: h * 0.1,
-            child: Card(
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                        "${myService.getSelectedProduct!.price}${"pounds".tr(context)}",
-                        style: TextStyle(color: kBlueGreen, fontSize: 14.sp)),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   width: w * 0.8,
+          //   height: h * 0.1,
+          //   child: Card(
+          //     elevation: 4,
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //         children: [
+          //           Text(
+          //               "${myService.getSelectedProduct!.price}${"pounds".tr(context)}",
+          //               style: TextStyle(color: kBlueGreen, fontSize: 14.sp)),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: h * 0.02,
           ),

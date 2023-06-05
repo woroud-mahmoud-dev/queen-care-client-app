@@ -65,7 +65,7 @@ class LoginCubit extends Cubit<LoginStates> {
     if (await connectionChecker.hasConnection) {
       try {
         var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/login");
+            Uri.parse("$baseUrl/login");
 
         final response = await http.post(myUrl, body: {
           'phone': phone,

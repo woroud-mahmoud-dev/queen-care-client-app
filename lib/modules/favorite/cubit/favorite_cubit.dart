@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/favoriteModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -14,13 +15,12 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
 
-  getAllFavoriteProductsWithHttp() async {
+  Future<void> getAllFavoriteProductsWithHttp() async {
     emit(GetFavoriteProductLoading());
 
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/show_favourite");
+        var myUrl = Uri.parse("$baseUrl/show_favourite");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -40,9 +40,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     }
   }
 
-  deleteFromFavorite(int id) async {
-    var myUrl = Uri.parse(
-        "https://karam-app.com/celo/queencare/public/api/delete-favourite");
+  Future<void> deleteFromFavorite(int id) async {
+    var myUrl = Uri.parse("$baseUrl/delete-favourite");
 
     final response = await http.post(myUrl, body: {
       'id': id.toString(),

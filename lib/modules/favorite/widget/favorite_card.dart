@@ -52,14 +52,15 @@ class FavoriteCardWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    '${favoriteModel.mission.price} ليرة',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.sp, color: kBlueGreen),
-                  ),
-                ),
+                // Expanded(
+                //   flex: 1,
+                //   child: Text(
+                //     '${favoriteModel.mission.price} ليرة',
+                //     textAlign: TextAlign.center,
+                //     style: TextStyle(fontSize: 11.sp, color: kBlueGreen),
+                //   ),
+                // ),
+                Expanded(child: Spacer()),
                 Expanded(
                     flex: 1,
                     child: GestureDetector(

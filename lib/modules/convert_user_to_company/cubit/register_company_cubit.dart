@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +58,7 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
     emit(CompleteCompanyInfoChangeType());
   }
 
-  registerCompany({
+  Future<void>  registerCompany({
     required String idNumber,
     required String name,
     required String address,
@@ -70,7 +71,7 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
     if (await connectionChecker.hasConnection) {
       try {
         var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/registercompany");
+            "$baseUrl/registercompany");
         final Map<String, dynamic> body = addImage
             ? {
                 'token': CacheHelper.getData(key: 'api_token'),

@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/qr_result.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 import 'package:http/http.dart' as http;
@@ -28,14 +29,19 @@ class QrCubit extends Cubit<QrState> {
   }
 
   Future<QrResult?> sendQrResult(String title) async {
-    print(title);
+    if (kDebugMode) {
+      print(title);
+    }
     emit(QrSendResultLoading());
     if (await connectionChecker.hasConnection) {
-      print('title');
-      print(title);
+      if (kDebugMode) {
+        print('title');
+        print(title);
+      }
+
       try {
         var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/qrgenerate");
+            "$baseUrl/qrgenerate");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),

@@ -44,7 +44,7 @@ class SendOrderCard extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
           (state is AddOrderLoadingState ||
@@ -71,27 +71,27 @@ class SendOrderCard extends StatelessWidget {
             width: w * 0.6,
             height: h * 0.07,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //must change this picture
-
-              Text(
-                'the_sum'.tr(context),
-                style:  TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '$allMoney ${"pounds".tr(context)}',
-                style:  TextStyle(
-                    color: Colors.black,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     //must change this picture
+          //
+          //     Text(
+          //       'the_sum'.tr(context),
+          //       style:  TextStyle(
+          //           color: Colors.grey,
+          //           fontSize: 14.sp,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //     Text(
+          //       '$allMoney ${"pounds".tr(context)}',
+          //       style:  TextStyle(
+          //           color: Colors.black,
+          //           fontSize: 10.sp,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

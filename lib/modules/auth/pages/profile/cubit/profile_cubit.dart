@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/area.dart';
 import 'package:queen_care/models/city.dart';
 import 'package:queen_care/models/country.dart';
@@ -30,6 +31,9 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
   final cityController = TextEditingController();
   final countryController = TextEditingController();
   final areaController = TextEditingController();
+
+  final InternetConnectionChecker connectionChecker =
+      InternetConnectionChecker();
   selectCountry(Country country) {
     selectedCountry = country;
     cities = [];
@@ -62,12 +66,23 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     emit(SelectAreaState());
   }
 
+  void selectGender(int index) {
+    genderGroupValue = index;
+    debugPrint(index.toString());
+    emit((SelectGenderState()));
+  }
+
+  void selectBirthdayDateTime(DateTime time) {
+    birthdayDateTime = time;
+
+    emit(SelectBirthDayState());
+  }
+
   Future<List<Country>> getCountries() async {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/country");
+        var myUrl = Uri.parse("$baseUrl/country");
 
         final response = await http.get(
           myUrl,
@@ -95,8 +110,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/city");
+        var myUrl = Uri.parse("$baseUrl/city");
 
         final response =
             await http.post(myUrl, body: {'country_id': countryId.toString()});
@@ -127,8 +141,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     emit(LoadingState());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl =
-            Uri.parse("https://karam-app.com/celo/queencare/public/api/area");
+        var myUrl = Uri.parse("$baseUrl/area");
 
         final response =
             await http.post(myUrl, body: {'city_id': cityId.toString()});
@@ -151,14 +164,11 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     return areas;
   }
 
-  final InternetConnectionChecker connectionChecker =
-      InternetConnectionChecker();
   getProfileWithHttp() async {
     emit(GetProfileLoading());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/profile");
+        var myUrl = Uri.parse("$baseUrl/profile");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -188,18 +198,6 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
     }
   }
 
-  void selectGender(int index) {
-    genderGroupValue = index;
-    debugPrint(index.toString());
-    emit((SelectGenderState()));
-  }
-
-  void selectBirthdayDateTime(DateTime time) {
-    birthdayDateTime = time;
-
-    emit(SelectBirthDayState());
-  }
-
   editeProfileWithHttp({
     required String firstName,
     required String lastName,
@@ -213,8 +211,7 @@ class ProfileCubit extends Cubit<ProfileCubitState> {
       try {
         debugPrint('gender');
         debugPrint(gender);
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/update-profile");
+        var myUrl = Uri.parse("$baseUrl/update-profile");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/consultation.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
@@ -16,13 +17,12 @@ class ConsultationCubit extends Cubit<ConsultationState> {
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
   ////// المستخدم بيىرل استفسار وبيشوف أسئلتو والدكتور نفس الزبون لكن نوع طبيب فيه يشوف أسئلة كل المستخدمين ويجاوب
-  sendQuestion({required String question}) async {
+  Future<void> sendQuestion({required String question}) async {
     emit(AddQuestionLoading());
     if (await connectionChecker.hasConnection) {
       try {
         debugPrint(question.toString());
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/add_question");
+        var myUrl = Uri.parse("$baseUrl/add_question");
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
           'question': question,
@@ -31,7 +31,7 @@ class ConsultationCubit extends Cubit<ConsultationState> {
         debugPrint(response.statusCode.toString());
         if (response.statusCode == 200) {
           emit(AddQuestionSuccess());
-        } else if (response.statusCode == 400||response.statusCode == 404) {
+        } else if (response.statusCode == 400 || response.statusCode == 404) {
           emit(AddQuestionError());
         }
       } catch (e) {
@@ -42,12 +42,11 @@ class ConsultationCubit extends Cubit<ConsultationState> {
     }
   }
 
-  getMyQuestions() async {
+  Future<void> getMyQuestions() async {
     emit(GetMyQuestionsLoading());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/my_consultation");
+        var myUrl = Uri.parse("$baseUrl/my_consultation");
 
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
@@ -74,13 +73,13 @@ class ConsultationCubit extends Cubit<ConsultationState> {
   }
 
   /////////Doctor
-  sendAnswer({required String answer, required int questionId}) async {
+  Future<void> sendAnswer(
+      {required String answer, required int questionId}) async {
     emit(AddAnswerLoading());
     if (await connectionChecker.hasConnection) {
       try {
         debugPrint(answer.toString());
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/add_answer");
+        var myUrl = Uri.parse("$baseUrl/add_answer");
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'), //doctor
           'id': questionId.toString(),
@@ -101,12 +100,11 @@ class ConsultationCubit extends Cubit<ConsultationState> {
     }
   }
 
-  getAllQuestions() async {
+  Future<void> getAllQuestions() async {
     emit(GetAllQuestionsLoading());
     if (await connectionChecker.hasConnection) {
       try {
-        var myUrl = Uri.parse(
-            "https://karam-app.com/celo/queencare/public/api/consultation");
+        var myUrl = Uri.parse("$baseUrl/consultation");
 
         final response = await http.get(myUrl);
 
@@ -134,5 +132,4 @@ class ConsultationCubit extends Cubit<ConsultationState> {
       emit(DeviceNotConnectedState());
     }
   }
-
 }
