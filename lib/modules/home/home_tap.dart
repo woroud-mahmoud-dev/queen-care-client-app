@@ -43,16 +43,9 @@ class HomeTap extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
-                  CouponWidget(
-                    h: h,
-                    w: w,
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+            
                   Row(
                     children: [
                       Text(

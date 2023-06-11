@@ -381,7 +381,7 @@ class CompleteRegisterScreen extends StatelessWidget {
                                   DateTime? newDate = await showDatePicker(
                                     context: context,
                                     initialDate: dateTime,
-                                    firstDate: DateTime(1990, 1, 1),
+                                    firstDate: DateTime(1900, 1, 1),
                                     lastDate: DateTime.now(),
                                     builder: (context, child) {
                                       return Theme(
