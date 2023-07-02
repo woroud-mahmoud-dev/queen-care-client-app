@@ -7,11 +7,9 @@ import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/widget/auth_button.dart';
 import 'package:queen_care/core/widget/description.dart';
 import 'package:queen_care/core/widget/screen_title.dart';
-
 import 'package:queen_care/core/widget/custom_text_field.dart';
 import 'package:queen_care/core/widget/error_snack_bar.dart';
 import 'package:queen_care/core/widget/gender_widget.dart';
-
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/core/widget/no_internet_snackBar.dart';
 import 'package:queen_care/core/widget/title_widget.dart';
@@ -23,7 +21,6 @@ import 'package:queen_care/modules/auth/pages/register/cubit/register_cubit.dart
 import 'package:queen_care/modules/auth/pages/register/cubit/register_states.dart';
 import 'package:queen_care/modules/home/main_screen.dart';
 
-// ignore: must_be_immutable
 class CompleteRegisterScreen extends StatelessWidget {
   CompleteRegisterScreen({Key? key, required this.email}) : super(key: key);
   final String email;
@@ -34,7 +31,6 @@ class CompleteRegisterScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final addressController = TextEditingController();
-
   final myService = MyService();
   final formKey = GlobalKey<FormState>();
   DateTime dateTime = DateTime.now();
@@ -144,9 +140,9 @@ class CompleteRegisterScreen extends StatelessWidget {
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'required_field'.tr(context);
-                                } else if(value.length<9) {
+                                } else if (value.length < 9) {
                                   return 'valid_number'.tr(context);
-                                }else{
+                                } else {
                                   return null;
                                 }
                               },
@@ -235,7 +231,10 @@ class CompleteRegisterScreen extends StatelessWidget {
                           customTextField(
                               keyboardType: TextInputType.name,
                               validate: (value) {
-                                if (value!.isEmpty&&RegisterCubit.get(context).areas.isNotEmpty) {
+                                if (value!.isEmpty &&
+                                    RegisterCubit.get(context)
+                                        .areas
+                                        .isNotEmpty) {
                                   return 'required_field'.tr(context);
                                 } else {
                                   return null;
@@ -244,15 +243,15 @@ class CompleteRegisterScreen extends StatelessWidget {
                               label: 'area'.tr(context),
                               hintText: 'register_area'.tr(context),
                               isPassword: false,
-                              icon:  DropdownButton<Area>(
+                              icon: DropdownButton<Area>(
                                 underline: const SizedBox(),
                                 isExpanded: true,
                                 items: RegisterCubit.get(context)
                                     .areas
                                     .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text(e.name),
-                                ))
+                                          value: e,
+                                          child: Text(e.name),
+                                        ))
                                     .toList(),
                                 onChanged: (area) {
                                   RegisterCubit.get(context).selectArea(area!);
@@ -414,7 +413,6 @@ class CompleteRegisterScreen extends StatelessWidget {
                                         .format(newDate);
                                     debugPrint(
                                         formattedDate); //formatted date output using intl package =>  2021-03-16
-
                                   } else {}
                                 },
                                 child: const Icon(

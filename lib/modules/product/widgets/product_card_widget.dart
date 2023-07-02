@@ -4,14 +4,13 @@ import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
-import 'package:queen_care/core/utils/strings.dart';
 
 import 'package:queen_care/core/widget/loading_widget.dart';
 import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/widgets/counter_widget.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
-class ProductCardWidget extends StatelessWidget {
+class ProductCardWidget extends StatefulWidget {
   const ProductCardWidget({
     Key? key,
     required this.myService,
@@ -30,6 +29,11 @@ class ProductCardWidget extends StatelessWidget {
   final TabController tabController;
 
   @override
+  State<ProductCardWidget> createState() => _ProductCardWidgetState();
+}
+
+class _ProductCardWidgetState extends State<ProductCardWidget> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -44,27 +48,27 @@ class ProductCardWidget extends StatelessWidget {
               children: [
                 Text(
                   CacheHelper.getData(key: 'LOCALE') == "en"
-                      ? myService.getSelectedCategory!.enName
-                      : myService.getSelectedCategory!.name,
+                      ? widget.myService.getSelectedCategory!.enName
+                      : widget.myService.getSelectedCategory!.name,
                   style: TextStyle(fontSize: 16.sp),
                 ),
                 const Spacer(),
                 IconButton(
                   onPressed: () {
-                    if (btColor == Colors.red) {
+                    if (widget.btColor == Colors.red) {
                       debugPrint('delete');
 
-                      ProductCubit.get(context)
-                          .deleteFromFavorite(myService.getSelectedProduct!.id);
-                    } else if (btColor == Colors.grey) {
+                      ProductCubit.get(context).deleteFromFavorite(
+                          widget.myService.getSelectedProduct!.id);
+                    } else if (widget.btColor == Colors.grey) {
                       debugPrint('Add');
-                      ProductCubit.get(context)
-                          .addToFavorite(myService.getSelectedProduct!.id);
+                      ProductCubit.get(context).addToFavorite(
+                          widget.myService.getSelectedProduct!.id);
                     }
                   },
                   icon: Icon(
                     Icons.favorite,
-                    color: btColor,
+                    color: widget.btColor,
                     size: 25,
                   ),
                 )
@@ -72,14 +76,14 @@ class ProductCardWidget extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: h * 0.02,
+            height: widget.h * 0.02,
           ),
           SizedBox(
-            width: w * 0.8,
-            height: h * 0.1,
+            width: widget.w * 0.8,
+            height: widget.h * 0.1,
             child: GestureDetector(
               onTap: () {
-                tabController.animateTo(6);
+                widget.tabController.animateTo(6);
               },
               child: Card(
                 elevation: 4,
@@ -88,8 +92,8 @@ class ProductCardWidget extends StatelessWidget {
                   child: Center(
                     child: Text(
                       CacheHelper.getData(key: 'LOCALE') == "en"
-                          ? myService.getSelectedProduct!.enName
-                          : myService.getSelectedProduct!.name,
+                          ? widget.myService.getSelectedProduct!.enName
+                          : widget.myService.getSelectedProduct!.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black54, fontSize: 14.sp),
                     ),
@@ -99,7 +103,7 @@ class ProductCardWidget extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: h * 0.02,
+            height: widget.h * 0.02,
           ),
           // SizedBox(
           //   width: w * 0.8,
@@ -120,7 +124,7 @@ class ProductCardWidget extends StatelessWidget {
           //   ),
           // ),
           SizedBox(
-            height: h * 0.02,
+            height: widget.h * 0.02,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -130,14 +134,15 @@ class ProductCardWidget extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     ProductCubit.get(context).addToCart(
-                        productId: myService.getSelectedProduct!.id,
-                        amount: ProductCubit.get(context).productNumber);
+                        productId: widget.myService.getSelectedProduct!.id,
+                        amount:
+                            ProductCubit.get(context).controller.text.toString());
                   },
-                  child: state is AddToCartLoadingState
+                  child: widget.state is AddToCartLoadingState
                       ? const LoadingWidget()
                       : SizedBox(
-                          width: w * 0.7,
-                          height: h * 0.09,
+                          width: widget.w * 0.7,
+                          height: widget.h * 0.09,
                           child: Card(
                             color: kPrimaryColor,
                             shape: RoundedRectangleBorder(
@@ -167,8 +172,106 @@ class ProductCardWidget extends StatelessWidget {
                         ),
                 ),
               ),
+              // Expanded(
+              //     flex: 2,
+              //     child: Row(
+              //       children: [
+              //         Expanded(
+              //           child: Container(
+              //             margin: const EdgeInsets.all(7),
+              //             height: 35,
+              //             width: 70,
+              //
+              //             decoration: BoxDecoration(
+              //               color: kPrimaryColor,
+              //               borderRadius: BorderRadius.circular(5),
+              //             ),
+              //             alignment: Alignment.center,
+              //             child: TextField(
+              //               textAlign: TextAlign.center,
+              //               controller: ProductCubit.get(context).controller,
+              //               style: const TextStyle(color: Colors.white),
+              //               cursorColor: Colors.white,
+              //               keyboardType: const TextInputType.numberWithOptions(
+              //                 decimal: false,
+              //                 signed: true,
+              //               ),
+              //               decoration: const InputDecoration(
+              //                 border: InputBorder.none,
+              //                 focusedBorder: InputBorder.none,
+              //                 enabledBorder: InputBorder.none,
+              //                 errorBorder: InputBorder.none,
+              //                 disabledBorder: InputBorder.none,
+              //               ),
+              //             ),
+              //             // child: Text(
+              //             //   number.toString(),
+              //             //   style: const TextStyle(color: Colors.white),
+              //             // ),
+              //           ),
+              //         ),
+              //         Column(
+              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //           children: [
+              //             SizedBox(
+              //               height: 25,
+              //               width: 30,
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   ProductCubit.get(context)
+              //                       .increaseProductNumber();
+              //                 },
+              //                 child: Container(
+              //                   decoration: BoxDecoration(
+              //                     color: kPrimaryColor,
+              //                     borderRadius: BorderRadius.circular(5),
+              //                   ),
+              //                   child: const Center(
+              //                     child: Text(
+              //                       '+',
+              //                       style: TextStyle(
+              //                           fontSize: 18,
+              //                           fontWeight: FontWeight.bold,
+              //                           color: Colors.white),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             SizedBox(
+              //               height: 25,
+              //               width: 30,
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   ProductCubit.get(context)
+              //                       .decreaseProductNumber();
+              //                 },
+              //                 child: Container(
+              //                   decoration: BoxDecoration(
+              //                     color: kPrimaryColor,
+              //                     borderRadius: BorderRadius.circular(5),
+              //                   ),
+              //                   child: const Center(
+              //                     child: Text(
+              //                       '-',
+              //                       style: TextStyle(
+              //                           fontSize: 18,
+              //                           fontWeight: FontWeight.bold,
+              //                           color: Colors.white),
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ],
+              //     )),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: SelectInfoItem(
                   number: ProductCubit.get(context).productNumber,
                   col: kPrimaryColor,
@@ -178,6 +281,7 @@ class ProductCardWidget extends StatelessWidget {
                   onPressMin: () {
                     ProductCubit.get(context).decreaseProductNumber();
                   },
+                  controller: ProductCubit.get(context).controller,
                 ),
               ),
             ],

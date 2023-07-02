@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/strings.dart';
+import 'package:queen_care/models/category.dart';
 import 'package:queen_care/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -22,23 +23,36 @@ class ProductCubit extends Cubit<ProductState> {
   final apiBaseHelper = ApiBaseHelper();
   final InternetConnectionChecker connectionChecker =
       InternetConnectionChecker();
-
+  var controller = TextEditingController(text: '0');
   void increaseProductNumber() {
-    if (productNumber >= 0) {
-      productNumber = productNumber + 1;
+    if (int.parse(controller.text) >= 0) {
+      controller.text = (int.parse(controller.text) + 1).toString();
 
       emit(IncreaseProductNumberState());
     } else {}
   }
+  // void increaseProductNumber() {
+  //   if (productNumber >= 0) {
+  //     productNumber=productNumber + 1;
+  //
+  //     emit(IncreaseProductNumberState());
+  //   } else {}
+  // }
 
   void decreaseProductNumber() {
-    if (productNumber == 0) {
+    if (int.parse(controller.text) == 0) {
     } else {
-      productNumber = productNumber - 1;
+      controller.text = (int.parse(controller.text) - 1).toString();
       emit(IncreaseProductNumberState());
     }
   }
-
+  // void decreaseProductNumber() {
+  //   if (productNumber == 0) {
+  //   } else {
+  //     productNumber = productNumber - 1;
+  //     emit(IncreaseProductNumberState());
+  //   }
+  // }
 
   Future<void> getAllProductsWithHttp() async {
     emit(GetAllProductByTypeLoading());
@@ -100,8 +114,9 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-
-  Future<void> addToCart({required int productId, required int amount}) async {
+  Future<void> addToCart(
+      {required int productId, required String amount}) async {
+    print(amount);
     emit(AddToCartLoadingState());
     if (await connectionChecker.hasConnection) {
       try {
@@ -110,7 +125,7 @@ class ProductCubit extends Cubit<ProductState> {
         final response = await http.post(myUrl, body: {
           'token': CacheHelper.getData(key: 'api_token'),
           'mission_id': productId.toString(),
-          'amount': amount.toString(),
+          'amount': amount,
         });
         debugPrint(response.statusCode.toString());
         debugPrint(response.body.toString());
@@ -166,5 +181,6 @@ class ProductCubit extends Cubit<ProductState> {
       return;
     }
   }
+
 
 }

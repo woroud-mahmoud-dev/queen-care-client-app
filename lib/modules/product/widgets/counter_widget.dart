@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
@@ -6,11 +7,13 @@ class SelectInfoItem extends StatelessWidget {
   final int number;
   final VoidCallback? onPressAdd;
   final VoidCallback? onPressMin;
+  final TextEditingController controller;
   final Color? col;
   const SelectInfoItem({
     Key? key,
     required this.number,
     this.onPressAdd,
+    required this.controller,
     this.onPressMin,
     this.col,
   }) : super(key: key);
@@ -21,19 +24,31 @@ class SelectInfoItem extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            margin: const EdgeInsets.all(7),
-            height: 35,
-            width: 25,
+            margin: const EdgeInsets.all(5),
+
             decoration: BoxDecoration(
               color: kPrimaryColor,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Center(
-              child: Text(
-                number.toString(),
-                style: TextStyle(fontSize: 14.sp, color: Colors.white),
+            alignment: Alignment.center,
+            child: TextField(
+              textAlign: TextAlign.center,
+              controller: controller,
+              style: const TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: false,
+                signed: true,
+              ),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
               ),
             ),
+            // child: Text(number.toString(),style:const TextStyle(color: Colors.white),),
           ),
         ),
         Column(

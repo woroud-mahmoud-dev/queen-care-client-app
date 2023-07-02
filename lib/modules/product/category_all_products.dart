@@ -13,21 +13,28 @@ import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 import 'package:queen_care/modules/product/widgets/product_item.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
-class CategoryAllProducts extends StatelessWidget {
+class CategoryAllProducts extends StatefulWidget {
   CategoryAllProducts({Key? key, required this.tabController})
       : super(key: key);
 
   final TabController tabController;
-  final myService = MyService();
+
+  @override
+  State<CategoryAllProducts> createState() => _CategoryAllProductsState();
+}
+
+class _CategoryAllProductsState extends State<CategoryAllProducts> {
   @override
   Widget build(BuildContext context) {
+    final myService = MyService();
+
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => ProductCubit()..getAllProductsByTypeWithHttp(),
       child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
-          // TODO: implement listener
+          if (state is GetAllProductByTypeSuccess) {}
         },
         builder: (context, state) {
           List<ProductModel> allProductsByType =
@@ -49,7 +56,7 @@ class CategoryAllProducts extends StatelessWidget {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                tabController.animateTo(0);
+                                widget.tabController.animateTo(0);
                               },
                               icon: const Icon(
                                 Icons.arrow_forward_ios_sharp,
@@ -71,7 +78,9 @@ class CategoryAllProducts extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            CacheHelper.getData(key: 'LOCALE') == "en"?myService.getSelectedCategory!.enName:       myService.getSelectedCategory!.name,
+                            CacheHelper.getData(key: 'LOCALE') == "en"
+                                ? myService.getSelectedCategory!.enName
+                                : myService.getSelectedCategory!.name,
                             style: TextStyle(fontSize: 16.sp),
                           ),
                           const Spacer(),
@@ -124,12 +133,31 @@ class CategoryAllProducts extends StatelessWidget {
                                               horizontal: 20),
                                           itemCount: allProductsByType.length,
                                           itemBuilder: (context, int index) {
-                                            return ProductItem(
-                                              w: w,
-                                              h: h,
-                                              tabController: tabController,
-                                              productModel:
-                                                  allProductsByType[index],
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  myService.setSelectedProduct =
+                                                      allProductsByType[index];
+                                                  print(myService
+                                                      .getSelectedProduct!
+                                                      .name);
+                                                  CacheHelper.saveData(
+                                                      key: 'isFav',
+                                                      value: allProductsByType[
+                                                              index]
+                                                          .isfav);
+                                                  widget.tabController
+                                                      .animateTo(5);
+                                                });
+                                              },
+                                              child: ProductItem(
+                                                w: w,
+                                                h: h,
+                                                tabController:
+                                                    widget.tabController,
+                                                productModel:
+                                                    allProductsByType[index],
+                                              ),
                                             );
                                           },
                                         ),

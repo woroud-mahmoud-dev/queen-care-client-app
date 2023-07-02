@@ -71,3 +71,4 @@ class AddToCartErrorState extends ProductState {
   final String error;
   AddToCartErrorState({required this.error});
 }
+class Update extends ProductState {}

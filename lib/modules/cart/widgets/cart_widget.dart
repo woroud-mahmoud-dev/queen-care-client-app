@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:queen_care/core/app_localization.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';

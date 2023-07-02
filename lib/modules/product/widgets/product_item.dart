@@ -26,47 +26,42 @@ class ProductItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10),
       width: w * 0.7,
       height: h * 0.13,
-      child: GestureDetector(
-        onTap: () {
-          myService.setSelectedProduct = productModel;
-          CacheHelper.saveData(key: 'isFav', value: productModel.isfav);
-          tabController.animateTo(5);
-        },
-        child: Card(
-          color: Colors.white,
-          elevation: 8,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    CacheHelper.getData(key: 'LOCALE') == "en"?productModel.enName:     productModel.name,
-                    style: TextStyle(color: Colors.black54, fontSize: 14.sp),
-                    textAlign: TextAlign.center,
+      child: Card(
+        color: Colors.white,
+        elevation: 8,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  CacheHelper.getData(key: 'LOCALE') == "en"
+                      ? productModel.enName
+                      : productModel.name,
+                  style: TextStyle(color: Colors.black54, fontSize: 14.sp),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: CachedNetworkImage(
+                  key: UniqueKey(),
+                  imageUrl: imgUrl + productModel.image,
+                  placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                    backgroundColor: Colors.transparent,
+                    color: kPrimaryColor,
+                    strokeWidth: 0.2,
+                  )),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    color: kPrimaryColor,
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: CachedNetworkImage(
-                    key: UniqueKey(),
-                    imageUrl: imgUrl + productModel.image,
-                    placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(
-                      backgroundColor: Colors.transparent,
-                      color: kPrimaryColor,
-                      strokeWidth: 0.2,
-                    )),
-                    errorWidget: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
