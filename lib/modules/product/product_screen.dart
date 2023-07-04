@@ -28,7 +28,7 @@ class ProductScreen extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => ProductCubit(),
+      create: (context) => ProductCubit()..update(),
       child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
           if (state is AddToFavoriteSuccessState) {
@@ -58,35 +58,32 @@ class ProductScreen extends StatelessWidget {
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: SizedBox(
-              height: h,
-              width: w,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(horizontal: 5),
-                          //   child: SvgPicture.asset(
-                          //     'assets/icons/list.svg',
-                          //     height: 20,
-                          //   ),
-                          // ),
-                          const GoCart(),
-                          const Spacer(),
-                          IconButton(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Expanded(flex: 1, child: GoCart()),
+                        SizedBox(
+                          width: w/2,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
                               onPressed: () {
+                                ProductCubit.get(context).controller.text = "0";
                                 tabController.animateTo(4);
                               },
                               icon: const Icon(
                                 Icons.arrow_forward_ios_sharp,
                                 color: black,
                               )),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                   Expanded(

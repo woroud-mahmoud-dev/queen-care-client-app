@@ -9,7 +9,6 @@ import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/category.dart';
 import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
 import 'package:queen_care/modules/home/widgets/categories_part.dart';
-import 'package:queen_care/modules/home/widgets/copon_widget.dart';
 import 'package:queen_care/modules/home/widgets/search_bar.dart';
 
 class HomeTap extends StatelessWidget {
@@ -38,8 +37,10 @@ class HomeTap extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const GoCart(),
-                      SearchBar(w: w * 0.8),
+                      const Expanded(
+                        child: GoCart(),
+                      ),
+                      SearchBar(w: w * 0.6),
                     ],
                   ),
                   const SizedBox(

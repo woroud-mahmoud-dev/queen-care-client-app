@@ -14,7 +14,7 @@ import 'package:queen_care/modules/product/widgets/product_item.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
 
 class CategoryAllProducts extends StatefulWidget {
-  CategoryAllProducts({Key? key, required this.tabController})
+  const CategoryAllProducts({Key? key, required this.tabController})
       : super(key: key);
 
   final TabController tabController;
@@ -41,20 +41,22 @@ class _CategoryAllProductsState extends State<CategoryAllProducts> {
               ProductCubit.get(context).productsListByType;
           return SingleChildScrollView(
             child: SizedBox(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const GoCart(),
-                          const Spacer(),
-                          IconButton(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Expanded(flex: 1, child: GoCart()),
+                    SizedBox(
+                      width: w/2,
+                    ),
+                        Expanded(
+                          child: IconButton(
                               onPressed: () {
                                 widget.tabController.animateTo(0);
                               },
@@ -62,8 +64,8 @@ class _CategoryAllProductsState extends State<CategoryAllProducts> {
                                 Icons.arrow_forward_ios_sharp,
                                 color: black,
                               )),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                   LogoImage(

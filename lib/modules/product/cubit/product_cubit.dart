@@ -181,6 +181,9 @@ class ProductCubit extends Cubit<ProductState> {
       return;
     }
   }
-
+  void update() {
+    controller.text = "0";
+    emit(Update());
+  }
 
 }

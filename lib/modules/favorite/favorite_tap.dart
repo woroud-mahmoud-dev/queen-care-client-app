@@ -28,6 +28,7 @@ class Favorite extends StatelessWidget {
           List<FavoriteModel> favoriteProductsList =
               FavoriteCubit.get(context).favoriteList;
 
+
           return Column(
             children: [
               SizedBox(height: h * 0.03),
@@ -40,8 +41,9 @@ class Favorite extends StatelessWidget {
                     style: const TextStyle(fontSize: 17),
                   ),
                   const Spacer(),
-                  const GoCart(),
-                  SizedBox(width: w * 0.015),
+                  const Expanded(child:  GoCart(),),
+                  SizedBox(width: w * 0.01),
+
                 ],
               ),
               Row(
@@ -55,23 +57,23 @@ class Favorite extends StatelessWidget {
               ),
               state is GetFavoriteProductLoading
                   ? const Expanded(
-                      child: LoadingWidget(),
-                    )
+                child: LoadingWidget(),
+              )
                   : state is DeviceNotConnectedState
-                      ? Expanded(
-                          child: NoInternetWidget(
-                            onPressed: () {
-                              FavoriteCubit.get(context)
-                                  .getAllFavoriteProductsWithHttp();
-                            },
-                          ),
-                        )
-                      : Expanded(
-                          child: FavoriteProducts(
-                              favoriteProductsList: favoriteProductsList,
-                              h: h,
-                              w: w),
-                        ),
+                  ? Expanded(
+                child: NoInternetWidget(
+                  onPressed: () {
+                    FavoriteCubit.get(context)
+                        .getAllFavoriteProductsWithHttp();
+                  },
+                ),
+              )
+                  : Expanded(
+                child: FavoriteProducts(
+                    favoriteProductsList: favoriteProductsList,
+                    h: h,
+                    w: w),
+              ),
             ],
           );
         },

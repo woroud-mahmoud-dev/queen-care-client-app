@@ -87,6 +87,7 @@ class CartCubit extends Cubit<CartState> {
   }) async {
     emit(AddOrderLoadingState());
     if (await connectionChecker.hasConnection) {
+      print(list.toString());
       try {
         var myUrl = Uri.parse("$baseUrl/addorder");
         var body = json.encode({
@@ -95,7 +96,6 @@ class CartCubit extends Cubit<CartState> {
           'address':
               address.isEmpty ? CacheHelper.getData(key: 'address') : address,
           'note': note,
-          'client_id': '1',
         });
         final response = await http.post(myUrl,
             headers: <String, String>{

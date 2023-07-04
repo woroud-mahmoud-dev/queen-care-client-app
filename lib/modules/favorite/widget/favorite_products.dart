@@ -18,6 +18,7 @@ class FavoriteProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+
       physics: const BouncingScrollPhysics(),
       childAspectRatio: (1 / 0.9),
       crossAxisSpacing: 15,

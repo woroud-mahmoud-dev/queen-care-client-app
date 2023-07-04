@@ -36,7 +36,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
       decoration: customContainerBoxDecoration,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,8 +135,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                   onTap: () {
                     ProductCubit.get(context).addToCart(
                         productId: widget.myService.getSelectedProduct!.id,
-                        amount:
-                            ProductCubit.get(context).controller.text.toString());
+                        amount: ProductCubit.get(context)
+                            .controller
+                            .text
+                            .toString());
                   },
                   child: widget.state is AddToCartLoadingState
                       ? const LoadingWidget()

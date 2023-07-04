@@ -87,7 +87,7 @@
   "edite_address": "Edite address",
   "add_notes": "Add your notes",
   "purchases": "Purchases",
-  "complete_purchases": "Complete",
+  "complete_purchases": "Complete the purchase",
   "cart": "Cart",
   "cart_empty!": "The cart is empty!",
   "choose_number": "Choose the required number of each product",
@@ -158,7 +158,7 @@
   "pounds": "pounds",
   "no_prizes": "There are no prizes",
   "added_to_the_cart": "The product has been added to the cart successfully",
-  "already_in_the_cart": "The product is already in the cart",
+  "already_in_the_cart": "The product was already added to the cart.\n Complete the purchase",
   "no_log_in": "Sorry!,You can only log in with a user account ",
   "Incorrect": "Incorrect password or phone number",
   "convert_message": "Your account has been successfully converted  into a company account",
@@ -173,7 +173,5 @@
 "valid_number": "Enter a valid number",
   "change_lan": "Change language",
   "back": "Back"
-
-
 
 }

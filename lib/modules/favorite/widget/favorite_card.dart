@@ -48,7 +48,6 @@ class FavoriteCardWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -60,9 +59,8 @@ class FavoriteCardWidget extends StatelessWidget {
                 //     style: TextStyle(fontSize: 11.sp, color: kBlueGreen),
                 //   ),
                 // ),
-                Expanded(child: Spacer()),
+
                 Expanded(
-                    flex: 1,
                     child: GestureDetector(
                         onTap: onPressed,
                         child: SvgPicture.asset(
