@@ -16,8 +16,8 @@ class ProductModel {
     required this.price,
     required this.type,
     required this.description,
-    required this.package_price,
-    required this.dozen_price,
+    // required this.package_price,
+    // required this.dozen_price,
     required this.cases,
     required this.state,
     required this.createdAt,
@@ -37,8 +37,8 @@ class ProductModel {
   String price;
   String type;
   String description;
-  String package_price;
-  String dozen_price;
+  // String package_price;
+  // String dozen_price;
   String cases;
   String state;
   DateTime createdAt;
@@ -58,8 +58,8 @@ class ProductModel {
     price: json["price"]??"0",
     type: json["type"]??"1",
     description: json["description"] ?? "",
-    package_price: json["package_price"]??"0",
-    dozen_price: json["dozen_price"]??"0",
+    // package_price: json["package_price"]??"0",
+    // dozen_price: json["dozen_price"]??"0",
     cases: json["cases"]??"",
     state: json["state"]??"",
     createdAt: DateTime.parse(json["created_at"]),
@@ -80,8 +80,8 @@ class ProductModel {
     "price": price,
     "type": type,
     "description": description,
-    "package_price": package_price,
-    "dozen_price": dozen_price,
+    // "package_price": package_price,
+    // "dozen_price": dozen_price,
     "cases": cases,
     "state": state,
     "created_at": createdAt.toIso8601String(),

@@ -17,6 +17,7 @@ class MyService {
   static BlogModel? selectedBlog;
   static Color? productColor;
   static List<int>? numberOfItems;
+  static List<TextEditingController>? cartControllersList;
   set setSelectedCategory(CategoryModel category) {
     selectedCategory = category;
   }
@@ -103,5 +104,13 @@ class MyService {
 
   List<int>? get getNumberOfItems {
     return numberOfItems;
+  }
+  ////////////
+  set setTextControllersList(List<TextEditingController> list) {
+    cartControllersList = list;
+  }
+
+  List<TextEditingController>? get getTextControllersList {
+    return cartControllersList;
   }
 }

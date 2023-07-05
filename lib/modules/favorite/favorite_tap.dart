@@ -35,6 +35,7 @@ class Favorite extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(width: w * 0.2),
                   const Spacer(),
                   Text(
                     'favorite'.tr(context),

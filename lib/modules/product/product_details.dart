@@ -15,25 +15,25 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const GoCart(),
-              const Spacer(),
-              IconButton(
-                  onPressed: () {
-                    tabController.animateTo(5);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_forward_ios_sharp,
-                    color: black,
-                  )),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: w / 2,
+            ),
+            IconButton(
+                onPressed: () {
+                  tabController.animateTo(5);
+                },
+                icon: const Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  color: black,
+                )),
+          ],
         ),
         Container(
           height: h * 0.3,

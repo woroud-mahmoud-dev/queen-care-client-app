@@ -91,7 +91,7 @@ class CartScreen extends StatelessWidget {
                             )
                           : ShowCartProducts(
                               allOrders: allProducts,
-                              numberOfItems: myService.getNumberOfItems!,
+
                             ),
               const SizedBox(
                 height: 20,

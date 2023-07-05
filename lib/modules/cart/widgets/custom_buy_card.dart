@@ -46,17 +46,23 @@ class CustomBuyCard extends StatelessWidget {
               if (allProducts.isEmpty) {
                 showToast(text: 'cart_empty'.tr(context), color: kBlueGreen);
               } else {
-                if (allMoney > 0) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => CompleteBuyScreen(
-                                allProducts: allProducts,
-                              )));
-                } else {
-                  showToast(
-                      text: 'choose_number'.tr(context), color: kBlueGreen);
-                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => CompleteBuyScreen(
+                              allProducts: allProducts,
+                            )));
+                // if (allMoney > 0) {
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (_) => CompleteBuyScreen(
+                //                 allProducts: allProducts,
+                //               )));
+                // } else {
+                //   showToast(
+                //       text: 'choose_number'.tr(context), color: kBlueGreen);
+                // }
               }
             },
             color: kPrimaryColor,

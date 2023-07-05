@@ -52,7 +52,7 @@ class CompleteBuyScreen extends StatelessWidget {
             List<Map<String, dynamic>> list =
                 List.generate(allProducts.length, (index) {
               return {
-                'amount': myService.getNumberOfItems![index],
+                'amount': myService.getTextControllersList![index].text,
                 'price': allProducts[index].mission.price,
                 'id': allProducts[index].missionId,
               };
@@ -105,7 +105,7 @@ class CompleteBuyScreen extends StatelessWidget {
                   ),
                   ShowPurchasesProducts(
                     allOrders: allProducts,
-                    numberOfItems: myService.getNumberOfItems!,
+
                   ),
                   SizedBox(
                     height: h * 0.05,

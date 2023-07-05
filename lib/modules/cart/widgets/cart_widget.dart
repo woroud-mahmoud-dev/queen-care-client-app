@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
@@ -12,17 +13,15 @@ import 'package:queen_care/network/local/cache_helper.dart';
 
 class CartWidget extends StatelessWidget {
   final CartModel cartModel;
-  final List<int> numberOfItems;
 
   final int productId;
 
-  const CartWidget({
+  CartWidget({
     super.key,
     required this.cartModel,
     required this.productId,
-    required this.numberOfItems,
   });
-
+  final myService = MyService();
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -70,18 +69,37 @@ class CartWidget extends StatelessWidget {
                 )
               ],
             ),
-            Container(
-              margin: const EdgeInsets.all(3),
-              height: 35,
-              width: 25,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  numberOfItems[productId].toString(),
-                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: const EdgeInsets.all(2),
+                height: 35,
+                width: 25,
+                decoration: BoxDecoration(
+                  color: kPrimaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: TextField(
+                  onChanged: (value) {
+                    if (value == "" || value.isEmpty) {
+                      CartCubit.get(context).setControllerValue(productId);
+                    }
+                  },
+                  textAlign: TextAlign.center,
+                  controller: myService.getTextControllersList![productId],
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.white,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: false,
+                    signed: true,
+                  ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                  ),
                 ),
               ),
             ),

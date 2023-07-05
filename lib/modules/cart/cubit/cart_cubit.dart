@@ -38,6 +38,10 @@ class CartCubit extends Cubit<CartState> {
           myService.setNumberOfItems = List.generate(
               allCartsProductsList.length,
               (index) => int.parse(allCartsProductsList[index].amount));
+          myService.setTextControllersList = List.generate(
+              allCartsProductsList.length,
+              (index) => TextEditingController(
+                  text: allCartsProductsList[index].amount));
           allCartsProductsList.isNotEmpty
               ? countAllMoney(allCartsProductsList)
               : debugPrint('empty');
@@ -118,33 +122,38 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void increaseProductNumber(int productId) {
-    debugPrint(
-        'numberOfItems[productId] is :${myService.getNumberOfItems![productId]}');
-    if (myService.getNumberOfItems![productId] >= 0) {
-      myService.getNumberOfItems![productId]++;
+    if (int.parse(myService.getTextControllersList![productId].text) >= 0) {
+      myService.getTextControllersList![productId].text =
+          (int.parse(myService.getTextControllersList![productId].text) + 1)
+              .toString();
 
       emit(IncreaseProductNumberState(allMoney: 0000));
     } else {}
   }
 
   void decreaseProductNumber(int productId) {
-    if (myService.getNumberOfItems![productId] == 0) {
+    if (int.parse(myService.getTextControllersList![productId].text) == 0) {
     } else {
-      myService.getNumberOfItems![productId]--;
-      debugPrint(myService.getNumberOfItems![productId].toString());
-
-      emit(DecreaseProductNumberState(allMoney: 999));
+      myService.getTextControllersList![productId].text =
+          (int.parse(myService.getTextControllersList![productId].text) - 1)
+              .toString();
+      emit(DecreaseProductNumberState(allMoney: 99));
     }
   }
 
   dynamic countAllMoney(List<CartModel> allCartsProductsList) {
     List<dynamic> items = List.generate(
-        myService.getNumberOfItems!.length,
+        myService.getTextControllersList!.length,
         (index) =>
-            myService.getNumberOfItems![index] *
+            int.parse(myService.getTextControllersList![index].text) *
             int.parse(allCartsProductsList[index].mission.price));
     debugPrint(items.toString());
 
     return allMoney = items.reduce((a, b) => a + b);
+  }
+
+  setControllerValue(int index) {
+    myService.getTextControllersList![index].text = "0";
+    emit(Update());
   }
 }

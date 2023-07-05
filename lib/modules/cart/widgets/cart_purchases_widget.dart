@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/models/cart_model.dart';
@@ -10,15 +11,15 @@ import 'package:queen_care/network/local/cache_helper.dart';
 
 class CartPurchases extends StatelessWidget {
   final CartModel cartModel;
-  final List<int> numberOfItems;
+
   final int productId;
 
-  const CartPurchases({
+  CartPurchases({
     super.key,
     required this.cartModel,
     required this.productId,
-    required this.numberOfItems,
   });
+  final myService = MyService();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,9 @@ class CartPurchases extends StatelessWidget {
                         child: SizedBox(
                           width: w * 0.6,
                           child: Text(
-                            CacheHelper.getData(key: 'LOCALE') == "en"?   cartModel.mission.enName:         cartModel.mission.name,
+                            CacheHelper.getData(key: 'LOCALE') == "en"
+                                ? cartModel.mission.enName
+                                : cartModel.mission.name,
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style:
@@ -97,7 +100,7 @@ class CartPurchases extends StatelessWidget {
                             //       fontSize: 12.sp, color: kPrimaryColor),
                             // ),
                             Text(
-                              ' ${numberOfItems[productId]}',
+                              ' ${myService.getTextControllersList![productId].text}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 12.sp, color: kPrimaryColor),

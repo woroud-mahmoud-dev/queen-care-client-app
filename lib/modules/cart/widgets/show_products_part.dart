@@ -7,12 +7,10 @@ class ShowCartProducts extends StatelessWidget {
   const ShowCartProducts({
     Key? key,
     required this.allOrders,
-    required this.numberOfItems,
   }) : super(key: key);
 
   final List<CartModel> allOrders;
 
-  final List<int> numberOfItems;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,7 +24,6 @@ class ShowCartProducts extends StatelessWidget {
             return CartWidget(
               productId: int,
               cartModel: allOrders[int],
-              numberOfItems: numberOfItems,
             );
           },
           itemCount: allOrders.length // clientList.length//
@@ -34,5 +31,3 @@ class ShowCartProducts extends StatelessWidget {
     );
   }
 }
-
-

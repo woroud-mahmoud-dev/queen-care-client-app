@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/utils/constant.dart';
+import 'package:queen_care/modules/product/cubit/product_cubit.dart';
 
 class SelectInfoItem extends StatelessWidget {
   final int number;
@@ -25,13 +24,17 @@ class SelectInfoItem extends StatelessWidget {
         Expanded(
           child: Container(
             margin: const EdgeInsets.all(5),
-
             decoration: BoxDecoration(
               color: kPrimaryColor,
               borderRadius: BorderRadius.circular(5),
             ),
             alignment: Alignment.center,
             child: TextField(
+              onChanged: (value) {
+                if (value == "") {
+                  ProductCubit.get(context).update();
+                }
+              },
               textAlign: TextAlign.center,
               controller: controller,
               style: const TextStyle(color: Colors.white),
@@ -48,7 +51,6 @@ class SelectInfoItem extends StatelessWidget {
                 disabledBorder: InputBorder.none,
               ),
             ),
-            // child: Text(number.toString(),style:const TextStyle(color: Colors.white),),
           ),
         ),
         Column(
