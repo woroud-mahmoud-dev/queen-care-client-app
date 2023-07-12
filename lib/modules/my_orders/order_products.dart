@@ -80,7 +80,7 @@ class OrderProducts extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  "${"price".tr(context)} :${orderClients[y].price}",
+                  "${"price".tr(context)} :${productModel.price}",
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   style: TextStyle(fontSize: 10.sp, color: Colors.black),
