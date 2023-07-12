@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:queen_care/core/utils/strings.dart';
 import 'package:queen_care/network/local/cache_helper.dart';
@@ -24,6 +25,49 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
   final ImagePicker picker = ImagePicker();
 
   XFile? selectedImage;
+  Position? position;
+
+  initLocation() async {
+    bool isServiceEnabled;
+    LocationPermission permission;
+
+    isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+
+    if (!isServiceEnabled) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('denied forever');
+    } else if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('denied');
+      }
+    }
+  }
+
+  Future<Position> getLocation() async {
+    bool isServiceEnabled;
+    isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!isServiceEnabled) {
+      initLocation();
+    }
+    emit(LocationLoading());
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((position) {
+      this.position = position;
+      print(position.latitude.toString());
+      print(position.longitude.toString());
+      emit(LocationSuccess());
+    }).catchError((error) {
+      emit(LocationFail(error));
+    });
+    return position!;
+  }
+
   void selectLogo({required ImageSource source}) async {
     selectedImage = await picker.pickImage(
       source: source,
@@ -58,7 +102,7 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
     emit(CompleteCompanyInfoChangeType());
   }
 
-  Future<void>  registerCompany({
+  Future<void> registerCompany({
     required String idNumber,
     required String name,
     required String address,
@@ -69,41 +113,44 @@ class RegisterCompanyCubit extends Cubit<RegisterCompanyState> {
 
     emit(CompleteCompanyInfoLoading());
     if (await connectionChecker.hasConnection) {
-      try {
-        var myUrl = Uri.parse(
-            "$baseUrl/registercompany");
-        final Map<String, dynamic> body = addImage
-            ? {
-                'token': CacheHelper.getData(key: 'api_token'),
-                'type': type,
-                'address': address,
-                'Id_number': idNumber,
-                'name': name,
-                'image': img64,
-                'imagename': imageName
-              }
-            : {
-                'token': CacheHelper.getData(key: 'api_token'),
-                'type': type,
-                'address': address,
-                'Id_number': idNumber,
-                'name': name,
-              };
+      if (position != null) {
+        try {
+          var myUrl = Uri.parse("$baseUrl/registercompany");
+          final Map<String, dynamic> body = addImage
+              ? {
+                  'token': CacheHelper.getData(key: 'api_token'),
+                  'type': type,
+                  'address': address,
+                  'Id_number': idNumber,
+                  'name': name,
+                  'image': img64,
+                  'imagename': imageName
+                }
+              : {
+                  'token': CacheHelper.getData(key: 'api_token'),
+                  'type': type,
+                  'address': address,
+                  'Id_number': idNumber,
+                  'name': name,
+                };
 
-        final response = await http.post(myUrl, body: body);
+          final response = await http.post(myUrl, body: body);
 
-        if (response.statusCode == 201) {
-          CacheHelper.saveData(key: 'isCompany', value: true);
-          debugPrint(response.body);
-          emit(CompleteCompanyInfoSuccess());
-        } else if (response.statusCode == 404) {
+          if (response.statusCode == 201) {
+            CacheHelper.saveData(key: 'isCompany', value: true);
+            debugPrint(response.body);
+            emit(CompleteCompanyInfoSuccess());
+          } else if (response.statusCode == 404) {
+            emit(CompleteCompanyInfoError());
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print(e);
+          }
           emit(CompleteCompanyInfoError());
         }
-      } catch (e) {
-        if (kDebugMode) {
-          print(e);
-        }
-        emit(CompleteCompanyInfoError());
+      } else {
+        getLocation();
       }
     } else {
       emit(DeviceNotConnectedState());

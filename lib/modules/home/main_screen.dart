@@ -24,6 +24,11 @@ class MainScreen extends StatelessWidget {
           iconName: Icons.calendar_month_sharp,
           tapId: 7),
       MainScreenItemModel(
+          title: 'my_orders'.tr(context),
+          id: 5,
+          iconName: Icons.border_all_rounded,
+          tapId: 18),
+      MainScreenItemModel(
           title: 'QR', id: 3, iconName: Icons.qr_code, tapId: 3),
       MainScreenItemModel(
           title: 'offers_and_competition'.tr(context),
@@ -40,6 +45,7 @@ class MainScreen extends StatelessWidget {
           id: 6,
           iconName: Icons.question_answer_outlined,
           tapId: 16),
+
     ];
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
@@ -50,15 +56,19 @@ class MainScreen extends StatelessWidget {
         height: h,
         decoration: customBoxDecoration,
         child: ListView(
+          physics:const BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: h * 0.07,
+              height: h * 0.03,
             ),
             SearchBar(w: w * 0.8),
             SizedBox(
-              height: h * 0.07,
+              height: h * 0.04,
             ),
             MainCategoriesPart(myList: myList),
+            SizedBox(
+              height: h * 0.04,
+            ),
           ],
         ),
       ),

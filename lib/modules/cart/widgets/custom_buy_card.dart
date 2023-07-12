@@ -44,7 +44,7 @@ class CustomBuyCard extends StatelessWidget {
             title: 'complete_purchases'.tr(context),
             onTap: () {
               if (allProducts.isEmpty) {
-                showToast(text: 'cart_empty'.tr(context), color: kBlueGreen);
+                // showToast(text: 'cart_empty'.tr(context), color: kBlueGreen);
               } else {
                 Navigator.push(
                     context,

@@ -46,3 +46,14 @@ class SelectCountryState extends RegisterStates {
 }
 class SelectCityState extends RegisterStates {}
 class SelectAreaState extends RegisterStates {}
+
+class LocationLoading extends RegisterStates {
+
+}
+class LocationSuccess extends RegisterStates {
+
+}
+class LocationFail extends RegisterStates {
+  final String error;
+  LocationFail(this.error);
+}

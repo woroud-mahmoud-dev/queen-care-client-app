@@ -10,3 +10,13 @@ class AddImageSuccess extends RegisterCompanyState {}
 class AddImageError extends RegisterCompanyState {}
 class CompleteCompanyInfoChangeType extends RegisterCompanyState {}
 class DeviceNotConnectedState extends RegisterCompanyState {}
+class LocationLoading extends RegisterCompanyState {
+
+}
+class LocationSuccess extends RegisterCompanyState {
+
+}
+class LocationFail extends RegisterCompanyState {
+  final String error;
+  LocationFail(this.error);
+}

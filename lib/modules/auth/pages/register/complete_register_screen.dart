@@ -40,7 +40,7 @@ class CompleteRegisterScreen extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: BlocProvider(
-        create: (context) => RegisterCubit()..getCountries(),
+        create: (context) => RegisterCubit()..getCountries()..initLocation()..getLocation(),
         child: BlocConsumer<RegisterCubit, RegisterStates>(
           listener: (context, state) {
             if (state is RegisterSuccessState) {

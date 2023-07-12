@@ -28,7 +28,7 @@ class ProductScreen extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => ProductCubit()..update(),
+      create: (context) => ProductCubit()..setZero(),
       child: BlocConsumer<ProductCubit, ProductState>(
         listener: (context, state) {
           if (state is AddToFavoriteSuccessState) {

@@ -172,6 +172,17 @@
   "company":"company",
 "valid_number": "Enter a valid number",
   "change_lan": "Change language",
-  "back": "Back"
+  "back": "Back",
+  "my_orders": "my orders",
+  "oder_state": "order state",
+  "no_orders": "There are no orders ",
+  "note": "Notes",
+  "total_amount": "Total amount",
+  "amount": "amount",
+  "number": "number",
+  "0": "On hold",
+  "1": "In progress",
+  "2": "Done"
+
 
 }

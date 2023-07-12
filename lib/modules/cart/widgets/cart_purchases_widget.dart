@@ -100,7 +100,7 @@ class CartPurchases extends StatelessWidget {
                             //       fontSize: 12.sp, color: kPrimaryColor),
                             // ),
                             Text(
-                              ' ${myService.getTextControllersList![productId].text}',
+                              ' ${myService.getTextControllersList![productId].text.isEmpty ? "0" : myService.getTextControllersList![productId].text}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 12.sp, color: kPrimaryColor),

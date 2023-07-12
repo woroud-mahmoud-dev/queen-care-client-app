@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 import 'dart:convert';
 import 'package:queen_care/core/my_service.dart';
 import 'package:queen_care/core/utils/strings.dart';
@@ -122,30 +121,36 @@ class CartCubit extends Cubit<CartState> {
   }
 
   void increaseProductNumber(int productId) {
-    if (int.parse(myService.getTextControllersList![productId].text) >= 0) {
-      myService.getTextControllersList![productId].text =
-          (int.parse(myService.getTextControllersList![productId].text) + 1)
-              .toString();
+    if (myService.getTextControllersList![productId].text.isNotEmpty) {
+      if (int.parse(myService.getTextControllersList![productId].text) >= 0) {
+        myService.getTextControllersList![productId].text =
+            (int.parse(myService.getTextControllersList![productId].text) + 1)
+                .toString();
 
-      emit(IncreaseProductNumberState(allMoney: 0000));
+        emit(IncreaseProductNumberState(allMoney: 0000));
+      } else {}
     } else {}
   }
 
   void decreaseProductNumber(int productId) {
-    if (int.parse(myService.getTextControllersList![productId].text) == 0) {
-    } else {
-      myService.getTextControllersList![productId].text =
-          (int.parse(myService.getTextControllersList![productId].text) - 1)
-              .toString();
-      emit(DecreaseProductNumberState(allMoney: 99));
-    }
+    if (myService.getTextControllersList![productId].text.isNotEmpty) {
+      if (int.parse(myService.getTextControllersList![productId].text) == 0) {
+      } else {
+        myService.getTextControllersList![productId].text =
+            (int.parse(myService.getTextControllersList![productId].text) - 1)
+                .toString();
+        emit(DecreaseProductNumberState(allMoney: 99));
+      }
+    } else {}
   }
 
   dynamic countAllMoney(List<CartModel> allCartsProductsList) {
     List<dynamic> items = List.generate(
         myService.getTextControllersList!.length,
         (index) =>
-            int.parse(myService.getTextControllersList![index].text) *
+            int.parse(myService.getTextControllersList![index].text.isNotEmpty
+                ? myService.getTextControllersList![index].text
+                : "0") *
             int.parse(allCartsProductsList[index].mission.price));
     debugPrint(items.toString());
 
@@ -153,7 +158,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   setControllerValue(int index) {
-    myService.getTextControllersList![index].text = "0";
+    myService.getTextControllersList![index].clear();
     emit(Update());
   }
 }

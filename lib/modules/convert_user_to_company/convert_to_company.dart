@@ -35,7 +35,7 @@ class _ConvertToCompanyState extends State<ConvertToCompany> {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => RegisterCompanyCubit(),
+      create: (context) => RegisterCompanyCubit()..initLocation()..getLocation(),
       child: BlocConsumer<RegisterCompanyCubit, RegisterCompanyState>(
         listener: (context, state) {
           if (state is CompleteCompanyInfoSuccess) {

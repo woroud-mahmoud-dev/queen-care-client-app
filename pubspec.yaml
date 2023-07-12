@@ -52,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   internet_connection_checker: ^1.0.0+1
   flutter_screenutil: ^5.6.1
+  geolocator: ^9.0.2
 
 
 

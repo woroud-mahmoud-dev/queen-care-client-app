@@ -20,7 +20,7 @@ class MainCategoriesPart extends StatelessWidget {
     return SizedBox(
       child: GridView.count(
         shrinkWrap: true,
-        padding: const EdgeInsets.all(0.0),
+        padding: const EdgeInsets.all(10.0),
         physics: const NeverScrollableScrollPhysics(),
         childAspectRatio: (1 / 0.65),
         crossAxisSpacing: 15,

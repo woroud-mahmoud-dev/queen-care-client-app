@@ -22,7 +22,7 @@ class Register extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: BlocProvider(
-        create: (context) => RegisterCubit(),
+        create: (context) => RegisterCubit()..initLocation(),
         child: BlocConsumer<RegisterCubit, RegisterStates>(
           listener: (context, state) {},
           builder: (context, state) {

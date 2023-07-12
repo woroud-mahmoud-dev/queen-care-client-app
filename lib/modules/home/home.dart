@@ -8,6 +8,7 @@ import 'package:queen_care/modules/auth/pages/profile/profile.dart';
 import 'package:queen_care/modules/favorite/favorite_tap.dart';
 import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
 import 'package:queen_care/modules/home/home_tap.dart';
+import 'package:queen_care/modules/my_orders/my_orders.dart';
 import 'package:queen_care/modules/offers/awards/awards.dart';
 import 'package:queen_care/modules/offers/competition/display_all_competitions.dart';
 import 'package:queen_care/modules/offers/competition/general_competitions.dart';
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(
-        length: 18,
+        length: 19,
         vsync: this,
         initialIndex: widget.tapId,
         animationDuration: const Duration(milliseconds: 500));
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           create: (context) => HomeTapCubit()..getCategoryWithHttp(),
         ),
         BlocProvider(
-          create: (context) => ProductCubit()..update(),
+          create: (context) => ProductCubit()..setZero(),
         ),
       ],
       child: Scaffold(
@@ -108,6 +109,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               DisplayAllCompetitions(tabController: tabController), //15
               ShowAdvicesScreen(tabController: tabController), //16
               AdviceScreen(tabController: tabController), //17
+              MyOrders(tabController: tabController), //18
             ],
           ),
         ),

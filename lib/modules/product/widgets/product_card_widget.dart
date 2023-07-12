@@ -135,10 +135,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                   onTap: () {
                     ProductCubit.get(context).addToCart(
                         productId: widget.myService.getSelectedProduct!.id,
-                        amount: ProductCubit.get(context)
-                            .controller
-                            .text
-                            .toString());
+                        amount:
+                            ProductCubit.get(context).controller.text.isNotEmpty
+                                ? ProductCubit.get(context)
+                                    .controller
+                                    .text
+                                    .toString()
+                                : "0");
                   },
                   child: widget.state is AddToCartLoadingState
                       ? const LoadingWidget()

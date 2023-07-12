@@ -52,7 +52,7 @@ class CompleteBuyScreen extends StatelessWidget {
             List<Map<String, dynamic>> list =
                 List.generate(allProducts.length, (index) {
               return {
-                'amount': myService.getTextControllersList![index].text,
+                'amount': myService.getTextControllersList![index].text.isEmpty?"0": myService.getTextControllersList![index].text,
                 'price': allProducts[index].mission.price,
                 'id': allProducts[index].missionId,
               };

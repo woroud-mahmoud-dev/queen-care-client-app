@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,49 @@ class RegisterCubit extends Cubit<RegisterStates> {
   Country? selectedCountry;
   City? selectedCity;
   Area? selectedArea;
+  Position? position;
+
+  initLocation() async {
+    bool isServiceEnabled;
+    LocationPermission permission;
+
+    isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+
+    if (!isServiceEnabled) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('denied forever');
+    } else if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('denied');
+      }
+    }
+  }
+
+  Future<Position> getLocation() async {
+    bool isServiceEnabled;
+    isServiceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!isServiceEnabled) {
+      initLocation();
+    }
+    emit(LocationLoading());
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((position) {
+      this.position = position;
+      print(position.latitude.toString());
+      print(position.longitude.toString());
+      emit(LocationSuccess());
+    }).catchError((error) {
+      emit(LocationFail(error));
+    });
+    return position!;
+  }
+
   void selectBirthdayDateTime(DateTime time) {
     birthdayDateTime = time;
 
@@ -97,59 +141,67 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }) async {
     emit(RegisterLoadingState());
     if (await connectionChecker.hasConnection) {
-      try {
-        var myUrl = Uri.parse("$baseUrl/Register");
-        debugPrint('birthday is');
+      if(position==null){
+        getLocation();
+      }else{
+        try {
 
-        debugPrint(selectedCountry!.name);
-        debugPrint(selectedCity!.name);
-        debugPrint(selectedArea!.name);
+          var myUrl = Uri.parse("$baseUrl/Register");
+          debugPrint('birthday is');
 
-        final response = await http.post(myUrl, body: {
-          'firstName': firstName,
-          'lastName': lastName,
-          'email': email,
-          'phone': phone,
-          'password': password,
-          'gender': gender,
-          'city': selectedCity!.name,
-          'area': selectedArea!.name,
-          'country': selectedCountry!.name,
-          'address': address,
-          'birthday': birthdayDateTime.toString(),
-          'fcm,': 'fcm',
-        });
+          debugPrint(selectedCountry!.name);
+          debugPrint(selectedCity!.name);
+          debugPrint(selectedArea!.name);
 
-        debugPrint(response.statusCode.toString());
-        var data = json.decode(response.body);
+          final response = await http.post(myUrl, body: {
+            'firstName': firstName,
+            'lastName': lastName,
+            'email': email,
+            'phone': phone,
+            'password': password,
+            'gender': gender,
+            'city': selectedCity!.name,
+            'area': selectedArea!.name,
+            'country': selectedCountry!.name,
+            'address': address,
+            'birthday': birthdayDateTime.toString(),
+            'fcm,': 'fcm',
+            'x': position!.latitude.toString(),
+            'y': position!.latitude.toString()
+          });
 
-        if (response.statusCode == 200) {
           debugPrint(response.statusCode.toString());
+          var data = json.decode(response.body);
 
-          user = RegisterUserModel.fromJson(data);
-          debugPrint(user.firstName);
-          debugPrint(user.email);
-          debugPrint(user.phone);
-          debugPrint(user.lastName);
-          debugPrint(user.toString());
-          debugPrint(user.apiToken);
-          CacheHelper.saveData(key: 'name', value: user.firstName);
-          CacheHelper.saveData(key: 'address', value: user.address);
-          CacheHelper.saveData(key: 'api_token', value: user.apiToken);
-          CacheHelper.saveData(key: 'type', value: '0');
+          if (response.statusCode == 200) {
+            debugPrint(response.statusCode.toString());
 
-          emit(RegisterSuccessState(user: user));
-        } else if (response.statusCode == 403) {
-          emit(NumberUsedState(error: data['body']));
-        } else if (response.statusCode == 404) {
-          emit(RegisterErrorState(error: data['body']));
+            user = RegisterUserModel.fromJson(data);
+            debugPrint(user.firstName);
+            debugPrint(user.email);
+            debugPrint(user.phone);
+            debugPrint(user.lastName);
+            debugPrint(user.toString());
+            debugPrint(user.apiToken);
+            CacheHelper.saveData(key: 'name', value: user.firstName);
+            CacheHelper.saveData(key: 'address', value: user.address);
+            CacheHelper.saveData(key: 'api_token', value: user.apiToken);
+            CacheHelper.saveData(key: 'type', value: '0');
+
+            emit(RegisterSuccessState(user: user));
+          } else if (response.statusCode == 403) {
+            emit(NumberUsedState(error: data['body']));
+          } else if (response.statusCode == 404) {
+            emit(RegisterErrorState(error: data['body']));
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print(e.toString());
+          }
+          emit(ErrorState());
         }
-      } catch (e) {
-        if (kDebugMode) {
-          print(e.toString());
-        }
-        emit(ErrorState());
       }
+
     } else {
       emit(DeviceNotConnectedState());
     }
