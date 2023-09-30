@@ -44,7 +44,7 @@ class PeriodCalculator extends StatelessWidget {
                           color: black,
                         )),
                     const Spacer(),
-                    const GoCart(),
+
 
                   ],
                 ),

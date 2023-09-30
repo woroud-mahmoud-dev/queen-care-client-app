@@ -22,7 +22,6 @@ class CustomTopWidget extends StatelessWidget {
                 color: black,
               )),
           const Spacer(),
-          const GoCart(),
         ],
       ),
     );

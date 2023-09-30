@@ -152,7 +152,7 @@ class MyOrders extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "${"total_amount".tr(context)} :${cubit.order!.order[index].price} ",
+                                    "${"total_amount".tr(context)} :${cubit.order!.order[index].price}   ${"pounds".tr(context)}",
                                     textAlign: TextAlign.center,
                                     maxLines: 2,
                                     style: TextStyle(

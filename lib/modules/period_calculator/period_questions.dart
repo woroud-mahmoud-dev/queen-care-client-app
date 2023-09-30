@@ -59,7 +59,6 @@ class PeriodQuestions extends StatelessWidget {
                             color: black,
                           )),
                       const Spacer(),
-                      const GoCart(),
 
                     ],
                   ),
