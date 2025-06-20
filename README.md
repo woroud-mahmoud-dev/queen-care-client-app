@@ -1,6 +1,6 @@
 # 👑 Queen Care - Client Application (Alpha Step)
 
-**Queen Care** is an e-commerce Flutter application that enables customers to browse and order Queen Care's beauty and personal care products with ease. This version is the **Alpha** step of development, focusing on core shopping and user account features.
+**Queen Care** is an e-commerce Flutter application that enables customers to browse and order Queen Care's beauty and personal care products with ease. This version is focusing on core shopping and user account features.
 
 ---
 ✨ Features
