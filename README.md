@@ -60,32 +60,30 @@ Fully responsive across mobile screen sizes.
 
 ## 📸 App Screenshots
 
-## 📸 App Screenshots
-
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
   <img src="assets/screenshots/screenshot1.jpg" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot2.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot3.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot4.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot5.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot6.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot7.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot8.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot9.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot10.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot11.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot12.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot13.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot14.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot15.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot16.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot17.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot18.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot19.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot20.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot21.png" width="200" style="margin: 10px;" />
-  <img src="assets/screenshots/screenshot22.png" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot2.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot3.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot4.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot5.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot6.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot7.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot8.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot9.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot10.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot11.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot12.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot13.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot14.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot15.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot16.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot17.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot18.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot19.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot20.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot21.jpg" width="200" style="margin: 10px;" />
+  <img src="assets/screenshots/screenshot22.jpg" width="200" style="margin: 10px;" />
 
 </div>
 
