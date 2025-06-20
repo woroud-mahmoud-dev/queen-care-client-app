@@ -60,4 +60,5 @@ Fully responsive across mobile screen sizes.
 
 ## 📸 App Screenshots
 
-for img in assets/screenshots/*; do echo "![screenshot]($img)"; done
+Get-ChildItem .\assets\screenshoots\ | ForEach-Object { "![screenshot](assets/screenshoots/$($_.Name))" } > images.md
+
