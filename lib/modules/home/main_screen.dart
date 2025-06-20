@@ -5,7 +5,7 @@ import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/home/widgets/main_categories_part.dart';
 import 'package:queen_care/modules/home/widgets/main_screen_item_model.dart';
 
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class MainScreen extends StatelessWidget {
             SizedBox(
               height: h * 0.03,
             ),
-            SearchBar(w: w * 0.8),
+            CustomSearchBar(w: w * 0.8),
             SizedBox(
               height: h * 0.04,
             ),

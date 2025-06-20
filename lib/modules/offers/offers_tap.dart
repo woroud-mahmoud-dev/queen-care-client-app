@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/modules/home/widgets/main_screen_item_model.dart';
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 import 'package:queen_care/modules/qr/qr_scanner_screen.dart';
 import 'package:queen_care/core/widget/main_category_item.dart';
 
@@ -43,7 +43,7 @@ class Offer extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: SearchBar(w: w),
+            child: CustomSearchBar(w: w),
           ),
           SizedBox(
             height: h * 0.05,

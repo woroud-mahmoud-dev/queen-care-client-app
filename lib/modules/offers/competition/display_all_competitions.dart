@@ -9,7 +9,7 @@ import 'package:queen_care/core/widget/logo_image.dart';
 import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/competition.dart';
 import 'package:queen_care/modules/offers/competition/cubit/competition_cubit.dart';
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 import 'package:queen_care/modules/offers/competition/widgets/competitions_part.dart';
 
 class DisplayAllCompetitions extends StatelessWidget {
@@ -37,7 +37,7 @@ class DisplayAllCompetitions extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: SearchBar(w: w),
+                  child: CustomSearchBar(w: w),
                 ),
                 SizedBox(
                   height: h * 0.01,

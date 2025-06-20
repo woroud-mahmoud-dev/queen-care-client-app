@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:queen_care/core/app_localization.dart';
 import 'package:queen_care/core/utils/constant.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({
     Key? key,
     required this.w,
   }) : super(key: key);

@@ -9,7 +9,7 @@ import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/cat_blog_model.dart';
 import 'package:queen_care/modules/advices/cubit/advice_cubit.dart';
 import 'package:queen_care/modules/advices/widgets/blogs_part.dart';
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 
 class ShowAdvicesScreen extends StatelessWidget {
   final TabController tabController;
@@ -51,7 +51,7 @@ class ShowAdvicesScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: SearchBar(w: w),
+                  child: CustomSearchBar(w: w),
                 ),
                 Align(
                   alignment: Alignment.center,

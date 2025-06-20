@@ -9,7 +9,7 @@ import 'package:queen_care/core/widget/no_internet_widget.dart';
 import 'package:queen_care/models/category.dart';
 import 'package:queen_care/modules/home/cubit/home_tap_cubit.dart';
 import 'package:queen_care/modules/home/widgets/categories_part.dart';
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 
 class HomeTap extends StatelessWidget {
   const HomeTap({Key? key, required this.tabController}) : super(key: key);
@@ -40,7 +40,7 @@ class HomeTap extends StatelessWidget {
                       const Expanded(
                         child: GoCart(),
                       ),
-                      SearchBar(w: w * 0.6),
+                      CustomSearchBar(w: w * 0.6),
                     ],
                   ),
                   const SizedBox(

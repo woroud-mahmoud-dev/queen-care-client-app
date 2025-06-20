@@ -5,7 +5,7 @@ import 'package:queen_care/core/my_service.dart';
 
 import 'package:queen_care/core/utils/constant.dart';
 import 'package:queen_care/core/utils/strings.dart';
-import 'package:queen_care/modules/home/widgets/search_bar.dart';
+import 'package:queen_care/modules/home/widgets/custom_search_bar.dart';
 
 
 class AdviceScreen extends StatelessWidget {
@@ -27,7 +27,7 @@ class AdviceScreen extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: SearchBar(w: w),
+          child: CustomSearchBar(w: w),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
